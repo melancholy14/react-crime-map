@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import LeafletMap from './leafletMap';
+import Search from './search';
+
 import './App.css';
 
 class App extends Component {
@@ -7,19 +9,15 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          CRIME-MAP
         </header>
+        <main>
+          <LeafletMap />
+          <Search />
+        </main>
+        <footer>
+          <span>If you have something to ask, please send me an email to melancholy14@hotmail.com</span>
+        </footer>
       </div>
     );
   }
