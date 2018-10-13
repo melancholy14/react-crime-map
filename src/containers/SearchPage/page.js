@@ -126,11 +126,7 @@ class Search extends React.PureComponent {
         url: 'all-crimes',
         name: 'all crimes'
       }],
-      crimes = [],
     } = this.props;
-
-    // console.log('date', this.state.date);
-    // console.log('crimes', crimes);
 
     return (
       <SearchContainer>

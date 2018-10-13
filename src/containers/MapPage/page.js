@@ -30,7 +30,15 @@ class LeafletMap extends React.PureComponent {
   handleClick = (evt) => {
     const { latlng } = evt;
 
+    console.log('handleClick');
+
     this.props.onSaveLocation(latlng);
+  }
+
+  clickCircle = (id) => (evt) => {
+    evt.preventDefault();
+    
+    console.log('circle', evt);
   }
 
   render() {
@@ -67,6 +75,7 @@ class LeafletMap extends React.PureComponent {
             radius={count * 25}
             center={latlng}
             key={latlng}
+            onClick={this.clickCircle(street.id)}
           >
             <Popup>
             {`Street Id: ${street.id}

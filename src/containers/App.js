@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import LeafletMap from './leafletMapPage';
-import Search from './searchPage';
+import LeafletMap from './MapPage/page';
+import Search from './SearchPage/page';
 
 const AppDiv = styled.div`
   display: flex;
