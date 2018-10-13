@@ -12,6 +12,8 @@ import {
   saveLocation,
 } from './actions';
 
+import { saveStreetId } from '../AnalysePage/actions';
+
 const attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
@@ -29,16 +31,12 @@ class LeafletMap extends React.PureComponent {
 
   handleClick = (evt) => {
     const { latlng } = evt;
-
-    console.log('handleClick');
-
     this.props.onSaveLocation(latlng);
   }
 
-  clickCircle = (id) => (evt) => {
-    evt.preventDefault();
-    
-    console.log('circle', evt);
+  clickCircle = (id) => () => {
+    // evt.preventDefault();
+    this.props.onSaveStreetId(id);
   }
 
   render() {
@@ -97,7 +95,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSaveLocation: (latlng) => dispatch(saveLocation(latlng))
+    onSaveLocation: (latlng) => dispatch(saveLocation(latlng)),
+    onSaveStreetId: (id) => dispatch(saveStreetId(id)),
   }
 }
 

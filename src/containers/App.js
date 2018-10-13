@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import LeafletMap from './MapPage/page';
 import Search from './SearchPage/page';
+import LeafletMap from './MapPage/page';
+import Analyse from './AnalysePage/page';
 
 const AppDiv = styled.div`
   display: flex;
@@ -40,6 +41,7 @@ const AppDiv = styled.div`
   .map {
     order: 2;
     height: 32.5rem;
+    z-index: 0;
 
     .leaflet-container {
       height: 100%;
@@ -50,7 +52,9 @@ const AppDiv = styled.div`
 
   .analyse {
     order: 3;
-    height: 3rem;
+    height: 50rem;
+    padding: 1rem;
+    overflow: auto;
   }
 `;
 
@@ -73,7 +77,7 @@ class App extends Component {
           <LeafletMap />
         </main>
         <main className="analyse">
-
+          <Analyse />
         </main>
       </AppDiv>
     );

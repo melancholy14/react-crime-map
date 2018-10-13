@@ -1,9 +1,11 @@
-import { fork } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 
 import searchSaga from './SearchPage/saga';
+import analyseSaga from './AnalysePage/saga';
 
 export default function* sagas () {
-  yield [
-    fork(searchSaga),
-  ];
+  yield all([
+    searchSaga,
+    analyseSaga
+  ].map(fork));
 }
