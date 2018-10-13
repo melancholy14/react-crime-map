@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import LeafletMap from './leafletMap';
-import Search from './search';
-
-// import './App.css';
+import LeafletMap from './leafletMapPage';
+import Search from './searchPage';
 
 const AppDiv = styled.div`
-  display: grid;
-  grid-template-rows: 2rem auto;
+  display: flex;
+  flex-direction: column;
 
   header {
+    order: 0;
     background: darkslateblue;
     color: yellow;
-    height: 2rem;
     line-height: 2rem;
+    height: 4rem;
     vertical-align: middle;
     padding: 0;
     margin: 0;
@@ -22,29 +21,36 @@ const AppDiv = styled.div`
     position: relative;
 
     .title {
-      position: absolute;
-      left: 1rem;
+      text-align: center;
       font-size: larger;
       font-weight: bolder;
     }
 
     .email {
-      position: absolute;
-      right: 1rem;
+      text-align: right;
+      padding: 0 1rem;
+      font-size: small;
     }
   }
 
-  main {
-    display: flex;
-    flex-direction: column;
-    height: 47rem;
+  aside {
+    order: 1;
   }
 
-  .leaflet-container {
-    height: 100%;
+  .map {
     order: 2;
-    margin: 1rem;
-    border-radius: 1rem;
+    height: 32.5rem;
+
+    .leaflet-container {
+      height: 100%;
+      margin: 0.5rem;
+      border-radius: 1.5rem;
+    }
+  }
+
+  .analyse {
+    order: 3;
+    height: 3rem;
   }
 `;
 
@@ -54,15 +60,20 @@ class App extends Component {
       <AppDiv>
         <header>
           <div className="title">
-            CRIME-MAP
+            CRIME MAP
           </div>
           <div className="email">
-            <span className="smaller">If you have something to ask, please send me an email to melancholy14@hotmail.com</span>
+            <span className="smaller">Contact me: melancholy14@hotmail.com</span>
           </div>
         </header>
-        <main>
+        <aside>
           <Search />
+        </aside>
+        <main className="map">
           <LeafletMap />
+        </main>
+        <main className="analyse">
+
         </main>
       </AppDiv>
     );

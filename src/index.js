@@ -7,10 +7,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import './index.css';
 
-import App from './App';
+import App from './containers/App';
 
-import reducers from './reducers';
-import sagas from './sagas';
+import reducers from './containers/reducers';
+import sagas from './containers/sagas';
 
 import * as serviceWorker from './serviceWorker';
 
