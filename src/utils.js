@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const api = {
+  police: 'https://data.police.uk/api',
+  guardian: 'https://content.guardianapis.com/search',
+};
+
 async function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
