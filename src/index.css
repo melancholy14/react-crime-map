@@ -24,3 +24,16 @@ code {
 .smaller {
   font-size: smaller;
 }
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.leaflet-popup-content {
+  word-break: break-word;
+  white-space: pre-line;
+}
