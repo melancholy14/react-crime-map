@@ -3,7 +3,13 @@ import axios from 'axios';
 export const api = {
   police: 'https://data.police.uk/api',
   guardian: 'https://content.guardianapis.com/search',
+  mapquest: 'https://open.mapquestapi.com/geocoding/v1',
 };
+
+export const keys = {
+  guardian: '36ecd8a8-f9be-4d95-9643-4095fae41301',
+  mapquest: '7qAl9AvfefdHSIOkkLrVvSc466ZoHenG',
+}
 
 async function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
