@@ -1,13 +1,13 @@
 {
-  "main.css": "/react-crime-map/static/css/main.aadc3d67.chunk.css",
-  "main.js": "/react-crime-map/static/js/main.cfcd293f.chunk.js",
-  "main.js.map": "/react-crime-map/static/js/main.cfcd293f.chunk.js.map",
-  "static/js/1.bede3b53.chunk.js": "/react-crime-map/static/js/1.bede3b53.chunk.js",
-  "static/js/1.bede3b53.chunk.js.map": "/react-crime-map/static/js/1.bede3b53.chunk.js.map",
+  "main.css": "/react-crime-map/static/css/main.447a572b.chunk.css",
+  "main.js": "/react-crime-map/static/js/main.23df1931.chunk.js",
+  "main.js.map": "/react-crime-map/static/js/main.23df1931.chunk.js.map",
+  "static/js/1.fd68061b.chunk.js": "/react-crime-map/static/js/1.fd68061b.chunk.js",
+  "static/js/1.fd68061b.chunk.js.map": "/react-crime-map/static/js/1.fd68061b.chunk.js.map",
   "runtime~main.js": "/react-crime-map/static/js/runtime~main.ec97d754.js",
   "runtime~main.js.map": "/react-crime-map/static/js/runtime~main.ec97d754.js.map",
-  "static/css/main.aadc3d67.chunk.css.map": "/react-crime-map/static/css/main.aadc3d67.chunk.css.map",
+  "static/css/main.447a572b.chunk.css.map": "/react-crime-map/static/css/main.447a572b.chunk.css.map",
   "index.html": "/react-crime-map/index.html",
-  "precache-manifest.7e8070492c6bdec25e786e307bc223d5.js": "/react-crime-map/precache-manifest.7e8070492c6bdec25e786e307bc223d5.js",
+  "precache-manifest.c0abb933aa1a57e093056442a77ea149.js": "/react-crime-map/precache-manifest.c0abb933aa1a57e093056442a77ea149.js",
   "service-worker.js": "/react-crime-map/service-worker.js"
 }
