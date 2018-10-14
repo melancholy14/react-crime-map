@@ -47,6 +47,7 @@ export default function mapReducer(state = initialState, action){
               category,
               street,
               count: 1,
+              opacity: 1/(action.dateLength),
               latlng: [parseFloat(latitude), parseFloat(longitude)],
             },
           };
@@ -56,6 +57,7 @@ export default function mapReducer(state = initialState, action){
             [street.id]: {
               ...acc[street.id],
               count: acc[street.id].count + 1,
+              opacity: (acc[street.id].count + 1)/(action.dateLength),
             },
           };
         }

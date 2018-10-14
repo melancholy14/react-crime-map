@@ -3,6 +3,7 @@ import {
   LOAD_AVAILABILITY_FAILURE,
   LOAD_CRIME_CATEGORY_SUCCESS,
   LOAD_CRIME_CATEGORY_FAILURE,
+  SEARCH_REQUEST,
   SEARCH_SUCCESS,
   SEARCH_FAILURE,
 } from './actions';
@@ -15,6 +16,11 @@ const initialState = {
 
 export default function searchReducer(state = initialState, action) {
   switch(action.type) {
+    case SEARCH_REQUEST:
+      return {
+        ...state,
+        ...action.params,
+      };
     case LOAD_AVAILABILITY_SUCCESS:
       return {
         ...state,

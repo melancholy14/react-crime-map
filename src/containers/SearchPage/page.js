@@ -95,17 +95,20 @@ class Search extends React.PureComponent {
       date: {},
       minmax: [],
       message: null,
+      checkboxReadOnly: false,
     }
   }
 
   componentDidUpdate(prevProps) {
     const {
       availability: prevAvailability,
+      crimeCategory: prevCrimeCategory,
       message: prevMessage,
     } = prevProps;
 
     const {
       availability,
+      crimeCategory,
       message,
     } = this.props;
 
@@ -118,14 +121,37 @@ class Search extends React.PureComponent {
         }
       }, {});
 
+      const minmax = [date.min, date.max];
+
       this.setState({
-        minmax: [date.min, date.max],
+        minmax,
         date,
       });
-    } else if (prevMessage !== message) {
+    }
+
+    if (prevCrimeCategory !== crimeCategory) {
+      const crimeCheckboxes = this.props.crimeCategory.reduce((acc, ele) => {
+        if (ele.url !== allCrime.url) {
+          return [
+            ...acc,
+            {
+              ...ele,
+              checked: true,
+              readOnly: true,
+            }
+          ];
+        }
+        return acc;
+      }, []);
+
+      this.setState({
+        crimeCheckboxes,
+      });
+    }
+    
+    if (prevMessage !== message) {
       this.setState({
         showError: true,
-        message,
       });
     }
   }
@@ -152,6 +178,19 @@ class Search extends React.PureComponent {
 
   changeCategory = (evt) => {
     this.crimeCategory = evt.target.value;
+
+    const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
+      const checked = (evt.target.value === allCrime.url) ? true : (ele.url === evt.target.value);
+      return {
+        ...ele,
+        checked,
+      }
+    });
+
+    this.setState({
+      crimeCheckboxes,
+      checkboxReadOnly: (evt.target.value !== allCrime.url),
+    });
   }
 
   checkCategory = (url) => (evt) => {
@@ -195,24 +234,7 @@ class Search extends React.PureComponent {
 
     this.props.onSearch(params);
 
-    if (params.url === allCrime.url) {
-      const crimeCheckboxes = this.props.crimeCategory.reduce((acc, ele) => {
-        if (ele.url !== allCrime.url) {
-          return [
-            ...acc,
-            {
-              ...ele,
-              checked: true,
-            }
-          ];
-        }
-        return acc;
-      }, []);
-
-      this.setState({ crimeCheckboxes });
-    } else {
-      this.setState({ crimeCheckboxes: null });
-    }
+    this.setState({ checkboxReadOnly: params.url !== allCrime.url });
   }
 
   toggleModal = () => this.setState({ showError: !this.state.showError })
@@ -225,12 +247,13 @@ class Search extends React.PureComponent {
         dates = [],
       } = {},
       crimeCheckboxes,
-      message,
       showError,
+      checkboxReadOnly,
     } = this.state;
 
     const {
       crimeCategory = [allCrime],
+      message,
     } = this.props;
 
     return (
@@ -273,6 +296,7 @@ class Search extends React.PureComponent {
                   id={`checkbox_${ele.url}`}
                   onChange={this.checkCategory(ele.url)}
                   checked={ele.checked}
+                  readOnly={checkboxReadOnly}
                 />
                 <label htmlFor={`checkbox_${ele.url}`}>{ele.name}</label>
                 <span className="color" style={{backgroundColor: categoryColors[ele.url]}}></span>

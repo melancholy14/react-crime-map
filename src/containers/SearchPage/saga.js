@@ -52,7 +52,7 @@ function* search({ params }) {
         return [...acc, ...(response && response.data)];
       }, []);
 
-      yield put(searchSuccess(data));
+      yield put(searchSuccess(data, dates.length));
     } else {
       yield put(searchFailure('There is no position info! Please, click the map and tell me where you want to know'));
     }

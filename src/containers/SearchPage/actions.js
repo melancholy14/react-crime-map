@@ -51,10 +51,11 @@ export function searchRequest (params) {
   }
 }
 
-export function searchSuccess (data) {
+export function searchSuccess (data, dateLength = 1) {
   return {
     type: SEARCH_SUCCESS,
     data,
+    dateLength,
   }
 }
 

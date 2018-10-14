@@ -13,7 +13,8 @@ import {
 } from '../../utils/contants';
 
 import {
-  saveStreetId,
+  loadGraphsRequest,
+  loadNewsRequest,
 } from '../AnalysePage/actions';
 
 import {
@@ -38,9 +39,11 @@ class LeafletMap extends React.PureComponent {
     this.props.onSaveLocation(latlng);
   }
 
-  clickCircle = (id) => () => {
+  handleCircle = (id, latlng) => () => {
     // evt.preventDefault();
-    this.props.onSaveStreetId(id);
+
+    this.props.onLoadGraphRequest(id);
+    this.props.onLoadNewsRequest(latlng);
   }
 
   render() {
@@ -69,15 +72,15 @@ class LeafletMap extends React.PureComponent {
           </Popup>
         </Marker> }
         {
-          selectedCrimes && selectedCrimes.map(({category, latlng, street, count}) => 
+          selectedCrimes && selectedCrimes.map(({category, latlng, street, count, opacity = 0.5}) => 
           <Circle
             fillColor={categoryColors[category]}
-            fillOpacity={count < 10 ? (count / 10): 1}
+            fillOpacity={opacity}
             stroke={false}
             radius={count < 10 ? count * 25 : 250}
             center={latlng}
             key={latlng}
-            onClick={this.clickCircle(street.id)}
+            onClick={this.handleCircle(street.id, latlng)}
           >
             <Popup>
             {`Street Id: ${street.id}
@@ -100,7 +103,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveLocation: (latlng) => dispatch(saveLocation(latlng)),
-    onSaveStreetId: (id) => dispatch(saveStreetId(id)),
+    onLoadGraphRequest: (id) => dispatch(loadGraphsRequest(id)),
+    onLoadNewsRequest: (latlng) => dispatch(loadNewsRequest(latlng)),
   }
 }
 
