@@ -54,7 +54,6 @@ const AppDiv = styled.div`
     order: 3;
     height: 50rem;
     padding: 1rem;
-    overflow: auto;
   }
 `;
 
