@@ -6,9 +6,9 @@ const TableDiv = styled.div`
   margin: 0.5rem auto;
   display: table;
 
-  box-shadow: 3px 3px 1px 1px;
+  box-shadow: 1.5px 2px 1px 1px;
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
 
   .tr {
     display: table-row;
