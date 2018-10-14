@@ -107,8 +107,6 @@ function* loadNews({ latlng }) {
 
     results.sort((a, b) => a.webPublicationDate > b.webPublicationDate);
 
-    console.log(results);
-
     yield put(loadNewsSuccess(results));
   } catch (err) {
     console.error(err);

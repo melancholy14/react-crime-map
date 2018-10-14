@@ -34,9 +34,35 @@ class LeafletMap extends React.PureComponent {
     onSaveLocation: PropTypes.func,
   }
 
-  handleClick = (evt) => {
-    const { latlng } = evt;
-    this.props.onSaveLocation(latlng);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      latlng: props.latlng,
+    }
+  }
+
+  componentDidMount() {
+    if (this.map.leafletElement) {
+      this.map.leafletElement.locate();
+    }
+  }
+
+  componentDidUpdate(prevPops) {
+    if (prevPops.latlng !== this.props.latlng) {
+      this.setState({
+        latlng: this.props.latlng,
+      });
+    }
+  }
+
+  handleClick = (evt) => this.props.onSaveLocation(evt.latlng);
+
+  handleLocationFound = (evt) => {
+    this.setState({
+      hasLocation: true,
+      latlng: evt.latlng,
+    });
   }
 
   handleCircle = (id, latlng) => () => {
@@ -48,9 +74,12 @@ class LeafletMap extends React.PureComponent {
 
   render() {
     const {
-      latlng,
       selectedCrimes,
     } = this.props;
+
+    const {
+      latlng = {},
+    } = this.state;
 
     return (
       <Map
@@ -58,6 +87,7 @@ class LeafletMap extends React.PureComponent {
         ref={(val) => { this.map = val; }}
         zoom={13}
         onClick={this.handleClick}
+        onLocationfound={this.handleLocationFound}
       >
         <TileLayer
           attribution={attribution}
