@@ -1,5 +1,5 @@
 import { fork, put, takeLatest, select, all } from 'redux-saga/effects';
-import { api, request } from '../../utils';
+import { api, request } from '../../utils/request';
 
 import {
   LOAD_CRIME_CATEGORY_REQUEST,

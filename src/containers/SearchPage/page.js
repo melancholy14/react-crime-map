@@ -10,6 +10,14 @@ import {
 } from './actions';
 
 import {
+  selectCrimeCategory,
+} from '../MapPage/actions';
+
+import {
+  categoryColors,
+} from '../../utils/contants';
+
+import {
   Modal,
 } from '../../components';
 
@@ -20,22 +28,42 @@ const SearchContainer = styled.div`
 
     .grid-container {
       display: grid;
-      grid-template-rows: 2rem 2rem 2rem;
+      grid-template-rows: 2rem 2rem auto 2rem;
       grid-template-columns: 4.5rem auto;
 
       .grid-item {
         padding: 0.5rem;
         
-        &.submit {
+        &.whole-row {
           grid-column-start: 1;
           grid-column-end: 3;
+
+          .each-crime {
+            display: inline-block;
+            min-width: 50%;
+            font-size: small;
+            line-height: 1rem;
+            vertical-align: middle;
+
+            label {
+              font-size: smaller;
+            }
+
+            .color {
+              width: 0.75rem;
+              height: 0.75rem;
+              display: inline-block;
+              border-radius: 0.5rem;
+              margin: 0 0.3rem;
+            }
+          }
         }
       }
-    }
 
-    label {
-      font-size: smaller;
-      text-transform: capitalize;
+      & > label {
+        font-size: smaller;
+        text-transform: capitalize;
+      }
     }
 
     button {
@@ -46,12 +74,18 @@ const SearchContainer = styled.div`
     }
 `;
 
+const allCrime = {
+  url: 'all-crime',
+  name: 'All crime'
+};
+
 class Search extends React.PureComponent {
   static propTypes = {
     availability: PropTypes.array,
     crimeCategory: PropTypes.array,
     crimes: PropTypes.array,
     onLoadCrimeCategory: PropTypes.func,
+    onSelectCrimeCategory: PropTypes.func,
   };
 
   constructor() {
@@ -90,6 +124,7 @@ class Search extends React.PureComponent {
       });
     } else if (prevMessage !== message) {
       this.setState({
+        showError: true,
         message,
       });
     }
@@ -119,6 +154,31 @@ class Search extends React.PureComponent {
     this.crimeCategory = evt.target.value;
   }
 
+  checkCategory = (url) => (evt) => {
+    const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
+      if (ele.url === url) {
+        return {
+          ...ele,
+          checked: evt.target.checked,
+        }
+      } 
+      return ele;
+    });
+
+    this.setState({
+      crimeCheckboxes,
+    });
+
+    const list = crimeCheckboxes.reduce((acc, ele) => {
+      if(ele.checked) {
+        return [...acc, ele.url];
+      }
+      return acc;
+    }, []);
+
+    this.props.onSelectCrimeCategory(list);
+  }
+
   search = (evt) => {
     evt.preventDefault();
 
@@ -128,11 +188,31 @@ class Search extends React.PureComponent {
     } = this.state;
 
     const dates = date.dates.filter((ele) => minmax[0] <= ele && ele <= minmax[1]).sort((a, b) => a > b);
-
-    this.props.onSearch({
-      url: this.crimeCategory || 'all-crimes',
+    const params = {
+      url: this.crimeCategory || allCrime.url,
       dates,
-    });
+    };
+
+    this.props.onSearch(params);
+
+    if (params.url === allCrime.url) {
+      const crimeCheckboxes = this.props.crimeCategory.reduce((acc, ele) => {
+        if (ele.url !== allCrime.url) {
+          return [
+            ...acc,
+            {
+              ...ele,
+              checked: true,
+            }
+          ];
+        }
+        return acc;
+      }, []);
+
+      this.setState({ crimeCheckboxes });
+    } else {
+      this.setState({ crimeCheckboxes: null });
+    }
   }
 
   toggleModal = () => this.setState({ showError: !this.state.showError })
@@ -144,15 +224,13 @@ class Search extends React.PureComponent {
         max,
         dates = [],
       } = {},
+      crimeCheckboxes,
       message,
       showError,
     } = this.state;
 
     const {
-      crimeCategory = [{
-        url: 'all-crimes',
-        name: 'all crimes'
-      }],
+      crimeCategory = [allCrime],
     } = this.props;
 
     return (
@@ -185,7 +263,23 @@ class Search extends React.PureComponent {
             )
           }
           </select>
-          <button onClick={this.search} className="grid-item submit">SEARCH</button>
+          { crimeCheckboxes &&
+          <div className="grid-item whole-row">
+            {
+              crimeCheckboxes && crimeCheckboxes.map((ele) => (<div className="each-crime" key={ele.url}>
+                <input
+                  type="checkbox"
+                  value={ele.url}
+                  id={`checkbox_${ele.url}`}
+                  onChange={this.checkCategory(ele.url)}
+                  checked={ele.checked}
+                />
+                <label htmlFor={`checkbox_${ele.url}`}>{ele.name}</label>
+                <span className="color" style={{backgroundColor: categoryColors[ele.url]}}></span>
+              </div>))
+            }
+          </div> }
+          <button onClick={this.search} className="grid-item whole-row">SEARCH</button>
         </form>
         <Modal
           show={showError}
@@ -208,6 +302,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadCrimeCategory: () => dispatch(loadCrimeCategoryRequest()),
     onSearch: (param) => dispatch(searchRequest(param)),
+    onSelectCrimeCategory: (list) => dispatch(selectCrimeCategory(list)),
   }
 }
 
