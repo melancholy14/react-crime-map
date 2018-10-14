@@ -4,30 +4,27 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 
-// import CrimeTable from './crimeTable';
+import News from './news';
 import Graphs from './graphs';
 
 const AnalyseContainer = styled.div`
   .tr {
     line-height: 2rem;
 
-    .th {
-      font-size: smaller;
-    }
-
-    .td {
+    .th, .td {
       padding: 0 0.5rem;
+      font-size: smaller;
     }
   }
 `;
 
 class AnalysePage extends React.PureComponent {
   static propTypes = {
-    streetId: PropTypes.number,
     dateGraph: PropTypes.array,
     categoryGraph: PropTypes.array,
     outcomeGraph: PropTypes.array,
     crimeTable: PropTypes.array,
+    news: PropTypes.array,
   };
 
   render(){
@@ -35,20 +32,21 @@ class AnalysePage extends React.PureComponent {
       dateGraph,
       categoryGraph,
       outcomeGraph,
+      news,
     } = this.props;
 
     return (<AnalyseContainer>
-      <button>Guardian News</button>
+      { dateGraph &&<h3>Graphs</h3> }
       <Graphs
         date={dateGraph}
         category={categoryGraph}
         outcome={outcomeGraph}
       />
-      {/*
-      <CrimeTable
-        crimes={crimeTable}
-      />
-      */}
+      { news && <h3>News</h3> }
+      { news &&
+      <News
+        news={news}
+      /> }
     </AnalyseContainer>);
   }
 }

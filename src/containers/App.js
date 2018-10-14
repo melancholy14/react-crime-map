@@ -52,7 +52,6 @@ const AppDiv = styled.div`
 
   .analyse {
     order: 3;
-    height: 50rem;
     padding: 1rem;
   }
 `;

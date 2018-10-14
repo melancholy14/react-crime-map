@@ -1,27 +1,19 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
+import { api, request, keys } from '../../utils/request';
 
 import {
-  SAVE_STREET_ID,
-  extractDataSuccess,
-  extractDataFailure,
+  LOAD_GRAPHS_REQUEST,
+  loadGraphsSuccess,
+  loadGraphsFailure,
+  LOAD_NEWS_REQUEST,
+  loadNewsFailure,
+  loadNewsSuccess,
 } from './actions';
 
-function* extractData({ id: streetId }){
+function* loadGraph({ id: streetId }){
   try {
     const crimes = yield select((state) => state.search.crimes);
     const selectedCrimes = crimes && crimes.filter(({ location: { street: { id } = {}, } = {}, }) => id === streetId);
-
-    console.log('selectedCrimes', selectedCrimes);
-
-    const crimeTable = selectedCrimes.map(({
-      id,
-      month,
-      category,
-      outcome_status,
-      outcomes: {
-        category: outcome,
-      } = outcome_status || {},
-    }) => ({ id, list: [['month', month], ['category', category], ['outcome', outcome]] }));
 
     const dateGraph = Object.entries(selectedCrimes.reduce((acc, ele) => ({
       ...acc,
@@ -50,17 +42,81 @@ function* extractData({ id: streetId }){
       return acc;
     }, {})).map(([outcome, count]) => ({ outcome, count }));
 
-    yield put(extractDataSuccess({
-      crimeTable,
+    yield put(loadGraphsSuccess({
       dateGraph,
       categoryGraph,
       outcomeGraph,
     }));
   } catch(err) {
-    yield put(extractDataFailure(err.message));
+    yield put(loadGraphsFailure(err.message));
+  }
+}
+
+/*
+function* loadCrimeTables({ id: streetId }){
+  try {
+    const crimes = yield select((state) => state.search.crimes);
+    const selectedCrimes = crimes && crimes.filter(({ location: { street: { id } = {}, } = {}, }) => id === streetId);
+
+    console.log('selectedCrimes', selectedCrimes);
+
+    const crimeTable = selectedCrimes.map(({
+      id,
+      month,
+      category,
+      outcome_status,
+      outcomes: {
+        category: outcome,
+      } = outcome_status || {},
+    }) => ({ id, list: [['month', month], ['category', category], ['outcome', outcome]] }));
+
+    yield put(loadGraphSuccess({
+      crimeTable,
+    }));
+  } catch(err) {
+    yield put(loadGraphFailure(err.message));
+  }
+}
+*/
+
+function* loadNews({ latlng }) {
+  try {
+    const addressUrl = `${api.mapquest}/reverse?key=${keys.mapquest}&location=${latlng.join(',')}&includeRoadMetadata=true&includeNearestIntersection=true`;
+
+    const {
+      data: {
+        results: address = [],
+      } = {},
+    } = yield request(addressUrl);
+
+    const { locations = [] } = address[0];
+    const { street, adminArea5, postalCode } = locations[0];
+
+    const query = `${adminArea5} AND ${street ? street : postalCode}`;
+    const dates = yield select((state) => state.search.dates);
+
+    const newsUrl = `${api.guardian}?q=${query}&from-date=${dates[0]}-01&api-key=${keys.guardian}`;
+
+    const {
+      data: {
+        response: {
+          results = [],
+        },
+      } = {},
+    } = yield request(newsUrl);
+
+    results.sort((a, b) => a.webPublicationDate > b.webPublicationDate);
+
+    console.log(results);
+
+    yield put(loadNewsSuccess(results));
+  } catch (err) {
+    console.error(err);
+    yield put(loadNewsFailure(err.message));
   }
 }
 
 export default function* saga(){
-  yield takeLatest(SAVE_STREET_ID, extractData);
+  yield takeLatest(LOAD_GRAPHS_REQUEST, loadGraph);
+  yield takeLatest(LOAD_NEWS_REQUEST, loadNews);
 }

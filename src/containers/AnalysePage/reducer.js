@@ -1,26 +1,27 @@
 import {
-  SAVE_STREET_ID,
-  EXTRACT_DATA_SUCCESS,
-  EXTRACT_DATA_FAILURE,
+  LOAD_GRAPHS_SUCCESS,
+  LOAD_GRAPHS_FAILURE,
+  LOAD_NEWS_SUCCESS,
+  LOAD_NEWS_FAILURE,
 } from './actions';
 
 const initialState = {
-  streetId: 0,
 };
 
 export default function analyseReducer(state = initialState, action){
   switch(action.type){
-    case SAVE_STREET_ID:
-      return {
-        ...state,
-        streetId: action.id,
-      };
-    case EXTRACT_DATA_SUCCESS:
+    case LOAD_GRAPHS_SUCCESS:
       return {
         ...state,
         ...action.data,
       };
-    case EXTRACT_DATA_FAILURE:
+    case LOAD_NEWS_SUCCESS:
+      return {
+        ...state,
+        news: action.news,
+      }
+    case LOAD_NEWS_FAILURE:
+    case LOAD_GRAPHS_FAILURE:
       return {
         ...state,
         message: action.message,

@@ -1,25 +1,49 @@
-export const SAVE_STREET_ID = 'containers/AnalysePage/SAVE_STREET_ID';
+export const LOAD_GRAPHS_REQUEST = 'containers/AnalysePage/LOAD_GRAPHS_REQUEST';
+export const LOAD_GRAPHS_SUCCESS = 'containers/AnalysePage/LOAD_GRAPHS_SUCCESS';
+export const LOAD_GRAPHS_FAILURE = 'containers/AnalysePage/LOAD_GRAPHS_FAILURE';
 
-export const EXTRACT_DATA_SUCCESS = 'containers/AnalysePage/EXTRACT_DATA_SUCCESS';
-export const EXTRACT_DATA_FAILURE = 'containers/AnalysePage/EXTRACT_DATA_FAILURE';
+export const LOAD_NEWS_REQUEST = 'containers/AnalysePage/LOAD_NEWS_REQUEST';
+export const LOAD_NEWS_SUCCESS = 'containers/AnalysePage/LOAD_NEWS_SUCCESS';
+export const LOAD_NEWS_FAILURE = 'containers/AnalysePage/LOAD_NEWS_FAILURE';
 
-export function saveStreetId(id) {
+export function loadGraphsRequest(id) {
   return {
-    type: SAVE_STREET_ID,
+    type: LOAD_GRAPHS_REQUEST,
     id,
   }
 }
 
-export function extractDataSuccess(data) {
+export function loadGraphsSuccess(data) {
   return {
-    type: EXTRACT_DATA_SUCCESS,
+    type: LOAD_GRAPHS_SUCCESS,
     data,
   }
 }
 
-export function extractDataFailure(message) {
+export function loadGraphsFailure(message) {
   return {
-    type: EXTRACT_DATA_FAILURE,
+    type: LOAD_GRAPHS_FAILURE,
+    message,
+  }
+}
+
+export function loadNewsRequest(latlng) {
+  return {
+    type: LOAD_NEWS_REQUEST,
+    latlng,
+  }
+}
+
+export function loadNewsSuccess(news) {
+  return {
+    type: LOAD_NEWS_SUCCESS,
+    news,
+  }
+}
+
+export function loadNewsFailure(message) {
+  return {
+    type: LOAD_NEWS_FAILURE,
     message,
   }
 }
