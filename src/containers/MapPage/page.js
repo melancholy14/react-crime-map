@@ -12,12 +12,31 @@ import {
   saveLocation,
 } from './actions';
 
-import { saveStreetId } from '../AnalysePage/actions';
+import {
+  saveStreetId,
+} from '../AnalysePage/actions';
 
 const attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-const fillColors = ['palevioletred', 'indianred', 'mediumvioletred', 'darkred', 'orangered', 'red'];
+const categoryColors = {
+  "all-crime": "#d17f68",
+  "anti-social-behaviour": "#73b638",
+  "bicycle-theft": "#a45dcf",
+  "burglary": "#5fbc6e",
+  "criminal-damage-arson": "#c0489a",
+  "drugs": "#4b7d3c",
+  "other-theft": "#666dc6",
+  "possession-of-weapons": "#d99938",
+  "public-order": "#5e99d2",
+  "robbery": "#cc4f32",
+  "shoplifting": "#49b9a9",
+  "theft-from-the-person": "#c7496a",
+  "vehicle-crime": "#adac4d",
+  "violent-crime": "#c581bb",
+  "other-crime": "#8b6c2f",
+};
+// const fillColors = ['palevioletred', 'indianred', 'mediumvioletred', 'darkred', 'orangered', 'red'];
 
 class LeafletMap extends React.PureComponent {
   static propTypes = {
@@ -65,12 +84,12 @@ class LeafletMap extends React.PureComponent {
           </Popup>
         </Marker> }
         {
-          locations && locations.map(({latlng, street, count}) => 
+          locations && locations.map(({category, latlng, street, count}) => 
           <Circle
-            fillColor={count >= fillColors.length ? fillColors[fillColors.length - 1] : fillColors[count - 1]}
-            fillOpacity={1.0}
+            fillColor={categoryColors[category]}
+            fillOpacity={0.9}
             stroke={false}
-            radius={count * 25}
+            radius={count <= 20 ? count * 25 : 500}
             center={latlng}
             key={latlng}
             onClick={this.clickCircle(street.id)}

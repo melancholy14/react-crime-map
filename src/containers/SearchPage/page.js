@@ -9,6 +9,10 @@ import {
   searchRequest,
 } from './actions';
 
+import {
+  Modal,
+} from '../../components';
+
 const SearchContainer = styled.div`
     order: 1;
     margin: 0.5rem;
@@ -16,11 +20,11 @@ const SearchContainer = styled.div`
 
     .grid-container {
       display: grid;
-      grid-template-rows: 2rem 2rem 2rem 2rem;
-      grid-template-columns: 7.5rem auto;
+      grid-template-rows: 2rem 2rem 2rem;
+      grid-template-columns: 4.5rem auto;
 
       .grid-item {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem;
         
         &.submit {
           grid-column-start: 1;
@@ -31,7 +35,7 @@ const SearchContainer = styled.div`
 
     label {
       font-size: smaller;
-      text-transform: uppercase;
+      text-transform: capitalize;
     }
 
     button {
@@ -54,48 +58,60 @@ class Search extends React.PureComponent {
     super();
 
     this.state = {
-      date: null,
-      minmax: {},
-      forces: [],
+      date: {},
+      minmax: [],
+      message: null,
     }
   }
 
   componentDidUpdate(prevProps) {
     const {
       availability: prevAvailability,
+      message: prevMessage,
     } = prevProps;
 
     const {
       availability,
+      message,
     } = this.props;
 
     if (prevAvailability !== availability) {
-      const minmax = availability.reduce((acc, ele) => {
+      const date = availability.reduce((acc, ele) => {
         return {
           min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
           max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
+          dates: acc.dates ? [...acc.dates, ele.date] : [ele.date],
         }
       }, {});
 
-      const forces = (availability.find(({ date }) => (this.state.date || minmax.max || '').indexOf(date) > -1) || {})['stop-and-search'];
-
       this.setState({
-        minmax,
-        forces,
-      })
+        minmax: [date.min, date.max],
+        date,
+      });
+    } else if (prevMessage !== message) {
+      this.setState({
+        message,
+      });
     }
   }
 
-  changeDate = (evt) => {
-    const dates = evt.target.value && evt.target.value.split('-');
+  changeDate = (type) => (evt) => {
+    const { value } = evt.target;
 
-    if(dates) {
-      const date = `${dates[0]}-${dates[1]}`;
+    if(value) {
+      const minmax = [...this.state.minmax];
+      minmax[type === 'min' ? 0 : 1] = value;
+      minmax.sort((a, b) => a > b);
+
+      const date = {
+        ...this.state.date,
+        [type]: value,
+      };
+
       this.setState({
+        minmax,
         date,
       });
-
-      this.props.onLoadCrimeCategory(date);
     }
   }
 
@@ -106,9 +122,16 @@ class Search extends React.PureComponent {
   search = (evt) => {
     evt.preventDefault();
 
+    const {
+      minmax,
+      date,
+    } = this.state;
+
+    const dates = date.dates.filter((ele) => minmax[0] <= ele && ele <= minmax[1]).sort((a, b) => a > b);
+
     this.props.onSearch({
       url: this.crimeCategory || 'all-crimes',
-      date: this.state.date || this.state.minmax.max,
+      dates,
     });
   }
 
@@ -116,9 +139,13 @@ class Search extends React.PureComponent {
 
   render() {
     const {
-      date,
-      minmax,
-      forces,
+      date: {
+        min,
+        max,
+        dates = [],
+      } = {},
+      message,
+      showError,
     } = this.state;
 
     const {
@@ -131,17 +158,20 @@ class Search extends React.PureComponent {
     return (
       <SearchContainer>
         <form className="grid-container">
-          <label htmlFor="input_date" className="grid-item">date</label>
-          <input
-            type="date"
-            id="input_date"
-            min={`${minmax.min}-01`}
-            max={`${minmax.max}-31`}
-            value={(date || `${minmax.max}-31`)}
-            onChange={this.changeDate}
-            required
-            className="grid-item"
-          />
+          <label htmlFor="select_date" className="grid-item">date</label>
+          <div className="grid-item">
+            <select id="select_date" onChange={this.changeDate('min')} value={min}>
+            {
+              dates.map((ele) => <option value={ele} key={ele}>{ele}</option>)
+            }
+            </select>
+            <span> ~ </span>
+            <select onChange={this.changeDate('max')} value={max}>
+            {
+              dates.map((ele) => <option value={ele} key={ele}>{ele}</option>)
+            }
+            </select>
+          </div>
           <label htmlFor="select_category" className="grid-item">category</label>
           <select id="select_category" onChange={this.changeCategory} className="grid-item">
           {
@@ -155,20 +185,14 @@ class Search extends React.PureComponent {
             )
           }
           </select>
-          <label htmlFor="select_force" className="grid-item">force</label>
-          <select id="select_force" className="grid-item">
-            {
-              forces && forces.map((str) =>
-                <option
-                  key={str}
-                  value={str}
-                >
-                  {str}
-                </option>)
-            }
-          </select>
           <button onClick={this.search} className="grid-item submit">SEARCH</button>
         </form>
+        <Modal
+          show={showError}
+          onClose={this.toggleModal}
+        >
+          {message}
+        </Modal>
       </SearchContainer>
     )
   }

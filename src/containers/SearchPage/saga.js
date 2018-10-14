@@ -1,4 +1,4 @@
-import { fork, put, takeLatest, select } from 'redux-saga/effects';
+import { fork, put, takeLatest, select, all } from 'redux-saga/effects';
 import { api, request } from '../../utils';
 
 import {
@@ -40,15 +40,19 @@ function* search({ params }) {
   try {
     const {
       url,
-      date,
+      dates,
     } = params;
 
     const { lat, lng } = yield select((state) => state.map.latlng);
 
-    if (lat && lng) {
-      const response = yield request(`${api.police}/crimes-street/${url}?lat=${lat}&lng=${lng}&date=${date}`);
+    if (lat && lng && dates && dates.length > 0) {
+      const responses = yield all(dates.map((date) => request(`${api.police}/crimes-street/${url}?lat=${lat}&lng=${lng}&date=${date}`)));
 
-      yield put(searchSuccess(response.data));
+      const data = responses && responses.reduce((acc, response) => {
+        return [...acc, ...(response && response.data)];
+      }, []);
+
+      yield put(searchSuccess(data));
     } else {
       yield put(searchFailure('There is no position info! Please, click the map and tell me where you want to know'));
     }

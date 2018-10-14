@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 
-import CrimeTableModal from './crimeTableModal';
+// import CrimeTable from './crimeTable';
+import Graphs from './graphs';
 
 const AnalyseContainer = styled.div`
   .tr {
@@ -23,32 +24,31 @@ const AnalyseContainer = styled.div`
 class AnalysePage extends React.PureComponent {
   static propTypes = {
     streetId: PropTypes.number,
-    crimes: PropTypes.array,
+    dateGraph: PropTypes.array,
+    categoryGraph: PropTypes.array,
+    outcomeGraph: PropTypes.array,
+    crimeTable: PropTypes.array,
   };
 
-  constructor(){
-    super();
-
-    this.state = {
-      showModal: false,
-    }
-  }
-
-  toggleModal = () => this.setState({ showModal: !this.state.showModal })
-
   render(){
-    const { crimeTable } = this.props;
+    const {
+      dateGraph,
+      categoryGraph,
+      outcomeGraph,
+    } = this.props;
 
     return (<AnalyseContainer>
-      { crimeTable && crimeTable.length > 0 &&
-      <button onClick={this.toggleModal}>Crime List</button> }
       <button>Guardian News</button>
-      <CrimeTableModal
-        show={this.state.showModal}
-        onClose={this.toggleModal}
-        title="The list of crimes"
+      <Graphs
+        date={dateGraph}
+        category={categoryGraph}
+        outcome={outcomeGraph}
+      />
+      {/*
+      <CrimeTable
         crimes={crimeTable}
       />
+      */}
     </AnalyseContainer>);
   }
 }

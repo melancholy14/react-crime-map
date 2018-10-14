@@ -25,6 +25,7 @@ export default function mapReducer(state = initialState, action){
         ...state, 
         locations: Object.values(action.data.reduce((acc, ele) => {
           const {
+            category,
             location: {
               latitude,
               longitude,
@@ -36,6 +37,7 @@ export default function mapReducer(state = initialState, action){
             return {
               ...acc,
               [street.id]: {
+                category,
                 street,
                 count: 1,
                 latlng: [parseFloat(latitude), parseFloat(longitude)],
