@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
+import iu from '../../assets/iu.gif';
+import boa from '../../assets/boa.gif';
+
 import {
   loadCrimeCategoryRequest,
   searchRequest,
@@ -71,6 +74,12 @@ const SearchContainer = styled.div`
       color: white;
       padding: 0.3rem 1rem;
       font-weight: bolder;
+    }
+
+    .loading-img {
+      img {
+        width: 100%;
+      }
     }
 `;
 
@@ -317,7 +326,9 @@ class Search extends React.PureComponent {
           show={loading}
           showFooter={false}
         >
-          <div>Now it's loading!!</div>
+          <div className="loading-img">
+            <img src={Math.round(Math.random()) % 2 === 0 ? boa : iu} alt="loading..." />
+          </div>
         </Modal>
       </SearchContainer>
     )

@@ -27,7 +27,8 @@ const ModalDiv = styled.div`
     position: fixed;
     background: white;
     width: 100%;
-    height: calc(50% - 6rem);
+    min-height: 10rem;
+    // height: calc(50% - 6rem);
     overflow: auto;
     top: 10rem;
     left: 50%;
