@@ -255,6 +255,7 @@ class Search extends React.PureComponent {
     const {
       category = [allCrime],
       message,
+      loading,
     } = this.props;
 
     return (
@@ -310,6 +311,13 @@ class Search extends React.PureComponent {
           onClose={this.toggleModal}
         >
           {message}
+        </Modal>
+        <Modal
+          title="Loading..."
+          show={loading}
+          showFooter={false}
+        >
+          <div>Now it's loading!!</div>
         </Modal>
       </SearchContainer>
     )

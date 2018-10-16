@@ -13,6 +13,7 @@ const initialState = {
   category: [],
   crimes: [],
   message: null,
+  loading: false,
 };
 
 export default function searchReducer(state = initialState, action) {
@@ -21,6 +22,7 @@ export default function searchReducer(state = initialState, action) {
       return {
         ...state,
         ...action.params,
+        loading: true,
       };
     case LOAD_AVAILABILITY_SUCCESS:
       return {
@@ -36,6 +38,7 @@ export default function searchReducer(state = initialState, action) {
       return {
         ...state,
         crimes: action.data,
+        loading: false,
       };
     case LOAD_AVAILABILITY_FAILURE:
     case LOAD_CRIME_CATEGORY_FAILURE:
@@ -43,6 +46,7 @@ export default function searchReducer(state = initialState, action) {
       return {
         ...state,
         message: action.message,
+        loading: false,
       };
     default:
       return state;
