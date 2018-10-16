@@ -12,6 +12,10 @@ import {
   searchFailure,
 } from './actions';
 
+import {
+  filterCrimeCircles,
+} from '../MapPage/actions';
+
 function* loadAvailability() {
   try {
     const response = yield request(`${api.police}/crimes-street-dates`);
@@ -52,7 +56,8 @@ function* search({ params }) {
         return [...acc, ...(response && response.data)];
       }, []);
 
-      yield put(searchSuccess(data, dates.length));
+      yield put(searchSuccess(data));
+      yield put(filterCrimeCircles(data))
     } else {
       yield put(searchFailure('There is no position info! Please, click the map and tell me where you want to know'));
     }

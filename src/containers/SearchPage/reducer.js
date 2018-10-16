@@ -10,7 +10,8 @@ import {
 
 const initialState = {
   availability: [],
-  crimeCategory: [],
+  category: [],
+  crimes: [],
   message: null,
 };
 
@@ -29,7 +30,7 @@ export default function searchReducer(state = initialState, action) {
     case LOAD_CRIME_CATEGORY_SUCCESS:
       return {
         ...state,
-        crimeCategory: action.data,
+        category: action.data,
       };
     case SEARCH_SUCCESS:
       return {

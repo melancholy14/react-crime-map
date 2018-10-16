@@ -9,10 +9,6 @@ import {
 } from 'react-leaflet';
 
 import {
-  categoryColors,
-} from '../../utils/contants';
-
-import {
   loadGraphsRequest,
   loadNewsRequest,
 } from '../AnalysePage/actions';
@@ -30,7 +26,7 @@ class LeafletMap extends React.PureComponent {
       lat: PropTypes.number,
       lng: PropTypes.number,
     }),
-    selectedCrimes: PropTypes.array,
+    circles: PropTypes.array,
     onSaveLocation: PropTypes.func,
   }
 
@@ -63,6 +59,8 @@ class LeafletMap extends React.PureComponent {
       hasLocation: true,
       latlng: evt.latlng,
     });
+
+    this.props.onSaveLocation(evt.latlng);
   }
 
   handleCircle = (id, latlng) => () => {
@@ -74,7 +72,7 @@ class LeafletMap extends React.PureComponent {
 
   render() {
     const {
-      selectedCrimes,
+      circles,
     } = this.props;
 
     const {
@@ -102,12 +100,12 @@ class LeafletMap extends React.PureComponent {
           </Popup>
         </Marker> }
         {
-          selectedCrimes && selectedCrimes.map(({category, latlng, street, count, opacity = 0.5}) => 
+          circles && circles.map(({latlng, street, radius, count, opacity = 0.5, fillColor}) => 
           <Circle
-            fillColor={categoryColors[category]}
+            fillColor={fillColor}
             fillOpacity={opacity}
             stroke={false}
-            radius={count < 10 ? count * 25 : 250}
+            radius={radius < 10 ? radius * 25 : 250}
             center={latlng}
             key={latlng}
             onClick={this.handleCircle(street.id, latlng)}

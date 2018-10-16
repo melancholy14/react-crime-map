@@ -10,7 +10,7 @@ import {
 } from './actions';
 
 import {
-  selectCrimeCategory,
+  filterCrimeCircles,
 } from '../MapPage/actions';
 
 import {
@@ -82,7 +82,7 @@ const allCrime = {
 class Search extends React.PureComponent {
   static propTypes = {
     availability: PropTypes.array,
-    crimeCategory: PropTypes.array,
+    category: PropTypes.array,
     crimes: PropTypes.array,
     onLoadCrimeCategory: PropTypes.func,
     onSelectCrimeCategory: PropTypes.func,
@@ -102,13 +102,13 @@ class Search extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const {
       availability: prevAvailability,
-      crimeCategory: prevCrimeCategory,
+      category: prevCategory,
       message: prevMessage,
     } = prevProps;
 
     const {
       availability,
-      crimeCategory,
+      category,
       message,
     } = this.props;
 
@@ -129,8 +129,8 @@ class Search extends React.PureComponent {
       });
     }
 
-    if (prevCrimeCategory !== crimeCategory) {
-      const crimeCheckboxes = this.props.crimeCategory.reduce((acc, ele) => {
+    if (prevCategory !== category) {
+      const crimeCheckboxes = this.props.category.reduce((acc, ele) => {
         if (ele.url !== allCrime.url) {
           return [
             ...acc,
@@ -177,7 +177,7 @@ class Search extends React.PureComponent {
   }
 
   changeCategory = (evt) => {
-    this.crimeCategory = evt.target.value;
+    this.category = evt.target.value;
 
     const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
       const checked = (evt.target.value === allCrime.url) ? true : (ele.url === evt.target.value);
@@ -194,6 +194,8 @@ class Search extends React.PureComponent {
   }
 
   checkCategory = (url) => (evt) => {
+    evt.preventDefault();
+
     const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
       if (ele.url === url) {
         return {
@@ -215,7 +217,7 @@ class Search extends React.PureComponent {
       return acc;
     }, []);
 
-    this.props.onSelectCrimeCategory(list);
+    this.props.onFilterCrimeCategory(this.props.crimes, list);
   }
 
   search = (evt) => {
@@ -228,7 +230,7 @@ class Search extends React.PureComponent {
 
     const dates = date.dates.filter((ele) => minmax[0] <= ele && ele <= minmax[1]).sort((a, b) => a > b);
     const params = {
-      url: this.crimeCategory || allCrime.url,
+      url: this.category || allCrime.url,
       dates,
     };
 
@@ -248,11 +250,10 @@ class Search extends React.PureComponent {
       } = {},
       crimeCheckboxes,
       showError,
-      checkboxReadOnly,
     } = this.state;
 
     const {
-      crimeCategory = [allCrime],
+      category = [allCrime],
       message,
     } = this.props;
 
@@ -276,7 +277,7 @@ class Search extends React.PureComponent {
           <label htmlFor="select_category" className="grid-item">category</label>
           <select id="select_category" onChange={this.changeCategory} className="grid-item">
           {
-            crimeCategory && crimeCategory.map(({ url, name }) =>
+            category && category.map(({ url, name }) =>
               <option
                 key={url}
                 value={url}
@@ -296,7 +297,6 @@ class Search extends React.PureComponent {
                   id={`checkbox_${ele.url}`}
                   onChange={this.checkCategory(ele.url)}
                   checked={ele.checked}
-                  readOnly={checkboxReadOnly}
                 />
                 <label htmlFor={`checkbox_${ele.url}`}>{ele.name}</label>
                 <span className="color" style={{backgroundColor: categoryColors[ele.url]}}></span>
@@ -326,7 +326,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadCrimeCategory: () => dispatch(loadCrimeCategoryRequest()),
     onSearch: (param) => dispatch(searchRequest(param)),
-    onSelectCrimeCategory: (list) => dispatch(selectCrimeCategory(list)),
+    onFilterCrimeCategory: (crimes, list) => dispatch(filterCrimeCircles(crimes, list)),
   }
 }
 
