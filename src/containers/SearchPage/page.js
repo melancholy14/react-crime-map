@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
-import iu from '../../assets/iu.gif';
-import boa from '../../assets/boa.gif';
-
 import {
   loadCrimeCategoryRequest,
   searchRequest,
@@ -22,6 +19,7 @@ import {
 
 import {
   Modal,
+  Loading,
 } from '../../components';
 
 const SearchContainer = styled.div`
@@ -75,12 +73,6 @@ const SearchContainer = styled.div`
       padding: 0.3rem 1rem;
       font-weight: bolder;
     }
-
-    .loading-img {
-      img {
-        width: 100%;
-      }
-    }
 `;
 
 const allCrime = {
@@ -108,7 +100,7 @@ class Search extends React.PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       availability: prevAvailability,
       category: prevCategory,
@@ -116,10 +108,18 @@ class Search extends React.PureComponent {
     } = prevProps;
 
     const {
+      crimeCheckboxes: prevCrimeCheckboxes,
+    } = prevState;
+
+    const {
       availability,
       category,
       message,
     } = this.props;
+
+    const {
+      crimeCheckboxes,
+    } = this.state;
 
     if (prevAvailability !== availability) {
       const date = availability.reduce((acc, ele) => {
@@ -163,6 +163,17 @@ class Search extends React.PureComponent {
         showError: true,
       });
     }
+
+    if (prevCrimeCheckboxes !== crimeCheckboxes) {
+      const list = crimeCheckboxes.reduce((acc, ele) => {
+        if(ele.checked) {
+          return [...acc, ele.url];
+        }
+        return acc;
+      }, []);
+
+      this.props.onFilterCrimeCategory(this.props.crimes, list);
+    }
   }
 
   changeDate = (type) => (evt) => {
@@ -203,8 +214,6 @@ class Search extends React.PureComponent {
   }
 
   checkCategory = (url) => (evt) => {
-    evt.preventDefault();
-
     const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
       if (ele.url === url) {
         return {
@@ -218,15 +227,6 @@ class Search extends React.PureComponent {
     this.setState({
       crimeCheckboxes,
     });
-
-    const list = crimeCheckboxes.reduce((acc, ele) => {
-      if(ele.checked) {
-        return [...acc, ele.url];
-      }
-      return acc;
-    }, []);
-
-    this.props.onFilterCrimeCategory(this.props.crimes, list);
   }
 
   search = (evt) => {
@@ -315,20 +315,12 @@ class Search extends React.PureComponent {
           </div> }
           <button onClick={this.search} className="grid-item whole-row">SEARCH</button>
         </form>
+        <Loading loading={loading} />
         <Modal
           show={showError}
           onClose={this.toggleModal}
         >
           {message}
-        </Modal>
-        <Modal
-          title="Loading..."
-          show={loading}
-          showFooter={false}
-        >
-          <div className="loading-img">
-            <img src={Math.round(Math.random()) % 2 === 0 ? boa : iu} alt="loading..." />
-          </div>
         </Modal>
       </SearchContainer>
     )
