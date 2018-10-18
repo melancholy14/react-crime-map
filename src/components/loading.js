@@ -17,7 +17,6 @@ const Loading = ({ loading }) => (
   <Modal
     title="Loading..."
     show={loading}
-    showFooter={false}
   >
     <LoadingDiv>
       <img src={Math.round(Math.random()) % 2 === 0 ? boa : iu} alt="loading..." />

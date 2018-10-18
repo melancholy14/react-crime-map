@@ -21,6 +21,21 @@ const ModalDiv = styled.div`
     vertical-align: middle;
     line-height: 3rem;
     text-align: center;
+
+    .title {
+      display: inline-block;
+      width: calc(100% - 2rem);
+    }
+
+    .close {
+      display: inline-block;
+      width: 2rem;
+      font-size: large;
+      font-weight: bold;    
+      border: 0;
+      background-color: black;
+      color: white;
+    }
   }
 
   .modal-main {
@@ -35,45 +50,43 @@ const ModalDiv = styled.div`
     transform: translateX(-50%);
   }
 
-  .modal-footer {
-    position: fixed;
-    top: calc(50% - 6rem + 10rem);
-    height: 3rem;
-    background-color: white;
-    width: 100%;
-    line-height: 3rem;
-    vertical-align: middle;
-    text-align: center;
-    border-top: 1px solid black;
-    box-sizing: border-box;
+  // .modal-footer {
+  //   position: fixed;
+  //   top: calc(50% - 6rem + 10rem);
+  //   height: 3rem;
+  //   background-color: white;
+  //   width: 100%;
+  //   line-height: 3rem;
+  //   vertical-align: middle;
+  //   text-align: center;
+  //   border-top: 1px solid black;
+  //   box-sizing: border-box;
 
-    .close {
-      background-color: black;
-      color: white;
-      font-weight: bolder;
-      padding: 0.5rem 1rem;
-      border: 0;
-    }
-  }
+  //   .close {
+  //     background-color: black;
+  //     color: white;
+  //     font-weight: bolder;
+  //     padding: 0.5rem 1rem;
+  //     border: 0;
+  //   }
+  // }
 `;
 
-const Modal = ({ title, show, onClose, showFooter = true, children }) => (
+const Modal = ({ title, show, onClose, children }) => (
   <ModalDiv className={`display-${show ? 'block' : 'none'}`}>
-    <div className="modal-title">{ title }</div>
+    <div className="modal-title">
+      <div className="title">{ title }</div>
+      <button className="close" onClick={onClose}>X</button>
+    </div>
     <div className="modal-main">
       { children }
     </div>
-    { showFooter &&
-    <div className="modal-footer">
-      <button className="close" onClick={onClose}>Close</button>
-    </div> }
   </ModalDiv>
 );
 
 Modal.propTypes = {
   title: PropTypes.string,
   show: PropTypes.bool,
-  showFooter: PropTypes.bool,
   onClose: PropTypes.func,
   children: PropTypes.any,
 };
