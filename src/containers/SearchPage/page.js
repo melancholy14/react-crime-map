@@ -20,6 +20,9 @@ import {
 import {
   Modal,
   Loading,
+  Select,
+  Button,
+  Checkbox,
 } from '../../components';
 
 const SearchContainer = styled.div`
@@ -67,11 +70,8 @@ const SearchContainer = styled.div`
       }
     }
 
-    button {
-      background-color: black;
-      color: white;
+    button {     
       padding: 0.3rem 1rem;
-      font-weight: bolder;
     }
 `;
 
@@ -126,7 +126,7 @@ class Search extends React.PureComponent {
         return {
           min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
           max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
-          dates: acc.dates ? [...acc.dates, ele.date] : [ele.date],
+          dates: acc.dates ? [...acc.dates, { value: ele.date }] : [{ value: ele.date }],
         }
       }, {});
 
@@ -164,16 +164,10 @@ class Search extends React.PureComponent {
       });
     }
 
-    if (prevCrimeCheckboxes !== crimeCheckboxes) {
-      const list = crimeCheckboxes.reduce((acc, ele) => {
-        if(ele.checked) {
-          return [...acc, ele.url];
-        }
-        return acc;
-      }, []);
+    // console.log(prevCrimeCheckboxes, crimeCheckboxes);
 
-      this.props.onFilterCrimeCategory(this.props.crimes, list);
-    }
+    // if (prevCrimeCheckboxes && crimeCheckboxes && prevCrimeCheckboxes.length > 0 && prevCrimeCheckboxes !== crimeCheckboxes) {
+    // }
   }
 
   changeDate = (type) => (evt) => {
@@ -224,9 +218,21 @@ class Search extends React.PureComponent {
       return ele;
     });
 
+    console.log(url, evt.target.checked);
+    console.log(crimeCheckboxes);
+
     this.setState({
       crimeCheckboxes,
     });
+
+    const list = crimeCheckboxes.reduce((acc, ele) => {
+      if(ele.checked) {
+        return [...acc, ele.url];
+      }
+      return acc;
+    }, []);
+
+    this.props.onFilterCrimeCategory(this.props.crimes, list);
   }
 
   search = (evt) => {
@@ -237,7 +243,13 @@ class Search extends React.PureComponent {
       date,
     } = this.state;
 
-    const dates = date.dates.filter((ele) => minmax[0] <= ele && ele <= minmax[1]).sort((a, b) => a > b);
+    const dates = date.dates.reduce((acc, ele) => {
+      if (minmax[0] <= ele.value && ele.value <= minmax[1]) {
+        return [...acc, ele.value];
+      }
+      return acc;
+    }, []).sort((a, b) => a > b);
+
     const params = {
       url: this.category || allCrime.url,
       dates,
@@ -272,37 +284,31 @@ class Search extends React.PureComponent {
         <form className="grid-container">
           <label htmlFor="select_date" className="grid-item">date</label>
           <div className="grid-item">
-            <select id="select_date" onChange={this.changeDate('min')} value={min}>
-            {
-              dates.map((ele) => <option value={ele} key={ele}>{ele}</option>)
-            }
-            </select>
+            <Select
+              onChange={this.changeDate('min')}
+              value={min}
+              options={dates}
+            />
             <span> ~ </span>
-            <select onChange={this.changeDate('max')} value={max}>
-            {
-              dates.map((ele) => <option value={ele} key={ele}>{ele}</option>)
-            }
-            </select>
+            <Select
+              onChange={this.changeDate('max')}
+              value={max}
+              options={dates}
+            />
           </div>
           <label htmlFor="select_category" className="grid-item">category</label>
-          <select id="select_category" onChange={this.changeCategory} className="grid-item">
-          {
-            category && category.map(({ url, name }) =>
-              <option
-                key={url}
-                value={url}
-              >
-                {name}
-              </option>
-            )
-          }
-          </select>
+          <div className="grid-item">
+            <Select
+              id="select_category"
+              onChange={this.changeCategory}
+              options={category}
+            />
+          </div>
           { crimeCheckboxes &&
           <div className="grid-item whole-row">
             {
               crimeCheckboxes && crimeCheckboxes.map((ele) => (<div className="each-crime" key={ele.url}>
-                <input
-                  type="checkbox"
+                <Checkbox
                   value={ele.url}
                   id={`checkbox_${ele.url}`}
                   onChange={this.checkCategory(ele.url)}
@@ -313,7 +319,7 @@ class Search extends React.PureComponent {
               </div>))
             }
           </div> }
-          <button onClick={this.search} className="grid-item whole-row">SEARCH</button>
+          <Button onClick={this.search} className="grid-item whole-row">SEARCH</Button>
         </form>
         <Loading loading={loading} />
         <Modal
@@ -330,6 +336,11 @@ class Search extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     ...state.search,
+    category: state.search.category.map((ele) => ({
+      ...ele,
+      value: ele.url,
+      text: ele.name,
+    })),
   }
 }
 
