@@ -7,7 +7,8 @@ const TableDiv = styled.div`
   display: table;
 
   box-shadow: 1.5px 2px 1px 1px;
-  border-radius: 0.5rem;
+  // border-radius: 0.5rem;
+  width: -webkit-fill-available;
   padding: 0.5rem;
 
   .tr {
