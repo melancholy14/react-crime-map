@@ -26,13 +26,14 @@ const TableDiv = styled.div`
   }
 `;
 
-const Table = ({ children }: { children: any }) => (<TableDiv>{ children }</TableDiv>);
-
-const Tr = ({ children }: { children: any }) => (<div className="tr">{ children }</div>);
-
 const Th = ({ children }: { children: any }) => (<div className="th">{ children }</div>);
 
 const Td = ({ children }: { children: any }) => (<div className="td">{ children }</div>);
+
+const Tr = ({ children }: { children: Array<any> }) => (<div className="tr">{ children }</div>);
+
+const Table = ({ children }: { children: Array<typeof Tr> }) => (<TableDiv>{ children }</TableDiv>);
+
 
 export {
   Table,
