@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
@@ -8,21 +9,20 @@ const DefaultSelect = styled.select`
   height: 1rem;
   min-width: 5rem;
   background-color: white;
+  font-familiy: inherit;
 `;
 
-const Select = ({ id, value, options, onChange, className }) => 
+const Select = ({ id, value, options, onChange, className }: {
+  id: string | number,
+  value: any,
+  className: string,
+  options: Array<{ value: any, text?: string }>,
+  onChange: Function,
+}) => 
 (<DefaultSelect id={id} onChange={onChange} value={value} className={className}>
   {
     options && options.map(({value: val, text = val}) => <option key={val} value={val}>{text}</option>)
   }
 </DefaultSelect>);
-
-Select.propTypes = {
-  id: PropTypes.any,
-  value: PropTypes.any,
-  className: PropTypes.string,
-  options: PropTypes.array,
-  onChange: PropTypes.func,
-}
 
 export default Select;

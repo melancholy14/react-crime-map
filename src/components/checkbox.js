@@ -1,7 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
 
-const Checkbox = ({ id, value, checked, className, onChange }) => (
+import React from 'react';
+
+const Checkbox = ({ id, value, checked, className, onChange }: {
+  id: string,
+  value: any,
+  checked: boolean,
+  className: string,
+  onChange: Function,
+}) => (
   <input
     type="checkbox"
     id={id}
@@ -10,14 +17,6 @@ const Checkbox = ({ id, value, checked, className, onChange }) => (
     checked={checked}
     className={className}
   />
-)
-
-Checkbox.propTypes = {
-  id: PropTypes.string,
-  value: PropTypes.any,
-  checked: PropTypes.bool,
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-};
+);
 
 export default Checkbox;

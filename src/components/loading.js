@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Modal from './modal';
@@ -13,7 +14,7 @@ const LoadingDiv = styled.div`
   }
 `;
 
-const Loading = ({ loading }) => (
+const Loading = ({ loading }: { loading: boolean }) => (
   <Modal
     title="Loading..."
     show={loading}
@@ -23,9 +24,5 @@ const Loading = ({ loading }) => (
     </LoadingDiv>
   </Modal>
 );
-
-Loading.propTypes = {
-  loading: PropTypes.bool,
-}
 
 export default Loading;

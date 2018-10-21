@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const DefaultButton = styled.button`
@@ -12,16 +13,10 @@ const DefaultButton = styled.button`
   min-height: 1.5rem;
 `;
 
-const Button = ({ onClick, className, children }) => (
+const Button = ({ onClick, className, children }: { onClick: Function, className: string, children: any }) => (
   <DefaultButton onClick={onClick} className={className}>
     { children }
   </DefaultButton>
 );
-
-Button.propTypes = {
-  onClick: PropTypes.func,
-  className: PropTypes.string,
-  children: PropTypes.any,
-};
 
 export default Button;

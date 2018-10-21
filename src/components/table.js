@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const TableDiv = styled.div`
@@ -25,25 +26,13 @@ const TableDiv = styled.div`
   }
 `;
 
-const Table = ({ children }) => (<TableDiv>{ children }</TableDiv>);
-Table.propTypes = {
-  children: PropTypes.any,
-};
+const Table = ({ children }: { children: any }) => (<TableDiv>{ children }</TableDiv>);
 
-const Tr = ({ children }) => (<div className="tr">{ children }</div>);
-Tr.propTypes = {
-  children: PropTypes.any,
-};
+const Tr = ({ children }: { children: any }) => (<div className="tr">{ children }</div>);
 
-const Th = ({ children }) => (<div className="th">{ children }</div>);
-Th.propTypes = {
-  children: PropTypes.any,
-};
+const Th = ({ children }: { children: any }) => (<div className="th">{ children }</div>);
 
-const Td = ({ children }) => (<div className="td">{ children }</div>);
-Td.propTypes = {
-  children: PropTypes.any,
-};
+const Td = ({ children }: { children: any }) => (<div className="td">{ children }</div>);
 
 export {
   Table,

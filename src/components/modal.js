@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ModalDiv = styled.div`
@@ -72,7 +73,12 @@ const ModalDiv = styled.div`
   // }
 `;
 
-const Modal = ({ title, show, onClose, children }) => (
+const Modal = ({ title, show, onClose, children }: {
+  title: string,
+  show: boolean,
+  onClose?: Function,
+  children: any,
+}) => (
   <ModalDiv className={`display-${show ? 'block' : 'none'}`}>
     <div className="modal-title">
       <div className="title">{ title }</div>
@@ -83,12 +89,5 @@ const Modal = ({ title, show, onClose, children }) => (
     </div>
   </ModalDiv>
 );
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  show: PropTypes.bool,
-  onClose: PropTypes.func,
-  children: PropTypes.any,
-};
 
 export default Modal;
