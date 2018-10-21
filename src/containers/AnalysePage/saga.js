@@ -1,3 +1,5 @@
+// @flow
+
 import { takeLatest, select, put } from 'redux-saga/effects';
 import { api, request, keys } from '../../utils/request';
 
@@ -105,7 +107,7 @@ function* loadNews({ latlng }) {
       } = {},
     } = yield request(newsUrl);
 
-    results.sort((a, b) => a.webPublicationDate > b.webPublicationDate);
+    results.sort((a, b) => a.webPublicationDate.localeCompare(b.webPublicationDate));
 
     yield put(loadNewsSuccess(results));
   } catch (err) {
@@ -114,7 +116,7 @@ function* loadNews({ latlng }) {
   }
 }
 
-export default function* saga(){
+export default function* saga(): Generator<any, void, any>{
   yield takeLatest(LOAD_GRAPHS_REQUEST, loadGraph);
   yield takeLatest(LOAD_NEWS_REQUEST, loadNews);
 }

@@ -1,11 +1,11 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
 import {
-  loadCrimeCategoryRequest,
   searchRequest,
 } from './actions';
 
@@ -80,27 +80,58 @@ const allCrime = {
   name: 'All crime'
 };
 
-class Search extends React.PureComponent {
-  static propTypes = {
-    availability: PropTypes.array,
-    category: PropTypes.array,
-    crimes: PropTypes.array,
-    onLoadCrimeCategory: PropTypes.func,
-    onSelectCrimeCategory: PropTypes.func,
+type Props = {
+  availability: Array<{ date: string }>,
+  category: Array<{ url: string, name: string }>,
+  crimes: Array<mixed>,
+  message: string,
+  loading: boolean,
+  onSelectCrimeCategory: Function,
+  onFilterCrimeCategory: Function,
+  onSearch: Function,
+}
+
+type State = {
+  date: {
+    min: string,
+    max: string,
+    dates: Array<{ value: string }>,
+  },
+  minmax: string[],
+  showError: boolean,
+  crimeCheckboxes: Array<{ url: string, name: string, checked: boolean }>,
+  selectedCategory: string,
+}
+
+class Search extends React.PureComponent<Props, State> {
+  static defaultProps = {
+    availability: [],
+    category: [],
+    crimes: [],
+    message: null,
+    loading: false,
+    onSelectCrimeCategory: () => {},
+    onFilterCrimeCategory: () => {},
+    onSearch: () => {},
   };
 
   constructor() {
     super();
 
     this.state = {
-      date: {},
+      date: {
+        min: '',
+        max: '',
+        dates: [],
+      },
       minmax: [],
-      message: null,
-      checkboxReadOnly: false,
+      crimeCheckboxes: [],
+      selectedCategory: '',
+      showError: false,
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const {
       availability: prevAvailability,
       category: prevCategory,
@@ -108,27 +139,19 @@ class Search extends React.PureComponent {
     } = prevProps;
 
     const {
-      crimeCheckboxes: prevCrimeCheckboxes,
-    } = prevState;
-
-    const {
       availability,
       category,
       message,
     } = this.props;
 
-    const {
-      crimeCheckboxes,
-    } = this.state;
-
     if (prevAvailability !== availability) {
-      const date = availability.reduce((acc, ele) => {
-        return {
+      const date = availability.reduce((acc, ele) => ({
           min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
           max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
           dates: acc.dates ? [...acc.dates, { value: ele.date }] : [{ value: ele.date }],
-        }
-      }, {});
+        }), {
+          ...this.state.date,
+        });
 
       const minmax = [date.min, date.max];
 
@@ -146,7 +169,6 @@ class Search extends React.PureComponent {
             {
               ...ele,
               checked: true,
-              readOnly: true,
             }
           ];
         }
@@ -163,11 +185,6 @@ class Search extends React.PureComponent {
         showError: true,
       });
     }
-
-    // console.log(prevCrimeCheckboxes, crimeCheckboxes);
-
-    // if (prevCrimeCheckboxes && crimeCheckboxes && prevCrimeCheckboxes.length > 0 && prevCrimeCheckboxes !== crimeCheckboxes) {
-    // }
   }
 
   changeDate = (type) => (evt) => {
@@ -176,7 +193,8 @@ class Search extends React.PureComponent {
     if(value) {
       const minmax = [...this.state.minmax];
       minmax[type === 'min' ? 0 : 1] = value;
-      minmax.sort((a, b) => a > b);
+      // minmax.sort((a, b) => a > b);
+      minmax.sort((a, b) => a.localeCompare(b));
 
       const date = {
         ...this.state.date,
@@ -191,8 +209,6 @@ class Search extends React.PureComponent {
   }
 
   changeCategory = (evt) => {
-    this.category = evt.target.value;
-
     const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
       const checked = (evt.target.value === allCrime.url) ? true : (ele.url === evt.target.value);
       return {
@@ -203,7 +219,7 @@ class Search extends React.PureComponent {
 
     this.setState({
       crimeCheckboxes,
-      checkboxReadOnly: (evt.target.value !== allCrime.url),
+      selectedCategory: evt.target.value,
     });
   }
 
@@ -241,6 +257,7 @@ class Search extends React.PureComponent {
     const {
       minmax,
       date,
+      selectedCategory,
     } = this.state;
 
     const dates = date.dates.reduce((acc, ele) => {
@@ -248,16 +265,14 @@ class Search extends React.PureComponent {
         return [...acc, ele.value];
       }
       return acc;
-    }, []).sort((a, b) => a > b);
+    }, []).sort((a, b) => a.localeCompare(b));
 
     const params = {
-      url: this.category || allCrime.url,
+      url: selectedCategory || allCrime.url,
       dates,
     };
 
     this.props.onSearch(params);
-
-    this.setState({ checkboxReadOnly: params.url !== allCrime.url });
   }
 
   toggleModal = () => this.setState({ showError: !this.state.showError })
@@ -346,7 +361,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLoadCrimeCategory: () => dispatch(loadCrimeCategoryRequest()),
     onSearch: (param) => dispatch(searchRequest(param)),
     onFilterCrimeCategory: (crimes, list) => dispatch(filterCrimeCircles(crimes, list)),
   }

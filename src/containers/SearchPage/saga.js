@@ -1,3 +1,5 @@
+// @flow
+
 import { fork, put, takeLatest, select, all } from 'redux-saga/effects';
 import { api, request } from '../../utils/request';
 
@@ -40,13 +42,8 @@ function* loadCrimeCategory({ date: _date } = {}) {
   }
 }
 
-function* search({ params }) {
+function* search({ data: { url, dates }} = {}) {
   try {
-    const {
-      url,
-      dates,
-    } = params;
-
     const { lat, lng } = yield select((state) => state.map.latlng);
 
     if (lat && lng && dates && dates.length > 0) {
@@ -67,7 +64,7 @@ function* search({ params }) {
   }
 }
 
-export default function* saga() {
+export default function* saga(): Generator<any, void, any> {
   yield fork(loadAvailability);
   yield fork(loadCrimeCategory);
 

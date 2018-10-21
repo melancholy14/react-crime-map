@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -56,7 +58,9 @@ const AppDiv = styled.div`
   }
 `;
 
-class App extends Component {
+type Props = {};
+
+class App extends Component<Props> {
   render() {
     return (
       <AppDiv>

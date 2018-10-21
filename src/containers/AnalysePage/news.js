@@ -1,11 +1,21 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Table, Tr, Th, Td,
 } from '../../components';
 
-const News = ({ news }) => (
+const News = ({ news }: {
+  news: Array<{
+    id: string,
+    sectionName: string,
+    pillarName: string,
+    webTitle: string,
+    webUrl: string,
+    webPublicationDate: string,
+  }>
+}) => (
   <div>
     {
       news && news.map(({id, sectionName, pillarName, webTitle, webUrl, webPublicationDate }) =>
@@ -31,9 +41,5 @@ const News = ({ news }) => (
     }
   </div>
 );
-
-News.propTypes = {
-  crimes: PropTypes.array,
-}
 
 export default News;

@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import styled from 'styled-components';
@@ -18,15 +19,15 @@ const AnalyseContainer = styled.div`
   }
 `;
 
-class AnalysePage extends React.PureComponent {
-  static propTypes = {
-    dateGraph: PropTypes.array,
-    categoryGraph: PropTypes.array,
-    outcomeGraph: PropTypes.array,
-    crimeTable: PropTypes.array,
-    news: PropTypes.array,
-  };
+type Props = {
+  dateGraph: Array<any>,
+  categoryGraph: Array<any>,
+  outcomeGraph: Array<any>,
+  crimeTable: Array<any>,
+  news: Array<any>,
+};
 
+class AnalysePage extends React.PureComponent<Props> {
   render(){
     const {
       dateGraph,
@@ -36,17 +37,24 @@ class AnalysePage extends React.PureComponent {
     } = this.props;
 
     return (<AnalyseContainer>
-      { dateGraph &&<h3>Graphs</h3> }
-      <Graphs
-        date={dateGraph}
-        category={categoryGraph}
-        outcome={outcomeGraph}
-      />
-      { news && <h3>News</h3> }
+      { dateGraph &&
+        <section>
+          <h3>Graphs</h3>
+          <Graphs
+            date={dateGraph}
+            category={categoryGraph}
+            outcome={outcomeGraph}
+          />
+        </section>
+      }
       { news &&
-      <News
-        news={news}
-      /> }
+        <section>
+          <h3>News</h3>
+          <News
+            news={news}
+          />
+        </section>
+      }
     </AnalyseContainer>);
   }
 }

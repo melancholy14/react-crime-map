@@ -1,3 +1,5 @@
+// @flow
+
 import {
   LOAD_AVAILABILITY_SUCCESS,
   LOAD_AVAILABILITY_FAILURE,
@@ -8,20 +10,39 @@ import {
   SEARCH_FAILURE,
 } from './actions';
 
+type State = {
+  +availability: Array<{
+    date: string,
+  }>,
+  +category: Array<{
+    url: string,
+    name: string,
+  }>,
+  +crimes: Array<mixed>,
+  +message: string,
+  +loading: boolean,
+}
+
+type Action = {
+  type: string,
+  data?: any,
+  message?: string,
+};
+
 const initialState = {
   availability: [],
   category: [],
   crimes: [],
-  message: null,
+  message: '',
   loading: false,
 };
 
-export default function searchReducer(state = initialState, action) {
+export default function searchReducer(state: State = initialState, action: Action): State {
   switch(action.type) {
     case SEARCH_REQUEST:
       return {
         ...state,
-        ...action.params,
+        ...action.data,
         loading: true,
       };
     case LOAD_AVAILABILITY_SUCCESS:

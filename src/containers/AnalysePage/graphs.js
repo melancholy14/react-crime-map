@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   LineChart, Line,
@@ -9,7 +10,19 @@ import {
   CartesianGrid,
 } from 'recharts';
 
-const Graphs = ({ date, category, outcome }) => {
+type Props = {
+  date: Array<any>,
+  category: Array<any>,
+  outcome: Array<any>,
+};
+
+const Graphs = (props: Props) => {
+  const {
+    date,
+    category,
+    outcome,
+  } = props;
+  
   const width = window.innerWidth - 35;
 
   return (<div>
@@ -62,12 +75,6 @@ const Graphs = ({ date, category, outcome }) => {
       </div>
     }
   </div>);
-}
-
-Graphs.propTypes = {
-  date: PropTypes.array,
-  category: PropTypes.array,
-  outcome: PropTypes.array,
 }
 
 export default Graphs;

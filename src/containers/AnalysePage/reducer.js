@@ -1,3 +1,5 @@
+// @flow
+
 import {
   LOAD_GRAPHS_SUCCESS,
   LOAD_GRAPHS_FAILURE,
@@ -5,10 +7,31 @@ import {
   LOAD_NEWS_FAILURE,
 } from './actions';
 
-const initialState = {
-};
+type State = {
+  +dateGraph: Array<any>,
+  +categoryGraph: Array<any>,
+  +outcomeGraph: Array<any>,
+  +crimeTable: Array<any>,
+  +news: Array<any>,
+  +message: string,
+}
 
-export default function analyseReducer(state = initialState, action){
+const initialState = {
+  dateGraph: [],
+  categoryGraph: [],
+  outcomeGraph: [],
+  crimeTable: [],
+  news: [],
+  message: '',
+}
+
+type Action = {
+  type: string,
+  data?: any,
+  message?: string,
+}
+
+export default function analyseReducer(state: State = initialState, action: Action): State{
   switch(action.type){
     case LOAD_GRAPHS_SUCCESS:
       return {
@@ -18,7 +41,7 @@ export default function analyseReducer(state = initialState, action){
     case LOAD_NEWS_SUCCESS:
       return {
         ...state,
-        news: action.news,
+        news: action.data,
       }
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:

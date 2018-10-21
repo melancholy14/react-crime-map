@@ -2,6 +2,7 @@
   "name": "react-crime-map",
   "version": "0.1.0",
   "private": true,
+  "license": "",
   "dependencies": {
     "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
@@ -23,7 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "flow": "flow"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +38,9 @@
   ],
   "devDependencies": {
     "@storybook/react": "^3.4.11",
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.83.0",
     "redux-devtools-extension": "^2.13.5"
   },
   "homepage": "https://melancholy14.github.io/react-crime-map"
