@@ -11,6 +11,7 @@ const DefaultButton = styled.button`
   border: 0;
   border-radius: 0.5rem;
   min-height: 1.5rem;
+  font-family: inherit;
 `;
 
 const Button = ({ onClick, className, children }: { onClick: Function, className: string, children: any }) => (

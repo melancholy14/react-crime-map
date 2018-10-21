@@ -9,7 +9,7 @@ const DefaultSelect = styled.select`
   height: 1rem;
   min-width: 5rem;
   background-color: white;
-  font-familiy: inherit;
+  font-family: inherit;
 `;
 
 const Select = ({ id, value, options, onChange, className }: {

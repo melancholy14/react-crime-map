@@ -51,6 +51,7 @@ const SearchContainer = styled.div`
 
             label {
               font-size: smaller;
+              font-weight: bolder;
             }
 
             .color {
@@ -67,6 +68,7 @@ const SearchContainer = styled.div`
       & > label {
         font-size: smaller;
         text-transform: capitalize;
+        font-weight: bold;
       }
     }
 
