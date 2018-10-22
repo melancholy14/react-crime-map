@@ -44,10 +44,18 @@ class LeafletMap extends React.PureComponent {
     }
   }
 
-  componentDidUpdate(prevPops) {
-    if (prevPops.latlng !== this.props.latlng) {
+  componentDidUpdate(prevProps) {
+    const {
+      latlng: prevLatlng,
+    } = prevProps;
+
+    const {
+      latlng,
+    } = this.props;
+
+    if (prevLatlng !== latlng) {
       this.setState({
-        latlng: this.props.latlng,
+        latlng,
       });
     }
   }
@@ -64,8 +72,6 @@ class LeafletMap extends React.PureComponent {
   }
 
   handleCircle = (id, latlng) => () => {
-    // evt.preventDefault();
-
     this.props.onLoadGraphRequest(id);
     this.props.onLoadNewsRequest(latlng);
   }
@@ -125,7 +131,7 @@ class LeafletMap extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     ...state.map,
-  }
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {

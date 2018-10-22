@@ -1,4 +1,5 @@
 // @flow
+import update from 'immutability-helper';
 
 import {
   LOAD_AVAILABILITY_SUCCESS,
@@ -40,35 +41,32 @@ const initialState = {
 export default function searchReducer(state: State = initialState, action: Action): State {
   switch(action.type) {
     case SEARCH_REQUEST:
-      return {
-        ...state,
-        ...action.data,
-        loading: true,
-      };
+      return update(state, {
+        $merge: {
+          ...action.data,
+          loading: true
+        }
+      });
     case LOAD_AVAILABILITY_SUCCESS:
-      return {
-        ...state,
-        availability: action.data,
-      };
+      return update(state, {
+        availability: {$set: action.data}
+      });
     case LOAD_CRIME_CATEGORY_SUCCESS:
-      return {
-        ...state,
-        category: action.data,
-      };
+      return update(state, {
+        category: {$set: action.data},
+      });
     case SEARCH_SUCCESS:
-      return {
-        ...state,
-        crimes: action.data,
-        loading: false,
-      };
+      return update(state, {
+        crimes: {$set: action.data},
+        loading: {$set: false},
+      });
     case LOAD_AVAILABILITY_FAILURE:
     case LOAD_CRIME_CATEGORY_FAILURE:
     case SEARCH_FAILURE:
-      return {
-        ...state,
-        message: action.message,
-        loading: false,
-      };
+      return update(state, {
+        message: {$set: action.message},
+        loading: {$set: false},
+      });
     default:
       return state;
   }
