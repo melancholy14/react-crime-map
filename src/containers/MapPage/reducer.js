@@ -1,3 +1,5 @@
+import update from 'immutability-helper';
+
 import {
   SAVE_LOCATION,
   FILTER_CRIME_CIRCLES,
@@ -14,16 +16,13 @@ const initialState = {
 export default function mapReducer(state = initialState, action){
   switch(action.type) {
     case SAVE_LOCATION:
-      return {
-        ...state,
-        latlng: action.data,
-      };
-    case FILTER_CRIME_CIRCLES: {
-      return {
-        ...state,
-        circles: action.data,
-      }
-    }
+      return update(state, {
+        latlng: {$set: action.data},
+      });
+    case FILTER_CRIME_CIRCLES:
+      return update(state, {
+        circles: {$set: action.data},
+      });
     default:
       return state;
   }

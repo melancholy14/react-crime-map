@@ -1,5 +1,7 @@
 // @flow
 
+import update from 'immutability-helper';
+
 import {
   LOAD_GRAPHS_SUCCESS,
   LOAD_GRAPHS_FAILURE,
@@ -34,21 +36,20 @@ type Action = {
 export default function analyseReducer(state: State = initialState, action: Action): State{
   switch(action.type){
     case LOAD_GRAPHS_SUCCESS:
-      return {
-        ...state,
-        ...action.data,
-      };
+      return update(state, {
+        $merge: {
+          ...action.data
+        }
+      });
     case LOAD_NEWS_SUCCESS:
-      return {
-        ...state,
-        news: action.data,
-      }
+      return update(state, {
+        news: {$set: action.data},
+      });
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:
-      return {
-        ...state,
-        message: action.message,
-      };
+      return update(state, {
+        message: {$set: action.message},
+      });
     default:
       return state;
   }

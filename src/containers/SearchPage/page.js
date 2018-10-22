@@ -117,8 +117,8 @@ class Search extends React.PureComponent<Props, State> {
     onSearch: () => {},
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       date: {
@@ -146,7 +146,7 @@ class Search extends React.PureComponent<Props, State> {
       message,
     } = this.props;
 
-    if (prevAvailability !== availability) {
+    if (JSON.stringify(prevAvailability) !== JSON.stringify(availability)){
       const date = availability.reduce((acc, ele) => ({
           min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
           max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
@@ -163,7 +163,7 @@ class Search extends React.PureComponent<Props, State> {
       });
     }
 
-    if (prevCategory !== category) {
+    if (JSON.stringify(prevCategory) !== JSON.stringify(category)) {
       const crimeCheckboxes = this.props.category.reduce((acc, ele) => {
         if (ele.url !== allCrime.url) {
           return [
@@ -235,9 +235,6 @@ class Search extends React.PureComponent<Props, State> {
       } 
       return ele;
     });
-
-    console.log(url, evt.target.checked);
-    console.log(crimeCheckboxes);
 
     this.setState({
       crimeCheckboxes,
@@ -324,15 +321,15 @@ class Search extends React.PureComponent<Props, State> {
           { crimeCheckboxes &&
           <div className="grid-item whole-row">
             {
-              crimeCheckboxes && crimeCheckboxes.map((ele) => (<div className="each-crime" key={ele.url}>
+              crimeCheckboxes && crimeCheckboxes.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
                 <Checkbox
-                  value={ele.url}
-                  id={`checkbox_${ele.url}`}
-                  onChange={this.checkCategory(ele.url)}
-                  checked={ele.checked}
+                  value={url}
+                  id={`checkbox_${url}`}
+                  onChange={this.checkCategory(url)}
+                  checked={checked}
                 />
-                <label htmlFor={`checkbox_${ele.url}`}>{ele.name}</label>
-                <span className="color" style={{backgroundColor: categoryColors[ele.url]}}></span>
+                <label htmlFor={`checkbox_${url}`}>{name}</label>
+                <span className="color" style={{backgroundColor: categoryColors[url]}}></span>
               </div>))
             }
           </div> }
@@ -351,9 +348,11 @@ class Search extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state) => {
+  const { search: { category = [] } = {} } = state;
+  
   return {
     ...state.search,
-    category: state.search.category.map((ele) => ({
+    category: category.map((ele) => ({
       ...ele,
       value: ele.url,
       text: ele.name,
