@@ -37,7 +37,11 @@ const SearchContainer = styled.div`
 
       .grid-item {
         padding: 0.5rem;
-        
+
+        &.select {
+          padding: 0.25rem 0.5rem;
+        }
+
         &.whole-row {
           grid-column-start: 1;
           grid-column-end: 3;
@@ -211,13 +215,15 @@ class Search extends React.PureComponent<Props, State> {
   }
 
   changeCategory = (evt) => {
-    const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
-      const checked = (evt.target.value === allCrime.url) ? true : (ele.url === evt.target.value);
-      return {
-        ...ele,
-        checked,
-      }
-    });
+    let crimeCheckboxes = [];
+    if (evt.target.value === allCrime.url) {
+      crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
+        return {
+          ...ele,
+          checked: true,
+        }
+      });
+    }
 
     this.setState({
       crimeCheckboxes,
@@ -297,7 +303,7 @@ class Search extends React.PureComponent<Props, State> {
       <SearchContainer>
         <form className="grid-container">
           <label htmlFor="select_date" className="grid-item">date</label>
-          <div className="grid-item">
+          <div className="grid-item select">
             <Select
               onChange={this.changeDate('min')}
               value={min}
@@ -311,7 +317,7 @@ class Search extends React.PureComponent<Props, State> {
             />
           </div>
           <label htmlFor="select_category" className="grid-item">category</label>
-          <div className="grid-item">
+          <div className="grid-item select">
             <Select
               id="select_category"
               onChange={this.changeCategory}

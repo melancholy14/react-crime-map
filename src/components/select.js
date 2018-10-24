@@ -5,8 +5,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const DefaultSelect = styled.select`
-  border: 0;
-  height: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  height: 1.5rem;
   min-width: 5rem;
   background-color: white;
   font-family: inherit;
