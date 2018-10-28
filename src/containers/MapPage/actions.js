@@ -24,7 +24,7 @@ export function filterCrimeCircles (crimes = [], categories = []) {
       } = {},
     } = ele;
 
-    if (categories.length === 0 || categories.find((cat) => cat === category)){
+    if (categories.length === 0 || categories.find((cat) => cat === category)) {
       if (!acc[street.id]) {
         return {
           ...acc,
