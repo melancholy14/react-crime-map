@@ -343,10 +343,13 @@ class Search extends React.PureComponent<Props, State> {
         </form>
         <Loading loading={loading} />
         <Modal
+          title="Something goes wrong"
           show={showError}
           onClose={this.toggleModal}
         >
-          {message}
+          <div style={{margin: '1rem', padding: '1rem 0.5rem'}}>
+            {message}
+          </div>
         </Modal>
       </SearchContainer>
     )
