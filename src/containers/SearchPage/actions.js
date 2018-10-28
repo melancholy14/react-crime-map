@@ -25,12 +25,12 @@ export function loadAvailabilityFailure (message: string) {
   }
 }
 
-export function loadCrimeCategoryRequest (date: string) {
-  return {
-    type: LOAD_CRIME_CATEGORY_REQUEST,
-    date,
-  }
-}
+// export function loadCrimeCategoryRequest (date: string) {
+//   return {
+//     type: LOAD_CRIME_CATEGORY_REQUEST,
+//     date,
+//   }
+// }
 
 export function loadCrimeCategorySuccess (data: Array<mixed>) {
   return {
@@ -53,11 +53,10 @@ export function searchRequest (data: { url: string, dates: Array<string> }) {
   }
 }
 
-export function searchSuccess (data: Array<mixed>, dateLength: number = 1) {
+export function searchSuccess (data: Array<mixed>) {
   return {
     type: SEARCH_SUCCESS,
     data,
-    dateLength,
   }
 }
 

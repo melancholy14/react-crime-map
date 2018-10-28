@@ -41,12 +41,17 @@ const initialState = {
 export default function searchReducer(state: State = initialState, action: Action): State {
   switch(action.type) {
     case SEARCH_REQUEST:
+    /*
       return update(state, {
         $merge: {
           ...action.data,
           loading: true
         }
       });
+      */
+     return update(state, {
+       loading: {$set: true}
+     });
     case LOAD_AVAILABILITY_SUCCESS:
       return update(state, {
         availability: {$set: action.data}
@@ -62,6 +67,9 @@ export default function searchReducer(state: State = initialState, action: Actio
       });
     case LOAD_AVAILABILITY_FAILURE:
     case LOAD_CRIME_CATEGORY_FAILURE:
+      return update(state, {
+        message: {$set: action.message}
+      });
     case SEARCH_FAILURE:
       return update(state, {
         message: {$set: action.message},
