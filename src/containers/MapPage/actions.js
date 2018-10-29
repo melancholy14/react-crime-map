@@ -1,6 +1,6 @@
 import {
   categoryColors,
-} from '../../utils/contants';
+} from '../../utils/constants';
 
 export const SAVE_LOCATION = 'containers/MapPage/actions/SAVE_LOCATION';
 

@@ -97,50 +97,44 @@ class LeafletMap extends React.PureComponent {
     } = this.state;
 
     return (
-      <div>
-        <form>
-          <input type="text" onChange={this.enterKeyword} />
-          <button onClick={this.searchAddr}>Locate</button>
-        </form>
-        <Map
-          center={latlng}
-          ref={(val) => { this.map = val; }}
-          zoom={13}
-          onClick={this.handleClick}
-          onLocationfound={this.handleLocationFound}
-        >
-          <TileLayer
-            attribution={attribution}
-            url={url}
-          />
-          { latlng &&
-          <Marker position={[latlng.lat, latlng.lng]}>
+      <Map
+        center={latlng}
+        ref={(val) => { this.map = val; }}
+        zoom={13}
+        onClick={this.handleClick}
+        onLocationfound={this.handleLocationFound}
+      >
+        <TileLayer
+          attribution={attribution}
+          url={url}
+        />
+        { latlng &&
+        <Marker position={[latlng.lat, latlng.lng]}>
+          <Popup>
+            {`You clicked here!!
+            Latitude: ${latlng.lat}
+            Longitude: ${latlng.lng}`}
+          </Popup>
+        </Marker> }
+        {
+          circles && circles.map(({latlng, street, radius, count, opacity = 0.5, fillColor}) => 
+          <Circle
+            fillColor={fillColor}
+            fillOpacity={opacity}
+            stroke={false}
+            radius={radius < 10 ? radius * 25 : 250}
+            center={latlng}
+            key={latlng}
+            onClick={this.handleCircle(street.id, latlng)}
+          >
             <Popup>
-              {`You clicked here!!
-              Latitude: ${latlng.lat}
-              Longitude: ${latlng.lng}`}
+            {`Street Id: ${street.id}
+            Street Name: ${street.name}
+            Crime Count: ${count}`}
             </Popup>
-          </Marker> }
-          {
-            circles && circles.map(({latlng, street, radius, count, opacity = 0.5, fillColor}) => 
-            <Circle
-              fillColor={fillColor}
-              fillOpacity={opacity}
-              stroke={false}
-              radius={radius < 10 ? radius * 25 : 250}
-              center={latlng}
-              key={latlng}
-              onClick={this.handleCircle(street.id, latlng)}
-            >
-              <Popup>
-              {`Street Id: ${street.id}
-              Street Name: ${street.name}
-              Crime Count: ${count}`}
-              </Popup>
-            </Circle>)
-          }
-        </Map>
-      </div>
+          </Circle>)
+        }
+      </Map>
     );
   }
 };
