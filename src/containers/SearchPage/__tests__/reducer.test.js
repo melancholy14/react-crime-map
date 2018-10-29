@@ -109,6 +109,8 @@ describe("reducer in SearchPage", () => {
     
     const result = SearchReducer(state, action);
     expect(result).toEqual({
+      url: 'all-crime',
+      dates: [],
       loading: true,
     });
   });

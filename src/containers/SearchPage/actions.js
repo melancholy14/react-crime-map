@@ -11,7 +11,7 @@ export const SEARCH_REQUEST = 'containers/SearchPage/actions/SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'containers/SearchPage/actions/SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'containers/SearchPage/actions/SEARCH_FAILURE';
 
-export function loadAvailabilitySuccess (data: Array<mixed>) {
+export function loadAvailabilitySuccess (data: Array<Object>) {
   return {
     type: LOAD_AVAILABILITY_SUCCESS,
     data,
@@ -25,14 +25,7 @@ export function loadAvailabilityFailure (message: string) {
   }
 }
 
-// export function loadCrimeCategoryRequest (date: string) {
-//   return {
-//     type: LOAD_CRIME_CATEGORY_REQUEST,
-//     date,
-//   }
-// }
-
-export function loadCrimeCategorySuccess (data: Array<mixed>) {
+export function loadCrimeCategorySuccess (data: Array<Object>) {
   return {
     type: LOAD_CRIME_CATEGORY_SUCCESS,
     data,
@@ -53,7 +46,7 @@ export function searchRequest (data: { url: string, dates: Array<string> }) {
   }
 }
 
-export function searchSuccess (data: Array<mixed>) {
+export function searchSuccess (data: Array<Object>) {
   return {
     type: SEARCH_SUCCESS,
     data,

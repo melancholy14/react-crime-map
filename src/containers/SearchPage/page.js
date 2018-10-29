@@ -15,7 +15,7 @@ import {
 
 import {
   categoryColors,
-} from '../../utils/contants';
+} from '../../utils/constants';
 
 import {
   Modal,
@@ -89,7 +89,7 @@ const allCrime = {
 type Props = {
   availability: Array<{ date: string }>,
   category: Array<{ url: string, name: string }>,
-  crimes: Array<mixed>,
+  crimes: Array<Object>,
   message: string,
   loading: boolean,
   onSelectCrimeCategory: Function,
@@ -217,7 +217,7 @@ class Search extends React.PureComponent<Props, State> {
   changeCategory = (evt) => {
     let crimeCheckboxes = [];
     if (evt.target.value === allCrime.url) {
-      crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
+      crimeCheckboxes = this.props.category.map((ele) => {
         return {
           ...ele,
           checked: true,
