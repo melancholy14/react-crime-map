@@ -82,7 +82,7 @@ const Modal = ({ title, show, onClose, children }: {
   <ModalDiv className={`display-${show ? 'block' : 'none'}`}>
     <div className="modal-title">
       <div className="title">{ title }</div>
-      <button className="close" onClick={onClose}>X</button>
+      { onClose && <button className="close" onClick={onClose}>X</button> }
     </div>
     <div className="modal-main">
       { children }

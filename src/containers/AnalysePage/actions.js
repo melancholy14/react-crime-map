@@ -15,7 +15,7 @@ export function loadGraphsRequest(id: string) {
   }
 }
 
-export function loadGraphsSuccess(data: { dateGraph: Array<any>, categoryGraph: Array<any>, outcomeGraph: Array<any>}) {
+export function loadGraphsSuccess(data: { dateGraph: Array<Object>, categoryGraph: Array<Object>, outcomeGraph: Array<Object>}) {
   return {
     type: LOAD_GRAPHS_SUCCESS,
     data,
@@ -36,7 +36,7 @@ export function loadNewsRequest(latlng: { lat: number, lng: number }) {
   }
 }
 
-export function loadNewsSuccess(news: Array<any>) {
+export function loadNewsSuccess(news: Array<Object>) {
   return {
     type: LOAD_NEWS_SUCCESS,
     data: news,

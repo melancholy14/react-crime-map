@@ -10,11 +10,10 @@ import {
 } from './actions';
 
 type State = {
-  +dateGraph: Array<any>,
-  +categoryGraph: Array<any>,
-  +outcomeGraph: Array<any>,
-  +crimeTable: Array<any>,
-  +news: Array<any>,
+  +dateGraph: Array<Object>,
+  +categoryGraph: Array<Object>,
+  +outcomeGraph: Array<Object>,
+  +news: Array<Object>,
   +message: string,
 }
 
@@ -22,7 +21,6 @@ const initialState = {
   dateGraph: [],
   categoryGraph: [],
   outcomeGraph: [],
-  crimeTable: [],
   news: [],
   message: '',
 }

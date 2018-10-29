@@ -20,11 +20,10 @@ const AnalyseContainer = styled.div`
 `;
 
 type Props = {
-  dateGraph: Array<any>,
-  categoryGraph: Array<any>,
-  outcomeGraph: Array<any>,
-  crimeTable: Array<any>,
-  news: Array<any>,
+  dateGraph: Array<Object>,
+  categoryGraph: Array<Object>,
+  outcomeGraph: Array<Object>,
+  news: Array<Object>,
 };
 
 class AnalysePage extends React.PureComponent<Props> {

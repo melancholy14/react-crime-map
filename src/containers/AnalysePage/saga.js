@@ -54,33 +54,6 @@ function* loadGraph({ id: streetId }){
   }
 }
 
-/*
-function* loadCrimeTables({ id: streetId }){
-  try {
-    const crimes = yield select((state) => state.search.crimes);
-    const selectedCrimes = crimes && crimes.filter(({ location: { street: { id } = {}, } = {}, }) => id === streetId);
-
-    console.log('selectedCrimes', selectedCrimes);
-
-    const crimeTable = selectedCrimes.map(({
-      id,
-      month,
-      category,
-      outcome_status,
-      outcomes: {
-        category: outcome,
-      } = outcome_status || {},
-    }) => ({ id, list: [['month', month], ['category', category], ['outcome', outcome]] }));
-
-    yield put(loadGraphSuccess({
-      crimeTable,
-    }));
-  } catch(err) {
-    yield put(loadGraphFailure(err.message));
-  }
-}
-*/
-
 function* loadNews({ latlng }) {
   try {
     const addressUrl = `${api.mapquest}/reverse?key=${keys.mapquest}&location=${latlng.join(',')}&includeRoadMetadata=true&includeNearestIntersection=true`;

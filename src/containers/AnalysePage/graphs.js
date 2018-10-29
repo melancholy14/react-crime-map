@@ -11,9 +11,9 @@ import {
 } from 'recharts';
 
 type Props = {
-  date: Array<any>,
-  category: Array<any>,
-  outcome: Array<any>,
+  date: Array<Object>,
+  category: Array<Object>,
+  outcome: Array<Object>,
 };
 
 const Graphs = (props: Props) => {
@@ -26,7 +26,7 @@ const Graphs = (props: Props) => {
   const width = window.innerWidth - 35;
 
   return (<div>
-    { date && 
+    { date && date.length > 0 && 
     <div>
       <p>The number of crimes per Date</p>
       <LineChart
@@ -58,7 +58,7 @@ const Graphs = (props: Props) => {
         </BarChart>
       </div>
     }
-    { outcome &&
+    { outcome && outcome.length > 0 &&
       <div>
         <p>The ratio of crimes per Outcome</p>
         <BarChart
