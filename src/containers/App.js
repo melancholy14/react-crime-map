@@ -69,7 +69,7 @@ class App extends Component<Props> {
             CRIME MAP
           </div>
           <div className="email">
-            <span className="smaller">Contact me: melancholy14@hotmail.com</span>
+            <span className="smaller">Contact me: melancholy8914@gmail</span>
           </div>
         </header>
         <aside>
