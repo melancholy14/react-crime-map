@@ -28,6 +28,11 @@ export const outcomes = [
   { code: "status-update-unavailable", name: "Status update unavailable" },
 ];
 
+export const allCrime = {
+  url: 'all-crime',
+  name: 'All crime'
+};
+
 export const categoryColors = {
   "all-crime": "#d17f68",
   "anti-social-behaviour": "#73b638",

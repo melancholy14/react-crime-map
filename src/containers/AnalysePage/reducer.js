@@ -9,13 +9,10 @@ import {
   LOAD_NEWS_FAILURE,
 } from './actions';
 
-type State = {
-  +dateGraph: Array<Object>,
-  +categoryGraph: Array<Object>,
-  +outcomeGraph: Array<Object>,
-  +news: Array<Object>,
-  +message: string,
-}
+import {
+  AnalyseReducerState as State,
+  Action,
+} from '../../utils/types';
 
 const initialState = {
   dateGraph: [],
@@ -25,13 +22,7 @@ const initialState = {
   message: '',
 }
 
-type Action = {
-  type: string,
-  data?: any,
-  message?: string,
-}
-
-export default function analyseReducer(state: State = initialState, action: Action): State{
+export default function analyseReducer(state: State = initialState, action: Action): State {
   switch(action.type){
     case LOAD_GRAPHS_SUCCESS:
       return update(state, {

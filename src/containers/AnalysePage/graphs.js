@@ -10,11 +10,9 @@ import {
   CartesianGrid,
 } from 'recharts';
 
-type Props = {
-  date: Array<Object>,
-  category: Array<Object>,
-  outcome: Array<Object>,
-};
+import {
+  GraphProps as Props,
+} from '../../utils/types';
 
 const Graphs = (props: Props) => {
   const {

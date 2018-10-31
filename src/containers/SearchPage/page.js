@@ -15,7 +15,13 @@ import {
 
 import {
   categoryColors,
+  allCrime,
 } from '../../utils/constants';
+
+import {
+  SearchPageProps as Props,
+  SearchPageState as State,
+} from '../../utils/types';
 
 import {
   Modal,
@@ -80,34 +86,6 @@ const SearchContainer = styled.div`
       padding: 0.3rem 1rem;
     }
 `;
-
-const allCrime = {
-  url: 'all-crime',
-  name: 'All crime'
-};
-
-type Props = {
-  availability: Array<{ date: string }>,
-  category: Array<{ url: string, name: string }>,
-  crimes: Array<Object>,
-  message: string,
-  loading: boolean,
-  onSelectCrimeCategory: Function,
-  onFilterCrimeCategory: Function,
-  onSearch: Function,
-}
-
-type State = {
-  date: {
-    min: string,
-    max: string,
-    dates: Array<{ value: string }>,
-  },
-  minmax: string[],
-  showError: boolean,
-  crimeCheckboxes: Array<{ url: string, name: string, checked: boolean }>,
-  selectedCategory: string,
-}
 
 class Search extends React.PureComponent<Props, State> {
   static defaultProps = {

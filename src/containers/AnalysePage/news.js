@@ -6,16 +6,11 @@ import {
   Table, Tr, Th, Td,
 } from '../../components';
 
-const News = ({ news }: {
-  news: Array<{
-    id: string,
-    sectionName: string,
-    pillarName: string,
-    webTitle: string,
-    webUrl: string,
-    webPublicationDate: string,
-  }>
-}) => (
+import {
+  NewsProps as Props,
+} from '../../utils/types';
+
+const News = ({ news }: Props) => (
   <div>
     {
       news && news.map(({id, sectionName, pillarName, webTitle, webUrl, webPublicationDate }) =>

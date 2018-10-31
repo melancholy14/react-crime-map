@@ -8,6 +8,10 @@ import styled from 'styled-components';
 import News from './news';
 import Graphs from './graphs';
 
+import {
+  AnalysePageProps as Props
+} from '../../utils/types';
+
 const AnalyseContainer = styled.div`
   .tr {
     line-height: 2rem;
@@ -18,13 +22,6 @@ const AnalyseContainer = styled.div`
     }
   }
 `;
-
-type Props = {
-  dateGraph: Array<Object>,
-  categoryGraph: Array<Object>,
-  outcomeGraph: Array<Object>,
-  news: Array<Object>,
-};
 
 class AnalysePage extends React.PureComponent<Props> {
   render(){

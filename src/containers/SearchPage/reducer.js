@@ -11,24 +11,10 @@ import {
   SEARCH_FAILURE,
 } from './actions';
 
-type State = {
-  +availability: Array<{
-    date: string,
-  }>,
-  +category: Array<{
-    url: string,
-    name: string,
-  }>,
-  +crimes: Array<Object>,
-  +message: string,
-  +loading: boolean,
-}
-
-type Action = {
-  type: string,
-  data?: any,
-  message?: string,
-};
+import {
+  SearchReducerState as State,
+  Action,
+} from '../../utils/types';
 
 const initialState = {
   availability: [],
