@@ -1,6 +1,15 @@
+type availability = {
+  date: string,
+};
+
+type category = {
+  url: string,
+  name: string,
+};
+
 type SearchPageProps = {
-  availability: Array<{ date: string }>,
-  category: Array<{ url: string, name: string }>,
+  availability: Array<availability>,
+  category: Array<category>,
   crimes: Array<Object>,
   message: string,
   loading: boolean,
@@ -13,7 +22,7 @@ type SearchPageState = {
   date: {
     min: string,
     max: string,
-    dates: Array<{ value: string }>,
+    dates: Array<availability>,
   },
   minmax: string[],
   showError: boolean,
@@ -22,49 +31,59 @@ type SearchPageState = {
 }
 
 type SearchReducerState = {
-  +availability: Array<{
-    date: string,
-  }>,
-  +category: Array<{
-    url: string,
-    name: string,
-  }>,
+  +availability: Array<availability>,
+  +category: Array<category>,
   +crimes: Array<Object>,
   +message: string,
   +loading: boolean,
 }
 
-type GraphProps = {
-  date: Array<Object>,
-  category: Array<Object>,
-  outcome: Array<Object>,
+type dateGraph = {
+  date: string,
+  count: number,
 };
 
-type news = Array<{
+type categoryGraph = {
+  category: string,
+  count: number,
+};
+
+type outcomeGraph = {
+  outcome: string,
+  count: number,
+};
+
+type GraphProps = {
+  date: Array<dateGraph>,
+  category: Array<categoryGraph>,
+  outcome: Array<outcomeGraph>,
+};
+
+type news = {
   id: string,
   sectionName: string,
   pillarName: string,
   webTitle: string,
   webUrl: string,
   webPublicationDate: string,
-}>;
+};
 
 type NewsProps = {
-  news: news
+  news: Array<news>
 };
 
 type AnalysePageProps = {
-  dateGraph: Array<Object>,
-  categoryGraph: Array<Object>,
-  outcomeGraph: Array<Object>,
-  news: news,
+  dateGraph: Array<dateGraph>,
+  categoryGraph: Array<categoryGraph>,
+  outcomeGraph: Array<outcomeGraph>,
+  news: Array<news>,
 };
 
 type AnalyseReducerState = {
-  +dateGraph: Array<Object>,
-  +categoryGraph: Array<Object>,
-  +outcomeGraph: Array<Object>,
-  +news: news,
+  +dateGraph: Array<dateGraph>,
+  +categoryGraph: Array<categoryGraph>,
+  +outcomeGraph: Array<outcomeGraph>,
+  +news: Array<news>,
   +message: string,
 }
 
