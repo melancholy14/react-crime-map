@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import {
   Modal,
   Loading,
+  Message,
   Button,
   Select,
   Checkbox,
@@ -19,6 +20,10 @@ storiesOf('Loading', module)
   .add('no loading screen', () => <Loading loading={false} />)
   .add('show loading screen', () => <Loading loading={true} />)
 
+storiesOf('Message', module)
+  .add('no message', () => <Message message="" />)
+  .add('with message', () => <Message message="Error Message" />)
+  
 storiesOf('Button', module)
   .add('with text', () => <Button onClick={action('Button -> with text -> onClick')}>with text</Button>)
   .add('without any props', () => <Button />)

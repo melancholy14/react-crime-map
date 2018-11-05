@@ -24,11 +24,11 @@ import {
 } from '../../utils/types';
 
 import {
-  Modal,
   Loading,
   Select,
   Button,
   Checkbox,
+  Message,
 } from '../../components';
 
 const SearchContainer = styled.div`
@@ -111,7 +111,6 @@ class Search extends React.PureComponent<Props, State> {
       minmax: [],
       crimeCheckboxes: [],
       selectedCategory: '',
-      showError: false,
     }
   }
 
@@ -119,13 +118,11 @@ class Search extends React.PureComponent<Props, State> {
     const {
       availability: prevAvailability,
       category: prevCategory,
-      message: prevMessage,
     } = prevProps;
 
     const {
       availability,
       category,
-      message,
     } = this.props;
 
     if (JSON.stringify(prevAvailability) !== JSON.stringify(availability)){
@@ -161,12 +158,6 @@ class Search extends React.PureComponent<Props, State> {
 
       this.setState({
         crimeCheckboxes,
-      });
-    }
-    
-    if (prevMessage !== message) {
-      this.setState({
-        showError: true,
       });
     }
   }
@@ -258,8 +249,6 @@ class Search extends React.PureComponent<Props, State> {
     this.props.onSearch(params);
   }
 
-  toggleModal = () => this.setState({ showError: !this.state.showError })
-
   render() {
     const {
       date: {
@@ -268,7 +257,6 @@ class Search extends React.PureComponent<Props, State> {
         dates = [],
       } = {},
       crimeCheckboxes,
-      showError,
     } = this.state;
 
     const {
@@ -320,15 +308,9 @@ class Search extends React.PureComponent<Props, State> {
           <Button onClick={this.search} className="grid-item whole-row">SEARCH</Button>
         </form>
         <Loading loading={loading} />
-        <Modal
-          title="Something goes wrong"
-          show={showError}
-          onClose={this.toggleModal}
-        >
-          <div style={{margin: '1rem', padding: '1rem 0.5rem'}}>
-            {message}
-          </div>
-        </Modal>
+        <Message
+          message={message}
+        />
       </SearchContainer>
     )
   }

@@ -25,7 +25,6 @@ type SearchPageState = {
     dates: Array<availability>,
   },
   minmax: string[],
-  showError: boolean,
   crimeCheckboxes: Array<{ url: string, name: string, checked: boolean }>,
   selectedCategory: string,
 }
