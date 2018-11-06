@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 
 import {
   Table, Tr, Th, Td,
@@ -10,8 +11,19 @@ import {
   NewsProps as Props,
 } from '../../utils/types';
 
+const NewsStyle = styled.div`
+  .tr {
+    line-height: 2rem;
+
+    .th, .td {
+      padding: 0 0.5rem;
+      font-size: smaller;
+    }
+  }
+`;
+
 const News = ({ news }: Props) => (
-  <div>
+  <NewsStyle>
     {
       news && news.map(({id, sectionName, pillarName, webTitle, webUrl, webPublicationDate }) =>
         (<Table key={id}>
@@ -34,7 +46,7 @@ const News = ({ news }: Props) => (
         </Table>
       ))
     }
-  </div>
+  </NewsStyle>
 );
 
 export default News;

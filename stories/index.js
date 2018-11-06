@@ -13,8 +13,8 @@ import {
 } from '../src/components';
 
 storiesOf('Modal', module)
-  .add('no title', () => <Modal show={true} onClose={action('Modal -> with text -> onClose')}>with text</Modal>)
-  .add('with text', () => <Modal title="title" show={true} onClose={action('Modal -> with text -> onClose')}>with text</Modal>)
+  .add('no title', () => <Modal show={true} onClose={action('Modal -> with text -> onClose')}>no title with text</Modal>)
+  .add('with title', () => <Modal title="title" show={true} onClose={action('Modal -> with title -> onClose')}>with title, text</Modal>)
 
 storiesOf('Loading', module)
   .add('no loading screen', () => <Loading loading={false} />)
@@ -23,7 +23,7 @@ storiesOf('Loading', module)
 storiesOf('Message', module)
   .add('no message', () => <Message message="" />)
   .add('with message', () => <Message message="Error Message" />)
-  
+
 storiesOf('Button', module)
   .add('with text', () => <Button onClick={action('Button -> with text -> onClick')}>with text</Button>)
   .add('without any props', () => <Button />)

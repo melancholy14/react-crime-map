@@ -1,13 +1,14 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
 import {
   searchRequest,
 } from './actions';
+
+import SearchStyle from './style';
 
 import {
   filterCrimeCircles,
@@ -30,62 +31,6 @@ import {
   Checkbox,
   Message,
 } from '../../components';
-
-const SearchContainer = styled.div`
-    order: 1;
-    margin: 0.5rem;
-    padding: 0.5rem;
-
-    .grid-container {
-      display: grid;
-      grid-template-rows: 2rem 2rem auto 2rem;
-      grid-template-columns: 4.5rem auto;
-
-      .grid-item {
-        padding: 0.5rem;
-
-        &.select {
-          padding: 0.25rem 0.5rem;
-        }
-
-        &.whole-row {
-          grid-column-start: 1;
-          grid-column-end: 3;
-
-          .each-crime {
-            display: inline-block;
-            min-width: 50%;
-            font-size: small;
-            line-height: 1rem;
-            vertical-align: middle;
-
-            label {
-              font-size: smaller;
-              font-weight: bolder;
-            }
-
-            .color {
-              width: 0.75rem;
-              height: 0.75rem;
-              display: inline-block;
-              border-radius: 0.5rem;
-              margin: 0 0.3rem;
-            }
-          }
-        }
-      }
-
-      & > label {
-        font-size: smaller;
-        text-transform: capitalize;
-        font-weight: bold;
-      }
-    }
-
-    button {     
-      padding: 0.3rem 1rem;
-    }
-`;
 
 class Search extends React.PureComponent<Props, State> {
   static defaultProps = {
@@ -266,7 +211,7 @@ class Search extends React.PureComponent<Props, State> {
     } = this.props;
 
     return (
-      <SearchContainer>
+      <SearchStyle>
         <form className="grid-container">
           <label htmlFor="select_date" className="grid-item">date</label>
           <div className="grid-item select">
@@ -311,13 +256,17 @@ class Search extends React.PureComponent<Props, State> {
         <Message
           message={message}
         />
-      </SearchContainer>
+      </SearchStyle>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  const { search: { category = [] } = {} } = state;
+  const {
+    search: {
+      category = [],
+    } = {},
+  } = state;
   
   return {
     ...state.search,
