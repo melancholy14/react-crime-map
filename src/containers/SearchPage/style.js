@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SearchStyle = styled.div`
+const SearchStyle = styled.aside`
   order: 1;
   margin: 0.5rem;
   padding: 0.5rem;

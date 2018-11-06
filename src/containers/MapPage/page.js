@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import styled from 'styled-components';
+
 import {
   Map, TileLayer,
   Marker, Popup,
@@ -19,6 +21,18 @@ import {
 
 const attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+const MapStyle = styled.main`
+  order: 2;
+    height: 32.5rem;
+    z-index: 0;
+
+    .leaflet-container {
+      height: 100%;
+      margin: 0.5rem;
+      border-radius: 1.5rem;
+    }
+`;
 
 class LeafletMap extends React.PureComponent {
   static propTypes = {
@@ -97,44 +111,46 @@ class LeafletMap extends React.PureComponent {
     } = this.state;
 
     return (
-      <Map
-        center={latlng}
-        ref={(val) => { this.map = val; }}
-        zoom={13}
-        onClick={this.handleClick}
-        onLocationfound={this.handleLocationFound}
-      >
-        <TileLayer
-          attribution={attribution}
-          url={url}
-        />
-        { latlng &&
-        <Marker position={[latlng.lat, latlng.lng]}>
-          <Popup>
-            {`You clicked here!!
-            Latitude: ${latlng.lat}
-            Longitude: ${latlng.lng}`}
-          </Popup>
-        </Marker> }
-        {
-          circles && circles.map(({latlng, street, radius, count, opacity = 0.5, fillColor}) => 
-          <Circle
-            fillColor={fillColor}
-            fillOpacity={opacity}
-            stroke={false}
-            radius={radius < 10 ? radius * 25 : 250}
-            center={latlng}
-            key={latlng}
-            onClick={this.handleCircle(street.id, latlng)}
-          >
+      <MapStyle className="map">
+        <Map
+          center={latlng}
+          ref={(val) => { this.map = val; }}
+          zoom={13}
+          onClick={this.handleClick}
+          onLocationfound={this.handleLocationFound}
+        >
+          <TileLayer
+            attribution={attribution}
+            url={url}
+          />
+          { latlng &&
+          <Marker position={[latlng.lat, latlng.lng]}>
             <Popup>
-            {`Street Id: ${street.id}
-            Street Name: ${street.name}
-            Crime Count: ${count}`}
+              {`You clicked here!!
+              Latitude: ${latlng.lat}
+              Longitude: ${latlng.lng}`}
             </Popup>
-          </Circle>)
-        }
-      </Map>
+          </Marker> }
+          {
+            circles && circles.map(({latlng, street, radius, count, opacity = 0.5, fillColor}) => 
+            <Circle
+              fillColor={fillColor}
+              fillOpacity={opacity}
+              stroke={false}
+              radius={radius < 10 ? radius * 25 : 250}
+              center={latlng}
+              key={latlng}
+              onClick={this.handleCircle(street.id, latlng)}
+            >
+              <Popup>
+              {`Street Id: ${street.id}
+              Street Name: ${street.name}
+              Crime Count: ${count}`}
+              </Popup>
+            </Circle>)
+          }
+        </Map>
+      </MapStyle>
     );
   }
 };

@@ -3,12 +3,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import styled from 'styled-components';
+
 import News from './news';
 import Graphs from './graphs';
 
 import {
   AnalysePageProps as Props
 } from '../../utils/types';
+
+const AnalyseStyle = styled.main`
+  order: 3;
+  padding: 1rem;
+`;
 
 class AnalysePage extends React.PureComponent<Props> {
   render(){
@@ -19,7 +26,7 @@ class AnalysePage extends React.PureComponent<Props> {
       news,
     } = this.props;
 
-    return (<div>
+    return (<AnalyseStyle>
       { dateGraph &&
         <section>
           <h3>Graphs</h3>
@@ -38,7 +45,7 @@ class AnalysePage extends React.PureComponent<Props> {
           />
         </section>
       }
-    </div>);
+    </AnalyseStyle>);
   }
 }
 

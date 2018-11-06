@@ -35,27 +35,6 @@ const AppDiv = styled.div`
       font-size: small;
     }
   }
-
-  aside {
-    order: 1;
-  }
-
-  .map {
-    order: 2;
-    height: 32.5rem;
-    z-index: 0;
-
-    .leaflet-container {
-      height: 100%;
-      margin: 0.5rem;
-      border-radius: 1.5rem;
-    }
-  }
-
-  .analyse {
-    order: 3;
-    padding: 1rem;
-  }
 `;
 
 type Props = {};
@@ -72,15 +51,9 @@ class App extends Component<Props> {
             <span className="smaller">Contact me: melancholy8914@gmail.com</span>
           </div>
         </header>
-        <aside>
-          <Search />
-        </aside>
-        <main className="map">
-          <LeafletMap />
-        </main>
-        <main className="analyse">
-          <Analyse />
-        </main>
+        <Search />
+        <LeafletMap />
+        <Analyse />
       </AppDiv>
     );
   }
