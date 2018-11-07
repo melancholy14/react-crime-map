@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import './index.css';
 
-import App from './containers/App';
+import App from './containers/AppPage';
 
 import reducers from './containers/reducers';
 import sagas from './containers/sagas';
