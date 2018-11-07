@@ -4,7 +4,7 @@ import React from 'react';
 
 const Checkbox = ({ id, value, checked, className, onChange }: {
   id: string,
-  value: any,
+  value: string | number,
   checked: boolean,
   className: string,
   onChange: Function,

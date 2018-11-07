@@ -50,27 +50,6 @@ const ModalDiv = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
-
-  // .modal-footer {
-  //   position: fixed;
-  //   top: calc(50% - 6rem + 10rem);
-  //   height: 3rem;
-  //   background-color: white;
-  //   width: 100%;
-  //   line-height: 3rem;
-  //   vertical-align: middle;
-  //   text-align: center;
-  //   border-top: 1px solid black;
-  //   box-sizing: border-box;
-
-  //   .close {
-  //     background-color: black;
-  //     color: white;
-  //     font-weight: bolder;
-  //     padding: 0.5rem 1rem;
-  //     border: 0;
-  //   }
-  // }
 `;
 
 const Modal = ({ title, show, onClose, children }: {

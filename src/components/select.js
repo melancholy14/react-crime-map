@@ -15,7 +15,7 @@ const DefaultSelect = styled.select`
 
 const Select = ({ id, value, options, onChange, className }: {
   id: string | number,
-  value: any,
+  value: string | number,
   className: string,
   options: Array<{ value: any, text?: string }>,
   onChange: Function,
