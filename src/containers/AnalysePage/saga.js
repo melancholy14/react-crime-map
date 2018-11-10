@@ -17,17 +17,17 @@ function* loadGraph({ id: streetId }){
     const crimes = yield select((state) => state.search.crimes);
     const selectedCrimes = crimes && crimes.filter(({ location: { street: { id } = {}, } = {}, }) => id === streetId);
 
-    const dateGraph = Object.entries(selectedCrimes.reduce((acc, ele) => ({
+    const date = Object.entries(selectedCrimes.reduce((acc, ele) => ({
       ...acc,
       [ele.month]: acc[ele.month] >= 0 ? acc[ele.month] + 1 : 0,
     }), {})).map(([date, count]) => ({ date, count }));
 
-    const categoryGraph = Object.entries(selectedCrimes.reduce((acc, ele) => ({
+    const category = Object.entries(selectedCrimes.reduce((acc, ele) => ({
       ...acc,
       [ele.category]: acc[ele.category] >= 0 ? acc[ele.category] + 1 : 0,
     }), {})).map(([category, count]) => ({ category, count }));
 
-    const outcomeGraph = Object.entries(selectedCrimes.reduce((acc, ele) => {
+    const outcome = Object.entries(selectedCrimes.reduce((acc, ele) => {
       const {
         outcome_status,
         outcomes: {
@@ -45,9 +45,9 @@ function* loadGraph({ id: streetId }){
     }, {})).map(([outcome, count]) => ({ outcome, count }));
 
     yield put(loadGraphsSuccess({
-      dateGraph,
-      categoryGraph,
-      outcomeGraph,
+      date,
+      category,
+      outcome,
     }));
   } catch(err) {
     yield put(loadGraphsFailure(err.message));

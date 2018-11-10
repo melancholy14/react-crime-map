@@ -53,9 +53,11 @@ type outcomeGraph = {
 };
 
 type GraphProps = {
-  date: Array<dateGraph>,
-  category: Array<categoryGraph>,
-  outcome: Array<outcomeGraph>,
+  graph: {
+    date: Array<dateGraph>,
+    category: Array<categoryGraph>,
+    outcome: Array<outcomeGraph>,
+  }
 };
 
 type news = {
@@ -72,16 +74,20 @@ type NewsProps = {
 };
 
 type AnalysePageProps = {
-  dateGraph: Array<dateGraph>,
-  categoryGraph: Array<categoryGraph>,
-  outcomeGraph: Array<outcomeGraph>,
+  graph: {
+    date: Array<dateGraph>,
+    category: Array<categoryGraph>,
+    outcome: Array<outcomeGraph>,
+  },
   news: Array<news>,
 };
 
 type AnalyseReducerState = {
-  +dateGraph: Array<dateGraph>,
-  +categoryGraph: Array<categoryGraph>,
-  +outcomeGraph: Array<outcomeGraph>,
+  +graph: {
+    +date: Array<dateGraph>,
+    +category: Array<categoryGraph>,
+    +outcome: Array<outcomeGraph>,
+  },
   +news: Array<news>,
   +message: string,
 }

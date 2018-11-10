@@ -15,9 +15,11 @@ import {
 } from '../../utils/types';
 
 const initialState = {
-  dateGraph: [],
-  categoryGraph: [],
-  outcomeGraph: [],
+  graph: {
+    date: [],
+    category: [],
+    outcome: [],
+  },
   news: [],
   message: '',
 }
@@ -26,9 +28,7 @@ export default function analyseReducer(state: State = initialState, action: Acti
   switch(action.type){
     case LOAD_GRAPHS_SUCCESS:
       return update(state, {
-        $merge: {
-          ...action.data
-        }
+        graph: {$set: action.data}
       });
     case LOAD_NEWS_SUCCESS:
       return update(state, {

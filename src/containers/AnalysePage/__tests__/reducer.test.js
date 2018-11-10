@@ -15,9 +15,11 @@ describe("reducer in AnalysePage", () => {
     const action = {
       type: LOAD_GRAPHS_SUCCESS,
       data: {
-        dateGraph: [{ date: '2018-01', count: 10 }],
-        categoryGraph: [{ category: 'drugs', count: 7 }],
-        outcomeGraph: [{ outcome: 'under-investigation', count: 5 }],
+        graph: {
+          date: [{ date: '2018-01', count: 10 }],
+          category: [{ category: 'drugs', count: 7 }],
+          outcome: [{ outcome: 'under-investigation', count: 5 }],
+        }
       },
     };
 
@@ -25,9 +27,11 @@ describe("reducer in AnalysePage", () => {
 
     const result = analyseReducer(state, action);
     expect(result).toEqual({
-      dateGraph: [{ date: '2018-01', count: 10 }],
-      categoryGraph: [{ category: 'drugs', count: 7 }],
-      outcomeGraph: [{ outcome: 'under-investigation', count: 5 }],
+      graph: {
+        date: [{ date: '2018-01', count: 10 }],
+        category: [{ category: 'drugs', count: 7 }],
+        outcome: [{ outcome: 'under-investigation', count: 5 }],
+      }
     });
   });
 

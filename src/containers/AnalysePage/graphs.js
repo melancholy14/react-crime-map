@@ -16,9 +16,11 @@ import {
 
 const Graphs = (props: Props) => {
   const {
-    date,
-    category,
-    outcome,
+    graph: {
+      date,
+      category,
+      outcome,
+    } = {},
   } = props;
   
   const width = window.innerWidth - 35;

@@ -20,20 +20,16 @@ const AnalyseStyle = styled.main`
 class AnalysePage extends React.PureComponent<Props> {
   render(){
     const {
-      dateGraph,
-      categoryGraph,
-      outcomeGraph,
+      graph,
       news,
     } = this.props;
 
     return (<AnalyseStyle>
-      { dateGraph &&
+      { graph &&
         <section>
           <h3>Graphs</h3>
           <Graphs
-            date={dateGraph}
-            category={categoryGraph}
-            outcome={outcomeGraph}
+            graph={graph}
           />
         </section>
       }

@@ -12,23 +12,23 @@ describe("actions in AnalysePage", () => {
     const id = "0";
     store.dispatch(loadGraphsRequest(id));
 
-    expect(store.getState().analyse.dateGraph.length).toBe(0);
-    expect(store.getState().analyse.categoryGraph.length).toBe(0);
-    expect(store.getState().analyse.outcomeGraph.length).toBe(0);
+    expect(store.getState().analyse.graph.date.length).toBe(0);
+    expect(store.getState().analyse.graph.category.length).toBe(0);
+    expect(store.getState().analyse.graph.outcome.length).toBe(0);
   });
 
   it("loadGraphsSuccess", () => {
     const response = {
-      dateGraph: [{ date: '2018-01', count: 10 }],
-      categoryGraph: [{ category: 'drugs', count: 7 }],
-      outcomeGraph: [{ outcome: 'under-investigation', count: 5 }],
+      date: [{ date: '2018-01', count: 10 }],
+      category: [{ category: 'drugs', count: 7 }],
+      outcome: [{ outcome: 'under-investigation', count: 5 }],
     };
 
     store.dispatch(loadGraphsSuccess(response));
 
-    expect(store.getState().analyse.dateGraph.length).toBe(1);
-    expect(store.getState().analyse.categoryGraph.length).toBe(1);
-    expect(store.getState().analyse.outcomeGraph.length).toBe(1);
+    expect(store.getState().analyse.graph.date.length).toBe(1);
+    expect(store.getState().analyse.graph.category.length).toBe(1);
+    expect(store.getState().analyse.graph.outcome.length).toBe(1);
   });
 
   it("loadGraphsFailure", () => {

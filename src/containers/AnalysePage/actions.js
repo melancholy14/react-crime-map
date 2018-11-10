@@ -15,7 +15,7 @@ export function loadGraphsRequest(id: string) {
   }
 }
 
-export function loadGraphsSuccess(data: { dateGraph: Array<Object>, categoryGraph: Array<Object>, outcomeGraph: Array<Object>}) {
+export function loadGraphsSuccess(data: { date: Array<Object>, category: Array<Object>, outcome: Array<Object>}) {
   return {
     type: LOAD_GRAPHS_SUCCESS,
     data,
