@@ -15,6 +15,10 @@ import {
 const AnalyseStyle = styled.main`
   order: 3;
   padding: 1rem;
+
+  .graph {
+    display: inline-block;
+  }
 `;
 
 class AnalysePage extends React.PureComponent<Props> {

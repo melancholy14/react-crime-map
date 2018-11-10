@@ -8,7 +8,7 @@ const TableDiv = styled.div`
   display: table;
 
   box-shadow: 1.5px 2px 1px 1px;
-  // border-radius: 0.5rem;
+  border-radius: 0.5rem;
   width: -webkit-fill-available;
   padding: 0.5rem;
 
@@ -19,6 +19,7 @@ const TableDiv = styled.div`
   .th {
     display: table-cell;
     font-weight: 600;
+    width: 4rem;
   }
 
   .td {
@@ -32,8 +33,7 @@ const Td = ({ children }: { children: any }) => (<div className="td">{ children 
 
 const Tr = ({ children }: { children: Array<any> }) => (<div className="tr">{ children }</div>);
 
-const Table = ({ children }: { children: Array<typeof Tr> }) => (<TableDiv>{ children }</TableDiv>);
-
+const Table = ({ children }: { children: Array<typeof Tr> }) => (<TableDiv className="table">{ children }</TableDiv>);
 
 export {
   Table,

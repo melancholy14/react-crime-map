@@ -12,6 +12,15 @@ import {
 } from '../../utils/types';
 
 const NewsStyle = styled.div`
+  .table {
+    display: inline-table;
+    width: 95%;
+
+    @media screen and (min-width: 768px) {
+      width: 45%;
+      margin: 0.5rem;
+    }
+  }
   .tr {
     line-height: 2rem;
 

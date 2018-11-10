@@ -23,7 +23,18 @@ const SearchStyle = styled.aside`
 
         .each-crime {
           display: inline-block;
+
           min-width: 50%;
+          @media screen and (max-width: 400px) {
+            min-width: 75%;
+          }
+          @media screen and (min-width: 768px) {
+            min-width: calc(100%/3);
+          }
+          @media screen and (min-width: 1024px) {
+            min-width: 25%;
+          }
+
           font-size: small;
           line-height: 1rem;
           vertical-align: middle;

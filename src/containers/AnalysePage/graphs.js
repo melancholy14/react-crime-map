@@ -23,11 +23,17 @@ const Graphs = (props: Props) => {
     } = {},
   } = props;
   
-  const width = window.innerWidth - 35;
+  let width = window.innerWidth;
+  if (width >= 1024) {
+    width = width / 3;
+  } else if (width >= 768) {
+    width = width / 2;
+  }
+  width = width - 35;
 
   return (<div>
     { date && date.length > 0 && 
-    <div>
+    <div className="graph">
       <p>The number of crimes per Date</p>
       <LineChart
         width={width}
@@ -43,7 +49,7 @@ const Graphs = (props: Props) => {
       </div>
     }
     { category && category.length > 1 &&
-      <div>
+      <div className="graph">
         <p>The number of crimes per Category</p>
         <BarChart
           width={width}
@@ -59,7 +65,7 @@ const Graphs = (props: Props) => {
       </div>
     }
     { outcome && outcome.length > 0 &&
-      <div>
+      <div className="graph">
         <p>The ratio of crimes per Outcome</p>
         <BarChart
           width={width}
