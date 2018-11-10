@@ -3,26 +3,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Modal from './modal';
+import { HashLoader } from 'react-spinners';
 
-import iu from '../assets/iu.gif'
-import boa from '../assets/boa.gif';
+const LoadingDiv = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
 
-const LoadingDiv = styled.div` 
-  img {
-    width: 100%;
+  & > div {
+    margin: 15rem auto;
   }
 `;
 
 const Loading = ({ loading }: { loading: boolean }) => (
-  <Modal
-    title="Loading..."
-    show={loading}
-  >
-    <LoadingDiv>
-      <img src={Math.round(Math.random()) % 2 === 0 ? boa : iu} alt="loading..." />
-    </LoadingDiv>
-  </Modal>
+  <LoadingDiv className={`display-${loading ? 'block' : 'none'}`}>
+    <HashLoader
+      color="#fff"
+      loading={loading}
+    />
+  </LoadingDiv>
 );
 
 export default Loading;
