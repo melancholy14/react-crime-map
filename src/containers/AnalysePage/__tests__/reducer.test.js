@@ -15,11 +15,9 @@ describe("reducer in AnalysePage", () => {
     const action = {
       type: LOAD_GRAPHS_SUCCESS,
       data: {
-        graph: {
-          date: [{ date: '2018-01', count: 10 }],
-          category: [{ category: 'drugs', count: 7 }],
-          outcome: [{ outcome: 'under-investigation', count: 5 }],
-        }
+        date: [{ date: '2018-01', count: 10 }],
+        category: [{ category: 'drugs', count: 7 }],
+        outcome: [{ outcome: 'under-investigation', count: 5 }],
       },
     };
 

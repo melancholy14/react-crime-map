@@ -1,13 +1,13 @@
-type availability = {
+export type availability = {
   date: string,
 };
 
-type category = {
+export type category = {
   url: string,
   name: string,
 };
 
-type SearchPageProps = {
+export type SearchPageProps = {
   availability: Array<availability>,
   category: Array<category>,
   crimes: Array<Object>,
@@ -18,7 +18,7 @@ type SearchPageProps = {
   onSearch: Function,
 }
 
-type SearchPageState = {
+export type SearchPageState = {
   date: {
     min: string,
     max: string,
@@ -29,7 +29,7 @@ type SearchPageState = {
   selectedCategory: string,
 }
 
-type SearchReducerState = {
+export type SearchReducerState = {
   +availability: Array<availability>,
   +category: Array<category>,
   +crimes: Array<Object>,
@@ -37,22 +37,22 @@ type SearchReducerState = {
   +loading: boolean,
 }
 
-type dateGraph = {
+export type dateGraph = {
   date: string,
   count: number,
 };
 
-type categoryGraph = {
+export type categoryGraph = {
   category: string,
   count: number,
 };
 
-type outcomeGraph = {
+export type outcomeGraph = {
   outcome: string,
   count: number,
 };
 
-type GraphProps = {
+export type GraphProps = {
   graph: {
     date: Array<dateGraph>,
     category: Array<categoryGraph>,
@@ -60,7 +60,7 @@ type GraphProps = {
   }
 };
 
-type news = {
+export type news = {
   id: string,
   sectionName: string,
   pillarName: string,
@@ -69,11 +69,11 @@ type news = {
   webPublicationDate: string,
 };
 
-type NewsProps = {
+export type NewsProps = {
   news: Array<news>
 };
 
-type AnalysePageProps = {
+export type AnalysePageProps = {
   graph: {
     date: Array<dateGraph>,
     category: Array<categoryGraph>,
@@ -82,7 +82,7 @@ type AnalysePageProps = {
   news: Array<news>,
 };
 
-type AnalyseReducerState = {
+export type AnalyseReducerState = {
   +graph: {
     +date: Array<dateGraph>,
     +category: Array<categoryGraph>,
@@ -92,19 +92,8 @@ type AnalyseReducerState = {
   +message: string,
 }
 
-type Action = {
+export type Action = {
   type: string,
   data?: any,
   message?: string,
-};
-
-export {
-  SearchPageProps,
-  SearchPageState,
-  SearchReducerState,
-  AnalysePageProps,
-  GraphProps,
-  NewsProps,
-  AnalyseReducerState,
-  Action,
 };
