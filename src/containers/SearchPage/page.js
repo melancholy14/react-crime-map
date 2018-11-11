@@ -15,7 +15,6 @@ import {
 } from '../MapPage/actions';
 
 import {
-  categoryColors,
   allCrime,
 } from '../../utils/constants';
 
@@ -26,11 +25,10 @@ import {
 
 import {
   Loading,
-  Select,
-  Button,
-  Checkbox,
   Message,
 } from '../../components';
+
+import SearchForm from './form';
 
 class Search extends React.PureComponent<Props, State> {
   static defaultProps = {
@@ -53,9 +51,9 @@ class Search extends React.PureComponent<Props, State> {
         max: '',
         dates: [],
       },
-      minmax: [],
+      // minmax: [],
       crimeCheckboxes: [],
-      selectedCategory: '',
+      // selectedCategory: '',
     }
   }
 
@@ -79,10 +77,7 @@ class Search extends React.PureComponent<Props, State> {
           ...this.state.date,
         });
 
-      const minmax = [date.min, date.max];
-
       this.setState({
-        minmax,
         date,
       });
     }
@@ -107,43 +102,22 @@ class Search extends React.PureComponent<Props, State> {
     }
   }
 
-  changeDate = (type) => (evt) => {
-    const { value } = evt.target;
+  // changeCategory = (evt) => {
+  //   let crimeCheckboxes = [];
+  //   if (evt.target.value === allCrime.url) {
+  //     crimeCheckboxes = this.props.category.map((ele) => {
+  //       return {
+  //         ...ele,
+  //         checked: true,
+  //       }
+  //     });
+  //   }
 
-    if(value) {
-      const minmax = [...this.state.minmax];
-      minmax[type === 'min' ? 0 : 1] = value;
-      // minmax.sort((a, b) => a > b);
-      minmax.sort((a, b) => a.localeCompare(b));
-
-      const date = {
-        ...this.state.date,
-        [type]: value,
-      };
-
-      this.setState({
-        minmax,
-        date,
-      });
-    }
-  }
-
-  changeCategory = (evt) => {
-    let crimeCheckboxes = [];
-    if (evt.target.value === allCrime.url) {
-      crimeCheckboxes = this.props.category.map((ele) => {
-        return {
-          ...ele,
-          checked: true,
-        }
-      });
-    }
-
-    this.setState({
-      crimeCheckboxes,
-      selectedCategory: evt.target.value,
-    });
-  }
+  //   this.setState({
+  //     crimeCheckboxes,
+  //     selectedCategory: evt.target.value,
+  //   });
+  // }
 
   checkCategory = (url) => (evt) => {
     const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
@@ -170,26 +144,39 @@ class Search extends React.PureComponent<Props, State> {
     this.props.onFilterCrimeCategory(this.props.crimes, list);
   }
 
-  search = (evt) => {
-    evt.preventDefault();
+  search = (value) => {
+    // evt.preventDefault();
+
+    console.log(value);
+    console.log(this.state);
 
     const {
-      minmax,
+      minDate: min_date,
+      maxDate: max_date,
+      selectCategory,
+    } = value;
+
+    const {
       date,
-      selectedCategory,
     } = this.state;
 
+    const defaultDateValue = date.dates[0].value;
+    const minDate = min_date || defaultDateValue;
+    const maxDate = max_date || defaultDateValue;
+
     const dates = date.dates.reduce((acc, ele) => {
-      if (minmax[0] <= ele.value && ele.value <= minmax[1]) {
+      if (minDate <= ele.value && ele.value <= maxDate) {
         return [...acc, ele.value];
       }
       return acc;
     }, []).sort((a, b) => a.localeCompare(b));
 
     const params = {
-      url: selectedCategory || allCrime.url,
+      url: selectCategory || allCrime.url,
       dates,
     };
+
+    console.log(params);
 
     this.props.onSearch(params);
   }
@@ -199,8 +186,8 @@ class Search extends React.PureComponent<Props, State> {
       date: {
         min,
         max,
-        dates = [],
-      } = {},
+        dates,
+      },
       crimeCheckboxes,
     } = this.state;
 
@@ -212,46 +199,21 @@ class Search extends React.PureComponent<Props, State> {
 
     return (
       <SearchStyle>
-        <form className="grid-container">
-          <label htmlFor="select_date" className="grid-item">date</label>
-          <div className="grid-item select">
-            <Select
-              onChange={this.changeDate('min')}
-              value={min}
-              options={dates}
-            />
-            <span> ~ </span>
-            <Select
-              onChange={this.changeDate('max')}
-              value={max}
-              options={dates}
-            />
-          </div>
-          <label htmlFor="select_category" className="grid-item">category</label>
-          <div className="grid-item select">
-            <Select
-              id="select_category"
-              onChange={this.changeCategory}
-              options={category}
-            />
-          </div>
-          { crimeCheckboxes &&
-          <div className="grid-item whole-row">
-            {
-              crimeCheckboxes && crimeCheckboxes.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
-                <Checkbox
-                  value={url}
-                  id={`checkbox_${url}`}
-                  onChange={this.checkCategory(url)}
-                  checked={checked}
-                />
-                <label htmlFor={`checkbox_${url}`}>{name}</label>
-                <span className="color" style={{backgroundColor: categoryColors[url]}}></span>
-              </div>))
-            }
-          </div> }
-          <Button onClick={this.search} className="grid-item whole-row">SEARCH</Button>
-        </form>
+        <SearchForm
+          dates={dates}
+          // onChangeDate={this.changeDate}
+          category={category}
+          crimeCheckboxes={crimeCheckboxes}
+          // onChangeCategory={this.changeCategory}
+          onCheckCategory={this.checkCategory}
+          // onSearch={this.search}
+          onSubmit={this.search}
+          initialValues={{
+            minDate: min,
+            maxDate: max,
+            selectCategory: allCrime.url,
+          }}
+        />
         <Loading loading={loading} />
         <Message
           message={message}

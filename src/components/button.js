@@ -14,8 +14,9 @@ const DefaultButton = styled.button`
   font-family: inherit;
 `;
 
-const Button = ({ onClick, className, children }: { onClick: Function, className: string, children: any }) => (
-  <DefaultButton onClick={onClick} className={className}>
+const Button = ({ onClick, className, children, ...props }:
+  { onClick: Function, className: string, type?: string, children: any }) => (
+  <DefaultButton onClick={onClick} className={className} {...props} >
     { children }
   </DefaultButton>
 );
