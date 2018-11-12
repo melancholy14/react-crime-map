@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { Form, reduxForm } from 'redux-form';
+import styled from 'styled-components';
 
 import {
   categoryColors,
@@ -11,6 +12,14 @@ import {
   Button,
   Checkbox,
 } from '../../components';
+
+import GridItem from './gridItem';
+
+const StyledForm = styled(Form)`
+  display: grid;
+  grid-template-rows: 2rem 2rem auto 2rem;
+  grid-template-columns: 4.5rem auto;
+`;
 
 const SearchForm = ({
   dates,
@@ -27,9 +36,11 @@ const SearchForm = ({
   onCheckCategory: Function,
   handleSubmit: Function,
 }) => (
-  <Form className="grid-container" onSubmit={handleSubmit}>
-    <label htmlFor="select_date" className="grid-item">date</label>
-    <div className="grid-item select" id="select_date">
+  <StyledForm className="grid-container" onSubmit={handleSubmit}>
+    <GridItem>
+      <label htmlFor="select_date">date</label>
+    </GridItem>
+    <GridItem className="select" id="select_date">
       <Select
         name="minDate"
         options={dates}
@@ -39,17 +50,19 @@ const SearchForm = ({
         name="maxDate"
         options={dates}
       />
-    </div>
-    <label htmlFor="select_category" className="grid-item">category</label>
-    <div className="grid-item select">
+    </GridItem>
+    <GridItem>
+      <label htmlFor="select_category">category</label>
+    </GridItem>
+    <GridItem className="select">
       <Select
         name="selectCategory"
-        id="selectCategory"
+        id="select_category"
         options={category}
       />
-    </div>
+    </GridItem>
     { crimeCheckboxes &&
-    <div className="grid-item whole-row">
+    <GridItem className="whole-row">
       {
         crimeCheckboxes && crimeCheckboxes.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
           <Checkbox
@@ -62,9 +75,11 @@ const SearchForm = ({
           <span className="color" style={{ backgroundColor: categoryColors[url] }}></span>
         </div>))
       }
-    </div> }
-    <Button type="submit" className="grid-item whole-row">SEARCH</Button>
-  </Form>
+    </GridItem> }
+    <GridItem className="whole-row">
+      <Button type="submit">SEARCH</Button>
+    </GridItem>
+  </StyledForm>
 );
 
 export default reduxForm({

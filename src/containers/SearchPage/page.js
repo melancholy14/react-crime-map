@@ -1,14 +1,12 @@
 // @flow
 
 import React from 'react';
-
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import {
   searchRequest,
 } from './actions';
-
-import SearchStyle from './style';
 
 import {
   filterCrimeCircles,
@@ -29,6 +27,12 @@ import {
 } from '../../components';
 
 import SearchForm from './form';
+
+const SearchStyle = styled.aside`
+  order: 1;
+  margin: 0.5rem;
+  padding: 0.5rem;
+`;
 
 class Search extends React.PureComponent<Props, State> {
   static defaultProps = {
