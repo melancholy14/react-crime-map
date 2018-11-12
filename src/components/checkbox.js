@@ -1,21 +1,22 @@
 // @flow
 
 import React from 'react';
+import { Field } from 'redux-form';
 
-const Checkbox = ({ id, value, checked, className, onChange }: {
-  id: string,
-  value: string | number,
+const Checkbox = ({ id, name, checked, className, onChange, ...props }: {
+  id: string | number,
+  name: string,
   checked: boolean,
   className: string,
   onChange: Function,
 }) => (
-  <input
+  <Field
+    component="input"
     type="checkbox"
+    name={name}
     id={id}
-    value={value}
     onChange={onChange}
     checked={checked}
-    className={className}
   />
 );
 

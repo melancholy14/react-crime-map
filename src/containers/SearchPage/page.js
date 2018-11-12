@@ -77,6 +77,8 @@ class Search extends React.PureComponent<Props, State> {
           ...this.state.date,
         });
 
+        console.log('date', date);
+
       this.setState({
         date,
       });
@@ -95,6 +97,8 @@ class Search extends React.PureComponent<Props, State> {
         }
         return acc;
       }, []);
+
+      console.log('crimeCheckboxes', crimeCheckboxes);
 
       this.setState({
         crimeCheckboxes,
@@ -119,7 +123,7 @@ class Search extends React.PureComponent<Props, State> {
   //   });
   // }
 
-  checkCategory = (url) => (evt) => {
+  checkCategory = (url) => (evt, value, prevValue, name) => {
     const crimeCheckboxes = this.state.crimeCheckboxes.map((ele) => {
       if (ele.url === url) {
         return {
@@ -145,8 +149,6 @@ class Search extends React.PureComponent<Props, State> {
   }
 
   search = (value) => {
-    // evt.preventDefault();
-
     console.log(value);
     console.log(this.state);
 

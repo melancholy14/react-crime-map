@@ -24,9 +24,7 @@ export type SearchPageState = {
     max: string,
     dates: Array<availability>,
   },
-  minmax: string[],
   crimeCheckboxes: Array<{ url: string, name: string, checked: boolean }>,
-  selectedCategory: string,
 }
 
 export type SearchReducerState = {
