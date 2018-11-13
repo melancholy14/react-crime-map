@@ -35,7 +35,7 @@ export default function searchReducer(state: State = initialState, action: Actio
       });
     case LOAD_AVAILABILITY_SUCCESS:
       return update(state, {
-        availability: {$set: action.data}
+        availability: {$set: action.data},
       });
     case LOAD_CRIME_CATEGORY_SUCCESS:
       return update(state, {

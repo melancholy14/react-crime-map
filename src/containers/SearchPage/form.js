@@ -24,19 +24,19 @@ const StyledForm = styled(Form)`
 const SearchForm = ({
   dates,
   category,
-  crimeCheckboxes,
+  crimes,
   // onChangeCategory,
   onCheckCategory,
   handleSubmit,
 }: {
   dates: Array<Object>,
   category: Array<Object>,
-  crimeCheckboxes: Array<{ url: string, name: string, checked: boolean }>,
+  crimes: Array<{ url: string, name: string, checked: boolean }>,
   // onChangeCategory: Function,
   onCheckCategory: Function,
   handleSubmit: Function,
 }) => (
-  <StyledForm className="grid-container" onSubmit={handleSubmit}>
+  <StyledForm onSubmit={handleSubmit}>
     <GridItem>
       <label htmlFor="select_date">date</label>
     </GridItem>
@@ -61,12 +61,12 @@ const SearchForm = ({
         options={category}
       />
     </GridItem>
-    { crimeCheckboxes &&
+    { crimes &&
     <GridItem className="whole-row">
       {
-        crimeCheckboxes && crimeCheckboxes.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
+        crimes && crimes.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
           <Checkbox
-            name={`checkbox_${url}`}
+            name={url}
             id={`checkbox_${url}`}
             onChange={onCheckCategory(url)}
             checked={checked}
