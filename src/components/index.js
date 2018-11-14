@@ -6,6 +6,7 @@ import Message from './message';
 import Select from './select';
 import Button from './button';
 import Checkbox from './checkbox';
+import CustomField from './field';
 
 export {
   Modal,
@@ -15,4 +16,5 @@ export {
   Select,
   Button,
   Checkbox,
+  CustomField,
 };

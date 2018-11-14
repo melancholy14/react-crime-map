@@ -5,12 +5,12 @@ import styled from 'styled-components';
 
 import {
   categoryColors,
+  allCrime,
 } from '../../utils/constants';
 
 import {
-  Select,
   Button,
-  Checkbox,
+  CustomField as Field,
 } from '../../components';
 
 import GridItem from './gridItem';
@@ -24,15 +24,11 @@ const StyledForm = styled(Form)`
 const SearchForm = ({
   dates,
   category,
-  crimes,
-  // onChangeCategory,
   onCheckCategory,
   handleSubmit,
 }: {
   dates: Array<Object>,
-  category: Array<Object>,
-  crimes: Array<{ url: string, name: string, checked: boolean }>,
-  // onChangeCategory: Function,
+  category: Array<{ url: string, name: string, checked: boolean }>,
   onCheckCategory: Function,
   handleSubmit: Function,
 }) => (
@@ -41,41 +37,41 @@ const SearchForm = ({
       <label htmlFor="select_date">date</label>
     </GridItem>
     <GridItem className="select" id="select_date">
-      <Select
+      <Field.Select
         name="minDate"
         options={dates}
       />
       <span> ~ </span>
-      <Select
+      <Field.Select
         name="maxDate"
         options={dates}
       />
     </GridItem>
     <GridItem>
-      <label htmlFor="select_category">category</label>
+      <label htmlFor="postcode">postcode</label>
     </GridItem>
     <GridItem className="select">
-      <Select
-        name="selectCategory"
-        id="select_category"
-        options={category}
+      <Field.Text
+        name="postcode"
+        id="postcode"
       />
     </GridItem>
-    { crimes &&
     <GridItem className="whole-row">
       {
-        crimes && crimes.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
-          <Checkbox
+        category && category.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
+          <Field.Checkbox
             name={url}
             id={`checkbox_${url}`}
-            onChange={onCheckCategory(url)}
+            onChange={onCheckCategory}
             checked={checked}
           />
           <label htmlFor={`checkbox_${url}`}>{name}</label>
-          <span className="color" style={{ backgroundColor: categoryColors[url] }}></span>
+          { url !== allCrime.url && 
+            <span className="color" style={{ backgroundColor: categoryColors[url] }}></span>
+          }
         </div>))
       }
-    </GridItem> }
+    </GridItem>
     <GridItem className="whole-row">
       <Button type="submit">SEARCH</Button>
     </GridItem>

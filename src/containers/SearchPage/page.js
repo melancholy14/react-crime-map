@@ -106,28 +106,11 @@ class Search extends React.PureComponent<Props, State> {
     }
   }
 
-  // changeCategory = (evt) => {
-  //   let crimeCheckboxes = [];
-  //   if (evt.target.value === allCrime.url) {
-  //     crimeCheckboxes = this.props.category.map((ele) => {
-  //       return {
-  //         ...ele,
-  //         checked: true,
-  //       }
-  //     });
-  //   }
-
-  //   this.setState({
-  //     crimeCheckboxes,
-  //     selectedCategory: evt.target.value,
-  //   });
-  // }
-
-  checkCategory = (url) => (evt, value, prevValue, name) => {
+  checkCategory = (evt, value, prevValue, name) => {
     console.log(value, name);
 
     const checkboxes = this.state.checkboxes.map((ele) => {
-      if (ele.url === url) {
+      if (ele.url === name) {
         return {
           ...ele,
           checked: evt.target.checked,
@@ -189,7 +172,6 @@ class Search extends React.PureComponent<Props, State> {
 
   render() {
     const {
-      category = [allCrime],
       message,
       loading,
     } = this.props;
@@ -205,9 +187,7 @@ class Search extends React.PureComponent<Props, State> {
       <SearchStyle>
         <SearchForm
           dates={dates}
-          category={category}
-          crimes={checkboxes}
-          // onChangeCategory={this.changeCategory}
+          category={checkboxes}
           onCheckCategory={this.checkCategory}
           onSubmit={this.search}
         />
@@ -221,19 +201,19 @@ class Search extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state) => {
-  const {
-    search: {
-      category = [],
-    } = {},
-  } = state;
+  // const {
+  //   search: {
+  //     category = [],
+  //   } = {},
+  // } = state;
   
   return {
     ...state.search,
-    category: category.map((ele) => ({
-      ...ele,
-      value: ele.url,
-      text: ele.name,
-    })),
+    // category: category.map((ele) => ({
+    //   ...ele,
+    //   value: ele.url,
+    //   text: ele.name,
+    // })),
   }
 }
 
