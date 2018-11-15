@@ -90,6 +90,17 @@ export type AnalyseReducerState = {
   +message: string,
 }
 
+export type Location = {
+  lat: number,
+  lng: number,
+};
+
+export type MapReducerState = {
+  +latlng: Location,
+  +circles: Array<Object>,
+  +message: string,
+}
+
 export type Action = {
   type: string,
   data?: any,

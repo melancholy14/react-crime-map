@@ -1,4 +1,11 @@
+// @flow
+
 import update from 'immutability-helper';
+
+import {
+  MapReducerState as State,
+  Action,
+} from '../../utils/types';
 
 import {
   SAVE_LOCATION,
@@ -13,7 +20,7 @@ const initialState = {
   circles: [],
 };
 
-export default function mapReducer(state = initialState, action){
+export default function mapReducer(state: State = initialState, action: Action){
   switch(action.type) {
     case SAVE_LOCATION:
       return update(state, {
