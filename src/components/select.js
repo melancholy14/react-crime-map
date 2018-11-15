@@ -1,10 +1,9 @@
 // @flow
 
 import React from 'react';
-import { Field } from 'redux-form';
 import styled from 'styled-components';
 
-const SelectField = styled(Field)`
+const StyledSelect = styled.select`
   border: 1px solid lightgray;
   border-radius: 0.5rem;
   height: 1.5rem;
@@ -21,8 +20,7 @@ const Select = ({ id, name, value, options, onChange, className, ...props }: {
   options: Array<{ value: any, text?: string }>,
   onChange: Function,
 }) => (
-  <SelectField
-    component="select"
+  <StyledSelect
     id={id}
     name={name}
     onChange={onChange}
@@ -32,7 +30,7 @@ const Select = ({ id, name, value, options, onChange, className, ...props }: {
   {
     options && options.map(({value: val, text = val}) => <option key={val} value={val}>{text}</option>)  
   }
-  </SelectField>
+  </StyledSelect>
 );
 
 export default Select;
