@@ -137,6 +137,8 @@ class Search extends React.PureComponent<Props, State> {
       dates,
     };
 
+    console.log(params);
+
     this.props.onSearch(params);
   }
 

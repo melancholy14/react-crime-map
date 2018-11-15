@@ -48,11 +48,13 @@ export function searchRequest ({
   minDate: min_date,
   maxDate: max_date,
   dates: _dates,
+  postcode,
 }: {
   selectCategory: string,
   minDate: string,
   maxDate: string,
   dates: Array<{ value: string }>,
+  postcode: string,
 }) {
   const defaultDateValue = _dates[0].value;
   const minDate = min_date || defaultDateValue;
@@ -68,6 +70,7 @@ export function searchRequest ({
   const data = {
     url: selectCategory || allCrime.url,
     dates,
+    postcode,
   };
 
   return {

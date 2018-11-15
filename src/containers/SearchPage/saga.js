@@ -1,7 +1,7 @@
 // @flow
 
 import { fork, put, takeLatest, select, all } from 'redux-saga/effects';
-import { api, request } from '../../utils/request';
+import { api, keys, request } from '../../utils/request';
 
 import {
   LOAD_CRIME_CATEGORY_REQUEST,
@@ -16,6 +16,7 @@ import {
 
 import {
   filterCrimeCircles,
+  saveLocation,
 } from '../MapPage/actions';
 
 function* loadAvailability() {
@@ -42,9 +43,46 @@ function* loadCrimeCategory({ date: _date } = {}) {
   }
 }
 
-function* search({ data: { url, dates }} = {}) {
+function* search({
+  data: {
+    url,
+    dates,
+    postcode,
+  }} = {}) {
   try {
-    const { lat, lng } = yield select((state) => state.map.latlng);
+    const { lat: _lat, lng: _lng } = yield select((state) => state.map.latlng);
+
+    console.log(postcode);
+    let lat = _lat;
+    let lng = _lng;
+    if (postcode) {
+      const obj = {
+        options :{},
+        location: {
+          street: '',
+          city: '',
+          state: '',
+          postalCode: postcode,
+          adminArea1: 'GB',
+        }
+      };
+
+      const url = `${api.mapquest}/address?key=${keys.mapquest}&json=${JSON.stringify(obj)}`;
+      const {
+        data: {
+          results,
+        } = {},
+      } = yield request(url);
+
+      if (results && results.length > 0) {
+        const {
+          locations,
+        } = results[0];
+
+        lat = locations[0].latLng.lat;
+        lng = locations[0].latLng.lng;
+      }
+    }
 
     if (lat && lng && dates && dates.length > 0) {
       const responses = yield all(dates.map((date) => request(`${api.police}/crimes-street/${url}?lat=${lat}&lng=${lng}&date=${date}`)));
@@ -53,6 +91,7 @@ function* search({ data: { url, dates }} = {}) {
         return [...acc, ...(response && response.data)];
       }, []);
 
+      yield put(saveLocation({ lat, lng }));
       yield put(searchSuccess(data));
       yield put(filterCrimeCircles(data))
     } else {
