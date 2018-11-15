@@ -13,10 +13,6 @@ import {
 } from '../MapPage/actions';
 
 import {
-  allCrime,
-} from '../../utils/constants';
-
-import {
   SearchPageProps as Props,
   SearchPageState as State,
 } from '../../utils/types';
@@ -80,8 +76,6 @@ class Search extends React.PureComponent<Props, State> {
           ...this.state.date,
         });
 
-        console.log('date', date);
-
       this.setState({
         date,
       });
@@ -97,8 +91,6 @@ class Search extends React.PureComponent<Props, State> {
             }
           ];
       }, []);
-
-      console.log('checkboxes', checkboxes);
 
       this.setState({
         checkboxes,
@@ -119,8 +111,6 @@ class Search extends React.PureComponent<Props, State> {
       return ele;
     });
 
-    console.log(checkboxes);
-
     const list = checkboxes.reduce((acc, ele) => {
       if(ele.checked) {
         return [...acc, ele.url];
@@ -136,36 +126,16 @@ class Search extends React.PureComponent<Props, State> {
   }
 
   search = (value) => {
-    console.log(value);
-    console.log(this.state);
-
     const {
-      minDate: min_date,
-      maxDate: max_date,
-      selectCategory,
-    } = value;
-
-    const {
-      date,
+      date: {
+        dates,
+      } = {},
     } = this.state;
 
-    const defaultDateValue = date.dates[0].value;
-    const minDate = min_date || defaultDateValue;
-    const maxDate = max_date || defaultDateValue;
-
-    const dates = date.dates.reduce((acc, ele) => {
-      if (minDate <= ele.value && ele.value <= maxDate) {
-        return [...acc, ele.value];
-      }
-      return acc;
-    }, []).sort((a, b) => a.localeCompare(b));
-
     const params = {
-      url: selectCategory || allCrime.url,
+      ...value,
       dates,
     };
-
-    console.log(params);
 
     this.props.onSearch(params);
   }
@@ -201,19 +171,8 @@ class Search extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state) => {
-  // const {
-  //   search: {
-  //     category = [],
-  //   } = {},
-  // } = state;
-  
   return {
     ...state.search,
-    // category: category.map((ele) => ({
-    //   ...ele,
-    //   value: ele.url,
-    //   text: ele.name,
-    // })),
   }
 }
 

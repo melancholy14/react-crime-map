@@ -1,5 +1,9 @@
 // @flow
 
+import {
+  allCrime,
+} from '../../utils/constants';
+
 export const LOAD_AVAILABILITY_SUCCESS = 'containers/SearchPage/actions/LOAD_AVAILABILITY_SUCCESS';
 export const LOAD_AVAILABILITY_FAILURE = 'containers/SearchPage/actions/LOAD_AVAILABILITY_FAILURE';
 
@@ -39,7 +43,33 @@ export function loadCrimeCategoryFailure (message: string) {
   }
 }
 
-export function searchRequest (data: { url: string, dates: Array<string> }) {
+export function searchRequest ({
+  selectCategory,
+  minDate: min_date,
+  maxDate: max_date,
+  dates: _dates,
+}: {
+  selectCategory: string,
+  minDate: string,
+  maxDate: string,
+  dates: Array<{ value: string }>,
+}) {
+  const defaultDateValue = _dates[0].value;
+  const minDate = min_date || defaultDateValue;
+  const maxDate = max_date || defaultDateValue;
+
+  const dates: Array<string> = _dates.reduce((acc, ele: { value: string }) => {
+    if (minDate <= ele.value && ele.value <= maxDate) {
+      return [...acc, ele.value];
+    }
+    return acc;
+  }, []).sort((a, b) => a.localeCompare(b));
+
+  const data = {
+    url: selectCategory || allCrime.url,
+    dates,
+  };
+
   return {
     type: SEARCH_REQUEST,
     data,
