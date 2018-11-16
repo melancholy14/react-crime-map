@@ -60,7 +60,10 @@ describe("actions in SearchPage", () => {
   it("searchRequest", () => {
     const param = {
       url: 'all-crime',
-      dates: [],
+      minDate: null,
+      maxDate: null,
+      postcode: null,
+      dates: ['2017-08', '2017-09'],
     };
     store.dispatch(searchRequest(param));
 
