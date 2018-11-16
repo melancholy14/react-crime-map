@@ -34,7 +34,7 @@ const Graphs = (props: Props) => {
   return (<div>
     { date && date.length > 0 && 
     <div className="graph">
-      <p>The number of crimes per Date</p>
+      <p>Number of date crimes</p>
       <LineChart
         width={width}
         height={width}
@@ -50,7 +50,7 @@ const Graphs = (props: Props) => {
     }
     { category && category.length > 1 &&
       <div className="graph">
-        <p>The number of crimes per Category</p>
+        <p>Number of crimes by category</p>
         <BarChart
           width={width}
           height={width}
@@ -66,7 +66,7 @@ const Graphs = (props: Props) => {
     }
     { outcome && outcome.length > 0 &&
       <div className="graph">
-        <p>The ratio of crimes per Outcome</p>
+        <p>Number of crimes by outcome</p>
         <BarChart
           width={width}
           height={width}
