@@ -14,8 +14,9 @@ const ModalDiv = styled.div`
 
   .modal-title {
     position: fixed;
+    right: 0;
+    left: 0;
     top: 7rem;
-    width: 100%;
     height: 3rem;
     background-color: black;
     color: white;
@@ -42,30 +43,55 @@ const ModalDiv = styled.div`
   .modal-main {
     position: fixed;
     background: white;
-    width: 100%;
     min-height: 10rem;
     // height: calc(50% - 6rem);
     overflow: auto;
     top: 10rem;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+
+    &.fixed-bottom {
+      bottom: 10rem;
+    }
+  }
+
+  .modal-footer {
+    position: fixed;
+    background-color: white;
+    padding: 1rem;
+    right: 0;
+    left: 0;
+    text-align: right;
+    bottom: 7rem;
+    border-top: 1px dotted black;
+
+    .close {
+      border: none;
+    }
   }
 `;
 
-const Modal = ({ title, show, onClose, children }: {
-  title: string,
+const Modal = ({ title, show, onClose, fixedBottom = false, children }: {
+  title?: string,
   show: boolean,
   onClose?: Function,
+  fixedBottom?: boolean,
   children: any,
 }) => (
   <ModalDiv className={`display-${show ? 'block' : 'none'}`}>
+    { title &&
     <div className="modal-title">
       <div className="title">{ title }</div>
       { onClose && <button className="close" onClick={onClose}>X</button> }
-    </div>
-    <div className="modal-main">
+    </div> }
+    <div className={`modal-main ${fixedBottom ? 'fixed-bottom' : ''}`}>
       { children }
     </div>
+    {
+      !title && onClose && fixedBottom && (<div className="modal-footer">
+        { onClose && <button className="close" onClick={onClose}>Close</button> }
+      </div>)
+    }
   </ModalDiv>
 );
 

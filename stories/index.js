@@ -9,12 +9,15 @@ import {
   Button,
   Select,
   Checkbox,
+  Tabs,
   Table, Tr, Th, Td,
 } from '../src/components';
 
 storiesOf('Modal', module)
-  .add('no title', () => <Modal show={true} onClose={action('Modal -> with text -> onClose')}>no title with text</Modal>)
-  .add('with title', () => <Modal title="title" show={true} onClose={action('Modal -> with title -> onClose')}>with title, text</Modal>)
+  .add('with title no footer', () => <Modal title="title" show={true} onClose={action('Modal -> with title no footer -> onClose')}>with title, text</Modal>)
+  .add('no title with footer', () => <Modal show={true} fixedBottom onClose={action('Modal -> no title with footer -> onClose')}>no title with footer</Modal>)
+  .add('no title no footer', () => <Modal show={true} >no title no footer</Modal>)
+  .add('with title fixed bottom', () => <Modal title="title" show={true} fixedBottom onClose={action('Modal -> with title fixed bottom -> onClose')}>no title no footer</Modal>)
 
 storiesOf('Loading', module)
   .add('no loading screen', () => <Loading loading={false} />)
@@ -50,3 +53,6 @@ storiesOf('Table', module)
         <Tr><Th>Header</Th><Th>Header 1</Th></Tr>
         <Tr><Td>Content</Td><Td>Content 2</Td></Tr>
       </Table>)
+
+storiesOf('Tabs', module)
+  .add('tabs', () => <Tabs />)
