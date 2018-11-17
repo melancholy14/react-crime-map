@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 
 import {
   LineChart, Line,
@@ -14,6 +15,10 @@ import {
   GraphProps as Props,
 } from '../../utils/types';
 
+const StyledGraph = styled.div`
+  display: inline-block;
+`;
+
 const Graphs = (props: Props) => {
   const {
     graph: {
@@ -23,17 +28,17 @@ const Graphs = (props: Props) => {
     } = {},
   } = props;
   
-  let width = window.innerWidth;
+  let width = window.innerWidth + 24;
   if (width >= 1024) {
     width = width / 3;
   } else if (width >= 768) {
     width = width / 2;
   }
-  width = width - 35;
+  width = width - 35 - 12;
 
   return (<div>
     { date && date.length > 0 && 
-    <div className="graph">
+    <StyledGraph>
       <p>Number of date crimes</p>
       <LineChart
         width={width}
@@ -46,10 +51,10 @@ const Graphs = (props: Props) => {
         <CartesianGrid stroke="#f5f5f5" />
         <Line type="monotone" dataKey="count" stroke="#ff7300" yAxisId={0} />
       </LineChart>
-      </div>
+    </StyledGraph>
     }
     { category && category.length > 1 &&
-      <div className="graph">
+      <StyledGraph>
         <p>Number of crimes by category</p>
         <BarChart
           width={width}
@@ -62,10 +67,10 @@ const Graphs = (props: Props) => {
           <CartesianGrid stroke="#f5f5f5" />
           <Bar type="monotone" dataKey="count" fill="#387908" yAxisId={0} />
         </BarChart>
-      </div>
+      </StyledGraph>
     }
     { outcome && outcome.length > 0 &&
-      <div className="graph">
+      <StyledGraph>
         <p>Number of crimes by outcome</p>
         <BarChart
           width={width}
@@ -78,7 +83,7 @@ const Graphs = (props: Props) => {
           <CartesianGrid stroke="#f5f5f5" />
           <Bar type="monotone" dataKey="count" fill="#38abc8" yAxisId={0} />
         </BarChart>
-      </div>
+      </StyledGraph>
     }
   </div>);
 }

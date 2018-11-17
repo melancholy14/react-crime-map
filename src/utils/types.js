@@ -80,6 +80,11 @@ export type AnalysePageProps = {
   news: Array<news>,
 };
 
+export type AnalysePageState = {
+  show: boolean,
+  select: number,
+};
+
 export type AnalyseReducerState = {
   +graph: {
     +date: Array<dateGraph>,
