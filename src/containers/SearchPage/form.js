@@ -10,9 +10,9 @@ import {
 
 import {
   Button,
-  CustomField as Field,
 } from '../../components';
 
+import Field from './field';
 import GridItem from './gridItem';
 
 const StyledForm = styled(Form)`
