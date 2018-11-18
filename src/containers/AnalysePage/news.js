@@ -13,10 +13,10 @@ import {
 
 const NewsStyle = styled.div`
   .table {
-    display: inline-table;
-    width: 95%;
+    width: 90%;
 
     @media screen and (min-width: 768px) {
+      display: inline-table;
       width: 45%;
       margin: 0.5rem;
     }

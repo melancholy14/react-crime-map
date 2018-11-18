@@ -25,7 +25,6 @@ const StyledTabs = styled.div`
     overflow: hidden;
     background-color: #f1f1f1;
     border: 1px solid #ccc;
-    height: 3rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -37,7 +36,7 @@ const StyledTabs = styled.div`
       border: none;
       outline: none;
       cursor: pointer;
-      padding: 1rem;
+      padding: 14px 16px;
       transition: 0.3s;
       font-size: medium;
 
@@ -55,6 +54,7 @@ const StyledTabs = styled.div`
     display: none;
     // padding: 6px 12px;
     width: 100%;
+    box-sizing: border-box;
     border: 1px solid #ccc;
     border-top: none;
 

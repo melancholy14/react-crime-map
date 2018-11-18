@@ -17,6 +17,7 @@ import {
 
 const StyledGraph = styled.div`
   display: inline-block;
+  padding: 0 0.5rem;
 `;
 
 const Graphs = (props: Props) => {

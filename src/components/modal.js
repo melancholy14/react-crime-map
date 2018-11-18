@@ -46,12 +46,20 @@ const ModalDiv = styled.div`
     min-height: 10rem;
     // height: calc(50% - 6rem);
     overflow: auto;
-    top: 10rem;
+    top: 4.5rem;
     left: 0;
     right: 0;
 
+    @media screen and (min-width: 426px) {
+      top: 10rem;
+    }
+
     &.fixed-bottom {
-      bottom: 10rem;
+      bottom: 7.5rem;
+
+      @media screen and (min-width: 426px) {
+        bottom: 10rem;
+      }
     }
   }
 
@@ -62,7 +70,12 @@ const ModalDiv = styled.div`
     right: 0;
     left: 0;
     text-align: right;
-    bottom: 7rem;
+
+    bottom: 4rem;
+    @media screen and (min-width: 426px) {
+      bottom: 7rem;
+    }
+    
     border-top: 1px dotted black;
 
     .close {
