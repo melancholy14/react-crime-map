@@ -1,8 +1,8 @@
 // @flow
 
-import {
-  allCrime,
-} from '../../utils/constants';
+// import {
+//   allCrime,
+// } from '../../utils/constants';
 
 export const LOAD_AVAILABILITY_SUCCESS = 'containers/SearchPage/actions/LOAD_AVAILABILITY_SUCCESS';
 export const LOAD_AVAILABILITY_FAILURE = 'containers/SearchPage/actions/LOAD_AVAILABILITY_FAILURE';
@@ -44,13 +44,12 @@ export function loadCrimeCategoryFailure (message: string) {
 }
 
 export function searchRequest ({
-  selectCategory,
   minDate: min_date,
   maxDate: max_date,
   dates: _dates,
   postcode,
+  // ...rest
 }: {
-  selectCategory: string,
   minDate: string,
   maxDate: string,
   dates: Array<{ value: string }>,
@@ -67,8 +66,30 @@ export function searchRequest ({
     return acc;
   }, []).sort((a, b) => a.localeCompare(b));
 
+  // const {
+  //   urls,
+  // }: {
+  //   done: boolean,
+  //   urls: Array<string>,
+  // } = Object.entries(rest).reduce((acc, ele) => {
+  //   if (!acc.done) {
+  //     if (ele[0] === allCrime.url && ele[1]) {
+  //       return {
+  //         done: true,
+  //         urls: [ele[0]],
+  //       };
+  //     } else if (ele[1]) {
+  //       acc.urls.push(ele[0]);
+  //     }
+  //   }
+  //   return acc;
+  // }, {
+  //   done: false,
+  //   urls: [],
+  // });
+
   const data = {
-    url: selectCategory || allCrime.url,
+    // urls,
     dates,
     postcode,
   };

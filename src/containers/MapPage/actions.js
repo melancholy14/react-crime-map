@@ -30,7 +30,9 @@ export function filterCrimeCircles (crimes: Array<Object> = [], categories: Arra
       } = {},
     } = ele;
 
-    if (categories.length === 0 || categories.find((cat) => cat === category)) {
+    console.log(categories.includes(category));
+
+    if (categories.includes(category)) {
       if (!acc[street.id]) {
         return {
           ...acc,
@@ -54,6 +56,8 @@ export function filterCrimeCircles (crimes: Array<Object> = [], categories: Arra
     }
     return acc;
   }, {});
+
+  console.log(crimeWithCount);
 
   const values: Array<Object> = (Object.values(crimeWithCount): any);
 

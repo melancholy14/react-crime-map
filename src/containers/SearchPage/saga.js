@@ -45,14 +45,13 @@ function* loadCrimeCategory({ date: _date } = {}) {
 
 function* search({
   data: {
-    url,
+    urls,
     dates,
     postcode,
   }} = {}) {
   try {
     const { lat: _lat, lng: _lng } = yield select((state) => state.map.latlng);
 
-    console.log(postcode);
     let lat = _lat;
     let lng = _lng;
     if (postcode) {
@@ -67,12 +66,11 @@ function* search({
         }
       };
 
-      const url = `${api.mapquest}/address?key=${keys.mapquest}&json=${JSON.stringify(obj)}`;
       const {
         data: {
           results,
         } = {},
-      } = yield request(url);
+      } = yield request(`${api.mapquest}/address?key=${keys.mapquest}&json=${JSON.stringify(obj)}`);
 
       if (results && results.length > 0) {
         const {
@@ -85,15 +83,29 @@ function* search({
     }
 
     if (lat && lng && dates && dates.length > 0) {
-      const responses = yield all(dates.map((date) => request(`${api.police}/crimes-street/${url}?lat=${lat}&lng=${lng}&date=${date}`)));
+      // const params = dates.flatMap((date) => {
+      //   return urls.map((url) => [date, url])
+      // }, []);
+
+      // const responses = yield all(params.map(([date, url]) =>
+      //     request(`${api.police}/crimes-street/${url}?lat=${lat}&lng=${lng}&date=${date}`)
+      //   )
+      // );
+
+      const responses = yield all(dates.map((date) =>
+          request(`${api.police}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${date}`)
+        )
+      );
 
       const data = responses && responses.reduce((acc, response) => {
         return [...acc, ...(response && response.data)];
       }, []);
+      
+      const selected = data.map(({ category }) => category);
 
       yield put(saveLocation({ lat, lng }));
       yield put(searchSuccess(data));
-      yield put(filterCrimeCircles(data))
+      yield put(filterCrimeCircles(data, selected))
     } else {
       yield put(searchFailure('There is no position info! Please, click the map and tell me where you want to know'));
     }
