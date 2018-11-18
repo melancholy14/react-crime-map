@@ -149,7 +149,7 @@ class Search extends React.PureComponent<Props, State> {
       return acc;
     }, []);
 
-    this.props.onFilterCrimeCategory(this.props.crimes, selected);
+    this.props.onFilterCrimeCategory(selected);
 
     this.setState({
       checkboxes,

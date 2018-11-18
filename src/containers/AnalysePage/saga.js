@@ -15,7 +15,13 @@ import {
 function* loadGraph({ id: streetId }){
   try {
     const crimes = yield select((state) => state.search.crimes);
-    const selectedCrimes = crimes && crimes.filter(({ location: { street: { id } = {}, } = {}, }) => id === streetId);
+    const selectedCrimes = crimes && crimes.filter(({
+      location: {
+        street: {
+          id,
+        } = {},
+      } = {},
+    }) => id === streetId);
 
     const date = Object.entries(selectedCrimes.reduce((acc, ele) => ({
       ...acc,

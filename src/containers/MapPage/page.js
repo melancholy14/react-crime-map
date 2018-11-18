@@ -97,10 +97,6 @@ class LeafletMap extends React.PureComponent {
     });
   }
 
-  searchAddr = () => {
-    
-  }
-
   render() {
     const {
       circles,
@@ -137,7 +133,7 @@ class LeafletMap extends React.PureComponent {
               fillColor={fillColor}
               fillOpacity={opacity}
               stroke={false}
-              radius={radius < 10 ? radius * 25 : 250}
+              radius={radius}
               center={latlng}
               key={latlng}
               onClick={this.handleCircle(street.id, latlng)}

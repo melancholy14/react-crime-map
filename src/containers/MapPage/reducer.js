@@ -9,6 +9,7 @@ import {
 
 import {
   SAVE_LOCATION,
+  INITIAL_CRIME_CIRCLES,
   FILTER_CRIME_CIRCLES,
 } from './actions';
 
@@ -17,6 +18,7 @@ const initialState = {
     lat: 51.505,
     lng: -0.09,
   },
+  crimes: [],
   circles: [],
 };
 
@@ -26,9 +28,15 @@ export default function mapReducer(state: State = initialState, action: Action){
       return update(state, {
         latlng: {$set: action.data},
       });
-    case FILTER_CRIME_CIRCLES:
+    case INITIAL_CRIME_CIRCLES:
       return update(state, {
+        crimes: {$set: action.data},
         circles: {$set: action.data},
+      })
+    case FILTER_CRIME_CIRCLES:
+      const circles = state.crimes.filter(({ category }) => action.selected.includes(category));
+      return update(state, {
+        circles: {$set: circles},
       });
     default:
       return state;

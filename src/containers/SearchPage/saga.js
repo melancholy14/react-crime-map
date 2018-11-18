@@ -15,8 +15,8 @@ import {
 } from './actions';
 
 import {
-  filterCrimeCircles,
   saveLocation,
+  initialCrimeCircles,
 } from '../MapPage/actions';
 
 function* loadAvailability() {
@@ -100,12 +100,10 @@ function* search({
       const data = responses && responses.reduce((acc, response) => {
         return [...acc, ...(response && response.data)];
       }, []);
-      
-      const selected = data.map(({ category }) => category);
 
       yield put(saveLocation({ lat, lng }));
       yield put(searchSuccess(data));
-      yield put(filterCrimeCircles(data, selected))
+      yield put(initialCrimeCircles(data, dates))
     } else {
       yield put(searchFailure('There is no position info! Please, click the map and tell me where you want to know'));
     }
