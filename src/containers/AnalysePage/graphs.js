@@ -40,7 +40,7 @@ const Graphs = (props: Props) => {
   return (<div>
     { date && date.length > 0 && 
     <StyledGraph>
-      <p>Number of date crimes</p>
+      <p>Number of crimes by date</p>
       <LineChart
         width={width}
         height={width}

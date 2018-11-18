@@ -8,10 +8,12 @@ export const LOAD_NEWS_REQUEST = 'containers/AnalysePage/LOAD_NEWS_REQUEST';
 export const LOAD_NEWS_SUCCESS = 'containers/AnalysePage/LOAD_NEWS_SUCCESS';
 export const LOAD_NEWS_FAILURE = 'containers/AnalysePage/LOAD_NEWS_FAILURE';
 
-export function loadGraphsRequest(id: string) {
+export const SAVE_STREET_DATA = 'containers/AnalysePage/SAVE_STREET_DATA';
+
+export function loadGraphsRequest(street: { id: number, name: string }) {
   return {
     type: LOAD_GRAPHS_REQUEST,
-    id,
+    street,
   }
 }
 
@@ -47,5 +49,12 @@ export function loadNewsFailure(message: string) {
   return {
     type: LOAD_NEWS_FAILURE,
     message,
+  }
+}
+
+export function saveStreetData(street: Object) {
+  return {
+    type: SAVE_STREET_DATA,
+    data: street,
   }
 }

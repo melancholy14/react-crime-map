@@ -49,7 +49,6 @@ class LeafletMap extends React.PureComponent {
 
     this.state = {
       latlng: props.latlng,
-      postCode: '',
     }
   }
 
@@ -86,15 +85,9 @@ class LeafletMap extends React.PureComponent {
     this.props.onSaveLocation(evt.latlng);
   }
 
-  handleCircle = (id, latlng) => () => {
-    this.props.onLoadGraphRequest(id);
+  handleCircle = (street, latlng) => () => {
+    this.props.onLoadGraphRequest(street);
     this.props.onLoadNewsRequest(latlng);
-  }
-
-  enterKeyword = (evt) => {
-    this.setState({
-      postCode: evt.target.value,
-    });
   }
 
   render() {
@@ -136,7 +129,7 @@ class LeafletMap extends React.PureComponent {
               radius={radius}
               center={latlng}
               key={latlng}
-              onClick={this.handleCircle(street.id, latlng)}
+              onClick={this.handleCircle(street, latlng)}
             >
               <Popup>
               {`Street Id: ${street.id}

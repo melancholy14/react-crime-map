@@ -110,6 +110,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
     const {
       graph,
       news,
+      street,
     } = this.props;
 
     const {
@@ -118,6 +119,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
     } = this.state;
 
     return (<Modal
+      title={street.name}
       show={show}
       onClose={this.toggleShow}
       fixedBottom

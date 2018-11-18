@@ -7,6 +7,7 @@ import {
   LOAD_GRAPHS_FAILURE,
   LOAD_NEWS_SUCCESS,
   LOAD_NEWS_FAILURE,
+  SAVE_STREET_DATA,
 } from './actions';
 
 import {
@@ -20,6 +21,7 @@ const initialState = {
     category: [],
     outcome: [],
   },
+  street: {},
   news: [],
   message: '',
 }
@@ -34,6 +36,10 @@ export default function analyseReducer(state: State = initialState, action: Acti
       return update(state, {
         news: {$set: action.data},
       });
+    case SAVE_STREET_DATA:
+      return update(state, {
+        street: {$set: action.data}
+      })
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:
       return update(state, {
