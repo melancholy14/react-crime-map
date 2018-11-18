@@ -103,7 +103,7 @@ function* search({
 
       yield put(saveLocation({ lat, lng }));
       yield put(searchSuccess(data));
-      yield put(initialCrimeCircles(data, dates))
+      yield put(initialCrimeCircles(data))
     } else {
       yield put(searchFailure('There is no position info! Please, click the map and tell me where you want to know'));
     }
