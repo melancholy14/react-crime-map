@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/react-crime-map/precache-manifest.ccc0adcc2857e4c8ee416b3522fb2587.js"
+  "/react-crime-map/precache-manifest.1a98e1f13875b27a888583943758d042.js"
 );
 
 workbox.clientsClaim();
