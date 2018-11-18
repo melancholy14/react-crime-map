@@ -10,9 +10,10 @@ import {
   LOAD_NEWS_REQUEST,
   loadNewsFailure,
   loadNewsSuccess,
+  saveStreetData,
 } from './actions';
 
-function* loadGraph({ id: streetId }){
+function* loadGraph({ street }){
   try {
     const crimes = yield select((state) => state.search.crimes);
     const selectedCrimes = crimes && crimes.filter(({
@@ -21,17 +22,35 @@ function* loadGraph({ id: streetId }){
           id,
         } = {},
       } = {},
-    }) => id === streetId);
+    }) => id === street.id);
 
-    const date = Object.entries(selectedCrimes.reduce((acc, ele) => ({
+    // const existedDate = Object.entries(selectedCrimes.reduce((acc, ele) => ({
+    //   ...acc,
+    //   [ele.month]: acc[ele.month] ? acc[ele.month] + 1 : 1,
+    // }), {})).map(([date, count]) => ({ date, count }));
+
+    const crimesByDate = selectedCrimes.reduce((acc, ele) => ({
       ...acc,
-      [ele.month]: acc[ele.month] >= 0 ? acc[ele.month] + 1 : 0,
-    }), {})).map(([date, count]) => ({ date, count }));
+      [ele.month]: acc[ele.month] ? acc[ele.month] + 1 : 1, 
+    }), {});
+
+    console.log(crimesByDate);
+
+    const dates = yield select((state) => state.search.dates);
+
+    const date = dates.map((d) => ({
+      date: d,
+      count: crimesByDate[d] || 0,
+    }));
+
+    console.log(date);
 
     const category = Object.entries(selectedCrimes.reduce((acc, ele) => ({
       ...acc,
-      [ele.category]: acc[ele.category] >= 0 ? acc[ele.category] + 1 : 0,
+      [ele.category]: acc[ele.category] ? acc[ele.category] + 1 : 1,
     }), {})).map(([category, count]) => ({ category, count }));
+
+    console.log(category);
 
     const outcome = Object.entries(selectedCrimes.reduce((acc, ele) => {
       const {
@@ -44,17 +63,21 @@ function* loadGraph({ id: streetId }){
       if (outcome) {
         return {
           ...acc,
-          [outcome]: acc[outcome] >= 0 ? acc[outcome] + 1 : 0,
+          [outcome]: acc[outcome] ? acc[outcome] + 1 : 1,
         };
       }
       return acc;
     }, {})).map(([outcome, count]) => ({ outcome, count }));
+
+    console.log(outcome);
 
     yield put(loadGraphsSuccess({
       date,
       category,
       outcome,
     }));
+
+    yield put(saveStreetData(street));
   } catch(err) {
     yield put(loadGraphsFailure(err.message));
   }
