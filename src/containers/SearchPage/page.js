@@ -210,7 +210,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearch: (param) => dispatch(searchRequest(param)),
-    onFilterCrimeCategory: (crimes, list) => dispatch(filterCrimeCircles(crimes, list)),
+    onFilterCrimeCategory: (selected) => dispatch(filterCrimeCircles(selected)),
   }
 }
 

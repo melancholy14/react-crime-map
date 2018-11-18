@@ -24,17 +24,10 @@ function* loadGraph({ street }){
       } = {},
     }) => id === street.id);
 
-    // const existedDate = Object.entries(selectedCrimes.reduce((acc, ele) => ({
-    //   ...acc,
-    //   [ele.month]: acc[ele.month] ? acc[ele.month] + 1 : 1,
-    // }), {})).map(([date, count]) => ({ date, count }));
-
     const crimesByDate = selectedCrimes.reduce((acc, ele) => ({
       ...acc,
       [ele.month]: acc[ele.month] ? acc[ele.month] + 1 : 1, 
     }), {});
-
-    console.log(crimesByDate);
 
     const dates = yield select((state) => state.search.dates);
 
@@ -43,14 +36,12 @@ function* loadGraph({ street }){
       count: crimesByDate[d] || 0,
     }));
 
-    console.log(date);
-
     const category = Object.entries(selectedCrimes.reduce((acc, ele) => ({
       ...acc,
       [ele.category]: acc[ele.category] ? acc[ele.category] + 1 : 1,
     }), {})).map(([category, count]) => ({ category, count }));
 
-    console.log(category);
+    // console.log(category);
 
     const outcome = Object.entries(selectedCrimes.reduce((acc, ele) => {
       const {
@@ -69,7 +60,7 @@ function* loadGraph({ street }){
       return acc;
     }, {})).map(([outcome, count]) => ({ outcome, count }));
 
-    console.log(outcome);
+    // console.log(outcome);
 
     yield put(loadGraphsSuccess({
       date,
