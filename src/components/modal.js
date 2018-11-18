@@ -16,13 +16,22 @@ const ModalDiv = styled.div`
     position: fixed;
     right: 0;
     left: 0;
-    top: 7rem;
+    top: 4.5rem;
     height: 3rem;
     background-color: black;
     color: white;
     vertical-align: middle;
     line-height: 3rem;
     text-align: center;
+
+    @media screen and (min-width: 426px) {
+      top: 7rem;
+    }
+
+    @media screen and (min-width: 768px) {
+      right: 10%;
+      left: 10%;
+    }
 
     .title {
       display: inline-block;
@@ -46,12 +55,17 @@ const ModalDiv = styled.div`
     min-height: 10rem;
     // height: calc(50% - 6rem);
     overflow: auto;
-    top: 4.5rem;
+    top: 7.5rem;
     left: 0;
     right: 0;
-
+    
     @media screen and (min-width: 426px) {
       top: 10rem;
+    }
+
+    @media screen and (min-width: 768px) {
+      right: 10%;
+      left: 10%;
     }
 
     &.fixed-bottom {
