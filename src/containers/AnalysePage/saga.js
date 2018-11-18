@@ -80,7 +80,7 @@ function* loadNews({ latlng }) {
       } = {},
     } = yield request(newsUrl);
 
-    results.sort((a, b) => a.webPublicationDate.localeCompare(b.webPublicationDate));
+    results.sort((a, b) => b.webPublicationDate.localeCompare(a.webPublicationDate));
 
     yield put(loadNewsSuccess(results));
   } catch (err) {

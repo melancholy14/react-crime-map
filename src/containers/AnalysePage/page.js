@@ -18,18 +18,26 @@ import News from './news';
 import Graphs from './graphs';
 
 const StyledTabs = styled.div`
+  position: relative;
+  height: 100%;
+
   .tabs {
     overflow: hidden;
     background-color: #f1f1f1;
     border: 1px solid #ccc;
+    height: 3rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 
     button {
       background-color: inherit;
-      float: left;
+      // float: left;
       border: none;
       outline: none;
       cursor: pointer;
-      padding: 14px 16px;
+      padding: 1rem;
       transition: 0.3s;
       font-size: medium;
 
@@ -45,9 +53,15 @@ const StyledTabs = styled.div`
 
   .tab {
     display: none;
-    padding: 6px 12px;
+    // padding: 6px 12px;
+    width: 100%;
     border: 1px solid #ccc;
     border-top: none;
+
+    position: absolute;
+    top: 3rem;
+    bottom: 0;
+    overflow: auto;
 
     animation: fadeEffect 1s;
     @keyframes fadeEffect {

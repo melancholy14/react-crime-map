@@ -67,6 +67,8 @@ const ModalDiv = styled.div`
 
     .close {
       border: none;
+      font-size: large;
+      background: transparent;
     }
   }
 `;
