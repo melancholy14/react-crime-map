@@ -1,6 +1,13 @@
 import { createStore, combineReducers } from 'redux';
 import analyseReducer from '../reducer';
-import { loadGraphsRequest, loadGraphsSuccess, loadGraphsFailure, loadNewsFailure, loadNewsSuccess } from '../actions';
+import {
+  loadGraphsRequest,
+  loadGraphsSuccess,
+  loadGraphsFailure,
+  loadNewsFailure,
+  loadNewsSuccess,
+  saveStreetData,
+} from '../actions';
 
 describe("actions in AnalysePage", () => {
   let store;
@@ -68,5 +75,17 @@ describe("actions in AnalysePage", () => {
     store.dispatch(loadNewsFailure(message));
 
     expect(store.getState().analyse.message).toEqual(message);
+  });
+
+  it("saveStreetData", () => {
+    const data = {
+      id: 1000,
+      name: 'near Earlsfield Station',
+    };
+
+    store.dispatch(saveStreetData(data));
+
+    expect(store.getState().analyse.street.id).toEqual(1000);
+    expect(store.getState().analyse.street.name).toEqual('near Earlsfield Station');
   });
 });

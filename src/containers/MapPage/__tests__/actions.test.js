@@ -1,6 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import mapReducer from '../reducer';
-import { saveLocation, filterCrimeCircles } from '../actions';
+import {
+  saveLocation,
+  filterCrimeCircles,
+  initialCrimeCircles,
+} from '../actions';
 
 describe("actions in MapPage", () => {
   let store;
@@ -23,7 +27,7 @@ describe("actions in MapPage", () => {
     });
   });
 
-  it("filterCrimeCircles", () => {
+  it("initialCrimeCircles", () => {
     const crimes = [{
       category: 'anti-social-behaviour',
       location: {
@@ -52,9 +56,8 @@ describe("actions in MapPage", () => {
         }
       }
     }];
-    const categories = ['anti-social-behaviour', 'burglary'];
 
-    store.dispatch(filterCrimeCircles(crimes, categories));
+    store.dispatch(initialCrimeCircles(crimes));
 
     expect(store.getState().map.circles.length).toBe(2);
 
@@ -62,12 +65,28 @@ describe("actions in MapPage", () => {
     expect(store.getState().map.circles[0].count).toBe(2);
     expect(store.getState().map.circles[0].opacity).toBeGreaterThanOrEqual(0.5);
     expect(store.getState().map.circles[0].opacity).toBeLessThanOrEqual(1);
-    expect(store.getState().map.circles[0].radius).toBeDefined();
+    expect(store.getState().map.circles[0].radius).toBeGreaterThanOrEqual(25);
+    expect(store.getState().map.circles[0].radius).toBeLessThanOrEqual(250);
 
     expect(store.getState().map.circles[1].fillColor).toBeDefined();
     expect(store.getState().map.circles[1].count).toBe(1);
     expect(store.getState().map.circles[1].opacity).toBeGreaterThanOrEqual(0.5);
     expect(store.getState().map.circles[1].opacity).toBeLessThanOrEqual(1);
-    expect(store.getState().map.circles[1].radius).toBeDefined();
+    expect(store.getState().map.circles[1].radius).toBeGreaterThanOrEqual(25);
+    expect(store.getState().map.circles[1].radius).toBeLessThanOrEqual(250);
+  });
+
+  it ("filterCrimeCircles", () => {
+    const categories = ['burglary'];
+
+    store.dispatch(filterCrimeCircles(categories));
+
+    expect(store.getState().map.circles.length).toBe(1);
+
+    expect(store.getState().map.circles[0].count).toBe(1);
+    expect(store.getState().map.circles[0].opacity).toBeGreaterThanOrEqual(0.5);
+    expect(store.getState().map.circles[0].opacity).toBeLessThanOrEqual(1);
+    expect(store.getState().map.circles[0].radius).toBeGreaterThanOrEqual(25);
+    expect(store.getState().map.circles[0].radius).toBeLessThanOrEqual(250);
   });
 });

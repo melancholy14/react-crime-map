@@ -3,6 +3,7 @@ import {
   LOAD_GRAPHS_FAILURE,
   LOAD_NEWS_SUCCESS,
   LOAD_NEWS_FAILURE,
+  SAVE_STREET_DATA,
 } from '../actions';
 
 import analyseReducer from '../reducer';
@@ -95,6 +96,27 @@ describe("reducer in AnalysePage", () => {
     const result = analyseReducer(state, action);
     expect(result).toEqual({
       message: "LOAD_NEWS_FAILURE"
+    });
+  });
+
+  it ("SAVE_STREET_DATA", () => {
+    const state = {};
+    const action = {
+      type: SAVE_STREET_DATA,
+      data: {
+        id: 10001,
+        name: 'near Earlsfield',
+      },
+    };
+
+    deepFreeze(state);
+
+    const result = analyseReducer(state, action);
+    expect(result).toEqual({
+      street: {
+        id: 10001,
+        name: 'near Earlsfield',
+      }
     });
   });
 });

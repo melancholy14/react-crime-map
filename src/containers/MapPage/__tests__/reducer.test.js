@@ -1,10 +1,12 @@
 import {
   SAVE_LOCATION,
   FILTER_CRIME_CIRCLES,
+  INITIAL_CRIME_CIRCLES,
 } from '../actions';
 import MapReducer from '../reducer';
 
 import deepFreeze from 'deep-freeze';
+import mapReducer from '../reducer';
 
 describe("reducer in MapPage", () => {
   it("SAVE_LOCATION", () => {
@@ -28,10 +30,10 @@ describe("reducer in MapPage", () => {
     });
   });
 
-  it("FILTER_CRIME_CIRCLES", () => {
+  it("INITIAL_CRIME_CIRCLES", () => {
     const state = {};
     const action = {
-      type: FILTER_CRIME_CIRCLES,
+      type: INITIAL_CRIME_CIRCLES,
       data: [{
         id: 0,
         opacity: 0.5,
@@ -47,6 +49,15 @@ describe("reducer in MapPage", () => {
 
     const result = MapReducer(state, action);
     expect(result).toEqual({
+      crimes: [{
+        id: 0,
+        opacity: 0.5,
+        radius: 0.5,
+      }, {
+        id: 1,
+        opacity: 0.25,
+        radius: 0.75,
+      }],
       circles: [{
         id: 0,
         opacity: 0.5,
@@ -56,6 +67,50 @@ describe("reducer in MapPage", () => {
         opacity: 0.25,
         radius: 0.75,
       }]
+    });
+  });
+
+  it("FILTER_CRIME_CIRCLES", () => {
+    const state = {
+      crimes: [{
+        id: 0,
+        category: 'drugs',
+        opacity: 0.5,
+        radius: 0.5,
+      }, {
+        id: 1,
+        category: 'bicycle-theft',
+        opacity: 0.25,
+        radius: 0.75,
+      }],
+    };
+
+    const action = {
+      type: FILTER_CRIME_CIRCLES,
+      selected: ['bicycle-theft'],
+    };
+
+    deepFreeze(state);
+
+    const result = mapReducer(state, action);
+    expect(result).toEqual({
+      crimes: [{
+        id: 0,
+        category: 'drugs',
+        opacity: 0.5,
+        radius: 0.5,
+      }, {
+        id: 1,
+        category: 'bicycle-theft',
+        opacity: 0.25,
+        radius: 0.75,
+      }],
+      circles: [{
+        id: 1,
+        category: 'bicycle-theft',
+        opacity: 0.25,
+        radius: 0.75,
+      }],
     });
   });
 });
