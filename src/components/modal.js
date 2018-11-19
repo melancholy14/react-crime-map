@@ -69,7 +69,7 @@ const ModalDiv = styled.div`
     }
 
     &.fixed-bottom {
-      bottom: 7.5rem;
+      bottom: 6.5rem;
 
       @media screen and (min-width: 426px) {
         bottom: 10rem;
@@ -80,14 +80,17 @@ const ModalDiv = styled.div`
   .modal-footer {
     position: fixed;
     background-color: white;
-    padding: 1rem;
+    padding: 0.5rem;
     right: 0;
     left: 0;
     text-align: right;
 
     bottom: 4rem;
     @media screen and (min-width: 426px) {
-      bottom: 7rem;
+      bottom: 6.5rem;
+      padding: 1rem;
+      right: 10%;
+      left: 10%;
     }
     
     border-top: 1px dotted black;
@@ -111,13 +114,13 @@ const Modal = ({ title, show, onClose, fixedBottom = false, children }: {
     { title &&
     <div className="modal-title">
       <div className="title">{ title }</div>
-      { onClose && <button className="close" onClick={onClose}>X</button> }
+      { onClose && !fixedBottom && <button className="close" onClick={onClose}>X</button> }
     </div> }
     <div className={`modal-main ${fixedBottom ? 'fixed-bottom' : ''}`}>
       { children }
     </div>
     {
-      !title && onClose && fixedBottom && (<div className="modal-footer">
+      onClose && fixedBottom && (<div className="modal-footer">
         { onClose && <button className="close" onClick={onClose}>Close</button> }
       </div>)
     }
