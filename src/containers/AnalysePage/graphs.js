@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import {
   LineChart, Line,
   BarChart, Bar,
+  // ScatterChart, Scatter,
   XAxis, YAxis,
-  Tooltip,
+  Tooltip, Legend,
   CartesianGrid,
 } from 'recharts';
 
@@ -29,16 +30,14 @@ const Graphs = (props: Props) => {
     } = {},
   } = props;
   
-  let width = window.innerWidth + 24;
-  if (width >= 1024) {
-    width = width / 3;
-  } else if (width >= 768) {
-    width = width / 2;
+  let width = window.innerWidth;
+  if (width >= 768) {
+    width = (width * 0.85) / 2;
   }
-  width = width - 35 - 12;
-
+  width = width - 35;
+  
   return (<div>
-    { date && date.length > 0 && 
+    { date && 
     <StyledGraph>
       <p>Number of crimes by date</p>
       <LineChart
@@ -49,12 +48,12 @@ const Graphs = (props: Props) => {
         <XAxis dataKey="date" />
         <YAxis type="number" yAxisId={0} />
         <Tooltip />
-        <CartesianGrid stroke="#f5f5f5" />
-        <Line type="monotone" dataKey="count" stroke="#ff7300" yAxisId={0} />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Line type="basis" dataKey="count" stroke="#ff7300" yAxisId={0} />
       </LineChart>
     </StyledGraph>
     }
-    { category && category.length > 1 &&
+    { category &&
       <StyledGraph>
         <p>Number of crimes by category</p>
         <BarChart
@@ -65,12 +64,12 @@ const Graphs = (props: Props) => {
           <XAxis dataKey="category" />
           <YAxis type="number" yAxisId={0} />
           <Tooltip />
-          <CartesianGrid stroke="#f5f5f5" />
-          <Bar type="monotone" dataKey="count" fill="#387908" yAxisId={0} />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Bar legendType="line" dataKey="count" fill="#387908" yAxisId={0} />
         </BarChart>
       </StyledGraph>
     }
-    { outcome && outcome.length > 0 &&
+    { outcome &&
       <StyledGraph>
         <p>Number of crimes by outcome</p>
         <BarChart
@@ -81,11 +80,28 @@ const Graphs = (props: Props) => {
           <XAxis dataKey="outcome" />
           <YAxis type="number" yAxisId={0} />
           <Tooltip />
-          <CartesianGrid stroke="#f5f5f5" />
-          <Bar type="monotone" dataKey="count" fill="#38abc8" yAxisId={0} />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Bar legendType="circle" dataKey="count" fill="#38abc8" yAxisId={0} />
         </BarChart>
       </StyledGraph>
     }
+    {/* <StyledGraph>
+      <p>Demo</p>
+      <BarChart
+        width={width}
+        height={width}
+        data={multiple}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+        <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+        <Tooltip />
+        <Legend />
+        <Bar yAxisId="left" dataKey="category" fill="#8884d8" />
+        <Bar yAxisId="right" dataKey="outcome" fill="#82ca9d" />
+      </BarChart>
+    </StyledGraph> */}
   </div>);
 }
 

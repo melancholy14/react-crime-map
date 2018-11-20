@@ -112,7 +112,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
       news,
       street,
     } = this.props;
-
+    
     const {
       show,
       select,

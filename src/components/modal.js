@@ -28,7 +28,7 @@ const ModalDiv = styled.div`
       top: 7rem;
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 769px) {
       right: 10%;
       left: 10%;
     }
@@ -63,7 +63,7 @@ const ModalDiv = styled.div`
       top: 10rem;
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 769px) {
       right: 10%;
       left: 10%;
     }
@@ -89,6 +89,9 @@ const ModalDiv = styled.div`
     @media screen and (min-width: 426px) {
       bottom: 6.5rem;
       padding: 1rem;
+    }
+
+    @media screen and (min-width: 769px) {
       right: 10%;
       left: 10%;
     }

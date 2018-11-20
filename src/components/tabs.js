@@ -32,6 +32,10 @@ const StyledTabs = styled.div`
     border: 1px solid #ccc;
     border-top: none;
 
+    & > div {
+      text-align: center;
+    }
+
     &.active {
       display: block;
     }
