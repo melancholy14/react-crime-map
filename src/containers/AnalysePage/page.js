@@ -128,6 +128,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
         <div className="tabs">
           <button className={`${select === 0 ? 'active' : ''}`} onClick={this.select(0)}>Graphs</button>
           <button className={`${select === 1 ? 'active' : ''}`} onClick={this.select(1)}>News</button>
+          <button className={`${select === 2 ? 'active' : ''}`} onClick={this.select(2)}>Neighbourhood</button>
         </div>
         <div className={`tab ${select === 0 ? 'active' : ''}`}>
           <Graphs

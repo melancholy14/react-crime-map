@@ -8,7 +8,7 @@ import {
   BarChart, Bar,
   // ScatterChart, Scatter,
   XAxis, YAxis,
-  Tooltip, Legend,
+  Tooltip,
   CartesianGrid,
 } from 'recharts';
 
