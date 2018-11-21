@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { debounce } from 'lodash';
 
 import {
   searchRequest,
@@ -122,14 +123,13 @@ class Search extends React.PureComponent<Props, State> {
     }
   }
 
-  checkCategory = (evt, value, prevValue, name) => {
+  checkCategory = debounce((evt, value, prevValue, name) => {
     let checkboxes = [];
     if (name === allCrime.url) {
       checkboxes = this.state.checkboxes.map((ele) => ({
         ...ele,
         checked: value,
       }));
-
     } else {
       checkboxes = this.state.checkboxes.map((ele) => {
         if (ele.url === name) {
@@ -154,7 +154,7 @@ class Search extends React.PureComponent<Props, State> {
     this.setState({
       checkboxes,
     });
-  }
+  }, 250);
 
   search = (value) => {
     const {
