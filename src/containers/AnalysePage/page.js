@@ -65,7 +65,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
         select={select}
       >
         <Tabs.Title
-          data={['Graphs', 'News']}
+          data={['Graphs', 'News', 'Neighbourhood']}
         />
         <Tabs.Body>
           <Graphs
@@ -74,6 +74,9 @@ class AnalysePage extends React.PureComponent<Props, State> {
           <News
             news={news}
           />
+          <div>
+            Neighbourhood
+          </div>
         </Tabs.Body>
       </Tabs>
     </Modal>);
