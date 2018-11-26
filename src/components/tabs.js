@@ -65,10 +65,41 @@ const StyledTabs = styled.div`
   }
 `;
 
+const TabsTitle = ({
+  data,
+  activeKey,
+  onSelect,
+}: {
+  data: Array<string>,
+  activeKey: number,
+  onSelect: Function,
+}) => (<div className="tabs">
+{
+  data && data.map((text, index) => (<button
+    key={text}
+    className={`${(activeKey === index) ? 'active' : ''}`}
+    onClick={onSelect(index)}>{text}</button>))
+}
+</div>);
+
+const TabsBody = ({
+  activeKey,
+  children,
+}: {
+  activeKey: number,
+  children: any,
+}) => (children && children.map((child, index) => (<div
+    key={child.type.name}
+    id={index}
+    className={`tab ${activeKey === index  ? 'active' : ''}`}
+    >
+    { child }
+</div>)));
+
 class Tabs extends React.Component<{
   onSelect?: Function,
   children?: any,
-}, {
+} , {
   id: number,
 }> {
   constructor() {
@@ -78,6 +109,10 @@ class Tabs extends React.Component<{
       id: 0,
     };
   }
+
+  static Title = TabsTitle;
+
+  static Body = TabsBody;
 
   select = (id: number) => () => {
     this.setState({ id });
@@ -97,7 +132,6 @@ class Tabs extends React.Component<{
       return React.Children.map(children, (child, idx) => {
         if (child) {
           if (child.type === TabsBody) {
-            console.log('TabsBody', child);
             return React.cloneElement(child, {
               activeKey: id,
               index: idx - 1,
@@ -125,43 +159,5 @@ class Tabs extends React.Component<{
     );
   }
 }
-
-const TabsTitle = ({
-  data,
-  activeKey,
-  onSelect,
-}: {
-  data: Array<string>,
-  activeKey: number,
-  onSelect: Function,
-}) => (<div className="tabs">
-{
-  data && data.map((text, index) => (<button
-    key={text}
-    className={`${(activeKey === index) ? 'active' : ''}`}
-    onClick={onSelect(index)}>{text}</button>))
-}
-</div>);
-
-const TabsBody = ({
-  activeKey,
-  children,
-}: {
-  activeKey: number,
-  children: any,
-}) => (children.map((child, index) => {
-  console.log(child);
-
-return (<div
-    key={child.type.name}
-    id={index}
-    className={`tab ${activeKey === index  ? 'active' : ''}`}
-    >
-    { child }
-</div>);
-}));
-
-Tabs.Title = TabsTitle;
-Tabs.Body = TabsBody;
 
 export default Tabs;
