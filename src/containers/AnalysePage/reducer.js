@@ -8,6 +8,8 @@ import {
   LOAD_NEWS_SUCCESS,
   LOAD_NEWS_FAILURE,
   SAVE_STREET_DATA,
+  LOAD_NEIGHBOURHOOD_SUCCESS,
+  LOAD_NEIGHBOURHOOD_FAILURE,
 } from './actions';
 
 import {
@@ -39,9 +41,14 @@ export default function analyseReducer(state: State = initialState, action: Acti
     case SAVE_STREET_DATA:
       return update(state, {
         street: {$set: action.data}
-      })
+      });
+    case LOAD_NEIGHBOURHOOD_SUCCESS:
+      return update(state, {
+        neighbourhood: {$set: action.data}
+      });
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:
+    case LOAD_NEIGHBOURHOOD_FAILURE:
       return update(state, {
         message: {$set: action.message},
       });

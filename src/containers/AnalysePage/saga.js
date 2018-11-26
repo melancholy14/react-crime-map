@@ -1,6 +1,6 @@
 // @flow
 
-import { takeLatest, select, put } from 'redux-saga/effects';
+import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { api, request, keys } from '../../utils/request';
 
 import {
@@ -11,6 +11,9 @@ import {
   loadNewsFailure,
   loadNewsSuccess,
   saveStreetData,
+  LOAD_NEIGHBOURHOOD_REQUEST,
+  loadNeighbourhoodFailure,
+  loadNeighbourhoodSuccess,
 } from './actions';
 
 function* loadGraph({ street }){
@@ -84,7 +87,7 @@ function* loadNews({ latlng }) {
       data: {
         results: address = [],
       } = {},
-    } = yield request(addressUrl);
+    } = yield call(request, addressUrl);
 
     const { locations = [] } = address[0];
     const { street, adminArea5, postalCode } = locations[0];
@@ -100,7 +103,7 @@ function* loadNews({ latlng }) {
           results = [],
         },
       } = {},
-    } = yield request(newsUrl);
+    } = yield call(request, newsUrl);
 
     results.sort((a, b) => b.webPublicationDate.localeCompare(a.webPublicationDate));
 
@@ -111,7 +114,28 @@ function* loadNews({ latlng }) {
   }
 }
 
+function* loadNeighbourhood({ latlng }) {
+  try {
+    const url = `${api.police}/locate-neighbourhood?q=${latlng.join(',')}`;
+    const {
+      data: {
+        force,
+        neighbourhood,
+      },
+    } = yield call(request, url);
+
+    const { data } = yield call(request, `${api.police}/${force}/${neighbourhood}`);
+    console.log(data);
+
+    yield put(loadNeighbourhoodSuccess(data));
+  } catch (error) {
+    console.error(error);
+    yield put(loadNeighbourhoodFailure(error.message));
+  }
+}
+
 export default function* saga(): Generator<any, void, any>{
   yield takeLatest(LOAD_GRAPHS_REQUEST, loadGraph);
   yield takeLatest(LOAD_NEWS_REQUEST, loadNews);
+  yield takeLatest(LOAD_NEIGHBOURHOOD_REQUEST, loadNeighbourhood);
 }

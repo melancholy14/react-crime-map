@@ -15,6 +15,7 @@ import {
 
 import News from './news';
 import Graphs from './graphs';
+import Neighbourhood from './neighbourbood';
 
 class AnalysePage extends React.PureComponent<Props, State> {
   constructor() {
@@ -48,6 +49,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
       graph,
       news,
       street,
+      neighbourhood,
     } = this.props;
     
     const {
@@ -75,7 +77,9 @@ class AnalysePage extends React.PureComponent<Props, State> {
             news={news}
           />
           <div>
-            Neighbourhood
+            <Neighbourhood
+              data={neighbourhood}
+            />
           </div>
         </Tabs.Body>
       </Tabs>

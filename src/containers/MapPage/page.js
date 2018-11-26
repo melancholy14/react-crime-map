@@ -13,6 +13,7 @@ import {
 import {
   loadGraphsRequest,
   loadNewsRequest,
+  loadNeighbourhoodRequest,
 } from '../AnalysePage/actions';
 
 import {
@@ -86,8 +87,15 @@ class LeafletMap extends React.PureComponent {
   }
 
   handleCircle = (street, latlng) => () => {
-    this.props.onLoadGraphRequest(street);
-    this.props.onLoadNewsRequest(latlng);
+    const {
+      onLoadGraphRequest,
+      onLoadNewsRequest,
+      onLoadNeigbourhoodRequest,
+    } = this.props;
+
+    onLoadGraphRequest(street);
+    onLoadNewsRequest(latlng);
+    onLoadNeigbourhoodRequest(latlng);
   }
 
   render() {
@@ -155,6 +163,7 @@ const mapDispatchToProps = (dispatch) => {
     onSaveLocation: (latlng) => dispatch(saveLocation(latlng)),
     onLoadGraphRequest: (id) => dispatch(loadGraphsRequest(id)),
     onLoadNewsRequest: (latlng) => dispatch(loadNewsRequest(latlng)),
+    onLoadNeigbourhoodRequest: (latlng) => dispatch(loadNeighbourhoodRequest(latlng)),
   }
 }
 
