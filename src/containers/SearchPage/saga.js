@@ -1,6 +1,6 @@
 // @flow
 
-import { fork, put, takeLatest, select, all } from 'redux-saga/effects';
+import { fork, put, takeLatest, select, all, call } from 'redux-saga/effects';
 import { api, keys, request } from '../../utils/request';
 
 import {
@@ -21,7 +21,7 @@ import {
 
 function* loadAvailability() {
   try {
-    const response = yield request(`${api.police}/crimes-street-dates`);
+    const response = yield call(request, `${api.police}/crimes-street-dates`);
 
     yield put(loadAvailabilitySuccess(response.data));
   } catch(err) { 
@@ -34,7 +34,7 @@ function* loadCrimeCategory({ date: _date } = {}) {
   try {
     const date = _date || (new Date()).toLocaleDateString();
 
-    const response = yield request(`${api.police}/crime-categories?date=${date}`);
+    const response = yield call(request, `${api.police}/crime-categories?date=${date}`);
 
     yield put(loadCrimeCategorySuccess(response.data));
   } catch(err) { 
@@ -70,7 +70,7 @@ function* search({
         data: {
           results,
         } = {},
-      } = yield request(`${api.mapquest}/address?key=${keys.mapquest}&json=${JSON.stringify(obj)}`);
+      } = yield call(request, `${api.mapquest}/address?key=${keys.mapquest}&json=${JSON.stringify(obj)}`);
 
       if (results && results.length > 0) {
         const {
@@ -93,7 +93,7 @@ function* search({
       // );
 
       const responses = yield all(dates.map((date) =>
-          request(`${api.police}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${date}`)
+          call(request, `${api.police}/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${date}`)
         )
       );
 
