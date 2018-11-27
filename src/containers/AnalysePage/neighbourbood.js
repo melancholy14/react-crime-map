@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const Neighbourbood = ({ data = {} }) => {
+const Neighbourbood = ({ data = {} }: { data: Object }) => {
   const {
     centre: {
       latitude,
