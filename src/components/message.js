@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -9,11 +11,11 @@ const MessageDiv = styled.div`
   padding: 1rem 0.5rem;
 `;
 
-class Message extends React.PureComponent {
-  static propTyeps = {
-    message: PropTypes.string,
-  }
-
+class Message extends React.PureComponent<{
+  message: string,
+}, {
+  show: boolean,
+}> {
   constructor() {
     super();
 

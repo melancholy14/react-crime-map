@@ -1,19 +1,21 @@
 import { createStore, combineReducers } from 'redux';
+
 import mapReducer from '../reducer';
+
 import {
   saveLocation,
   filterCrimeCircles,
   initialCrimeCircles,
 } from '../actions';
 
-describe("actions in MapPage", () => {
+describe('actions in MapPage', () => {
   let store;
   beforeAll(() => {
     const reducer = combineReducers({ map: mapReducer });
     store = createStore(reducer);
   });
 
-  it("saveLocation", () => {
+  it('saveLocation', () => {
     const latlng = {
       lat: 11.1,
       lng: -0.01,
@@ -27,34 +29,34 @@ describe("actions in MapPage", () => {
     });
   });
 
-  it("initialCrimeCircles", () => {
+  it('initialCrimeCircles', () => {
     const crimes = [{
       category: 'anti-social-behaviour',
       location: {
         latitude: 11.1,
         longitude: -0.05,
         street: {
-          id: 0
-        }
-      }
+          id: 0,
+        },
+      },
     }, {
       category: 'burglary',
       location: {
         latitude: 12.1,
         longitude: -0.01,
         street: {
-          id: 1
-        }
-      }
+          id: 1,
+        },
+      },
     }, {
       category: 'burglary',
       location: {
         latitude: 6.11,
         longitude: -1.01,
         street: {
-          id: 0
-        }
-      }
+          id: 0,
+        },
+      },
     }];
 
     store.dispatch(initialCrimeCircles(crimes));
@@ -76,7 +78,7 @@ describe("actions in MapPage", () => {
     expect(store.getState().map.circles[1].radius).toBeLessThanOrEqual(250);
   });
 
-  it ("filterCrimeCircles", () => {
+  it ('filterCrimeCircles', () => {
     const categories = ['burglary'];
 
     store.dispatch(filterCrimeCircles(categories));

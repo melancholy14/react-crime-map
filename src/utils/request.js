@@ -9,29 +9,29 @@ export const api = {
 export const keys = {
   guardian: '36ecd8a8-f9be-4d95-9643-4095fae41301',
   mapquest: '7qAl9AvfefdHSIOkkLrVvSc466ZoHenG',
-}
+};
 
 async function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
-  } else {
-    const error = new Error();
-    error.response = response;
+  }
 
-    try {
-      const body = await response.json();
-      error.body = body;
-      error.message = body.message || response.statusText;
+  const error = new Error();
+  error.response = response;
 
-      throw error;
-    } catch (err) {
-      throw err;
-    }
+  try {
+    const body = await response.json();
+    error.body = body;
+    error.message = body.message || response.statusText;
+
+    throw error;
+  } catch (err) {
+    throw err;
   }
 }
 
-function parseJSON(response){
-  if(response.status === 204 || response.status === 205){
+function parseJSON(response) {
+  if (response.status === 204 || response.status === 205) {
     return null;
   }
 

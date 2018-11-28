@@ -1,5 +1,7 @@
 import Modal from './modal';
-import { Table, Tr, Th, Td } from './table';
+import {
+  Table, Tr, Th, Td,
+} from './table';
 import Loading from './loading';
 import Message from './message';
 

@@ -1,3 +1,5 @@
+import deepFreeze from 'deep-freeze';
+
 import {
   LOAD_GRAPHS_SUCCESS,
   LOAD_GRAPHS_FAILURE,
@@ -9,8 +11,6 @@ import {
 } from '../actions';
 
 import analyseReducer from '../reducer';
-
-import deepFreeze from 'deep-freeze';
 
 describe('reducer in AnalysePage', () => {
   it ('LOAD_GRAPHS_SUCCESS', () => {
@@ -32,7 +32,7 @@ describe('reducer in AnalysePage', () => {
         date: [{ date: '2018-01', count: 10 }],
         category: [{ category: 'drugs', count: 7 }],
         outcome: [{ outcome: 'under-investigation', count: 5 }],
-      }
+      },
     });
   });
 
@@ -47,7 +47,7 @@ describe('reducer in AnalysePage', () => {
 
     const result = analyseReducer(state, action);
     expect(result).toEqual({
-      message: 'LOAD_GRAPHS_FAILURE'
+      message: 'LOAD_GRAPHS_FAILURE',
     });
   });
 
@@ -64,7 +64,7 @@ describe('reducer in AnalysePage', () => {
         sectionName: 'Cities',
         type: 'interactive',
         webPublicationDate: '2018-07-30T08:06:06Z',
-        webTitle: 'Follow the New Silk Road'
+        webTitle: 'Follow the New Silk Road',
       }],
     };
 
@@ -81,7 +81,7 @@ describe('reducer in AnalysePage', () => {
         sectionName: 'Cities',
         type: 'interactive',
         webPublicationDate: '2018-07-30T08:06:06Z',
-        webTitle: 'Follow the New Silk Road'
+        webTitle: 'Follow the New Silk Road',
       }]
     });
   });
@@ -97,7 +97,7 @@ describe('reducer in AnalysePage', () => {
 
     const result = analyseReducer(state, action);
     expect(result).toEqual({
-      message: 'LOAD_NEWS_FAILURE'
+      message: 'LOAD_NEWS_FAILURE',
     });
   });
 
@@ -106,20 +106,20 @@ describe('reducer in AnalysePage', () => {
     const action = {
       type: LOAD_NEIGHBOURHOOD_SUCCESS,
       data: {
-        'url_force': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
-        'contact_details': {
-          'website': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
-          'twitter': 'MPSEarlsfield'
+        url_force: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+        contact_details: {
+          website: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+          twitter: 'MPSEarlsfield',
         },
-        'name': 'Earlsfield',
-        'links': [],
-        'centre':{
-          'latitude': '51.4422',
-          'longitude': '-0.183829'
+        name: 'Earlsfield',
+        links: [],
+        centre:{
+          latitude: '51.4422',
+          longitude: '-0.183829',
         },
-        'locations': [],
-        'id': 'E05000612',
-        'population':'0'
+        locations: [],
+        id: 'E05000612',
+        population: '0',
       },
     };
 
@@ -128,20 +128,20 @@ describe('reducer in AnalysePage', () => {
     const result = analyseReducer(state, action);
     expect(result).toEqual({
       neighbourhood: {
-        'url_force': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
-        'contact_details': {
-          'website': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
-          'twitter': 'MPSEarlsfield'
+        url_force: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+        contact_details: {
+          website: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+          twitter: 'MPSEarlsfield',
         },
-        'name': 'Earlsfield',
-        'links': [],
-        'centre':{
-          'latitude': '51.4422',
-          'longitude': '-0.183829'
+        name: 'Earlsfield',
+        links: [],
+        centre:{
+          latitude: '51.4422',
+          longitude: '-0.183829',
         },
-        'locations': [],
-        'id': 'E05000612',
-        'population':'0'
+        locations: [],
+        id: 'E05000612',
+        population: '0',
       },
     });
   });
@@ -178,7 +178,7 @@ describe('reducer in AnalysePage', () => {
       street: {
         id: 10001,
         name: 'near Earlsfield',
-      }
+      },
     });
   });
 });

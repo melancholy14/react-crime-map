@@ -68,7 +68,7 @@ describe('actions in AnalysePage', () => {
       sectionName: 'Cities',
       type: 'interactive',
       webPublicationDate: '2018-07-30T08:06:06Z',
-      webTitle: 'Follow the New Silk Road'
+      webTitle: 'Follow the New Silk Road',
     }];
 
     store.dispatch(loadNewsSuccess(response));
@@ -94,23 +94,23 @@ describe('actions in AnalysePage', () => {
 
   it('loadNeighbourhoodSuccess', () => {
     const response = {
-      'url_force': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
-      'contact_details': {
-        'website': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
-        'twitter': 'MPSEarlsfield'
+      url_force: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+      contact_details: {
+        website: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+        twitter: 'MPSEarlsfield',
       },
-      'name': 'Earlsfield',
-      'links': [],
-      'centre':{
-        'latitude': '51.4422',
-        'longitude': '-0.183829'
+      name: 'Earlsfield',
+      links: [],
+      centre: {
+        latitude: '51.4422',
+        longitude: '-0.183829',
       },
-      'locations': [],
-      'id': 'E05000612',
-      'population':'0'
+      locations: [],
+      id: 'E05000612',
+      population: '0',
     };
     store.dispatch(loadNeighbourhoodSuccess(response));
-    
+
     expect(store.getState().analyse.neighbourhood).toBeDefined();
     expect(store.getState().analyse.neighbourhood).toBe(response);
   });
