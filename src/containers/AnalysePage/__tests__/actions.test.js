@@ -7,24 +7,28 @@ import {
   loadNewsFailure,
   loadNewsSuccess,
   saveStreetData,
+  loadNeighbourhoodRequest,
+  loadNeighbourhoodFailure,
+  loadNeighbourhoodSuccess,
 } from '../actions';
 
-describe("actions in AnalysePage", () => {
+describe('actions in AnalysePage', () => {
   let store;
   beforeAll(() => {
     store = createStore(combineReducers({ analyse: analyseReducer }));
   });
 
-  it("loadGraphsRequest", () => {
-    const id = "0";
+  it('loadGraphsRequest', () => {
+    const id = '0';
     store.dispatch(loadGraphsRequest(id));
 
+    expect(store.getState().analyse.graph).toBeDefined();
     expect(store.getState().analyse.graph.date.length).toBe(0);
     expect(store.getState().analyse.graph.category.length).toBe(0);
     expect(store.getState().analyse.graph.outcome.length).toBe(0);
   });
 
-  it("loadGraphsSuccess", () => {
+  it('loadGraphsSuccess', () => {
     const response = {
       date: [{ date: '2018-01', count: 10 }],
       category: [{ category: 'drugs', count: 7 }],
@@ -33,51 +37,92 @@ describe("actions in AnalysePage", () => {
 
     store.dispatch(loadGraphsSuccess(response));
 
+    expect(store.getState().analyse.graph).toBeDefined();
     expect(store.getState().analyse.graph.date.length).toBe(1);
     expect(store.getState().analyse.graph.category.length).toBe(1);
     expect(store.getState().analyse.graph.outcome.length).toBe(1);
   });
 
-  it("loadGraphsFailure", () => {
-    const message = "loadGraphsFailure";
+  it('loadGraphsFailure', () => {
+    const message = 'loadGraphsFailure';
     store.dispatch(loadGraphsFailure(message));
 
     expect(store.getState().analyse.message).toEqual(message);
   });
 
-  it("loadNewsRequest", () => {
+  it('loadNewsRequest', () => {
     const latlng = {};
     store.dispatch(loadGraphsRequest(latlng));
 
+    expect(store.getState().analyse.news).toBeDefined();
     expect(store.getState().analyse.news.length).toBe(0);
   });
 
-  it("loadNewsSuccess", () => {
+  it('loadNewsSuccess', () => {
     const response = [{
-      apiUrl: "https://content.guardianapis.com/cities/ng-interactive/2018/jul/30/follow-new-silk-road-china-belt",
-      id: "cities/ng-interactive/2018/jul/30/follow-new-silk-road-china-belt",
-      pillarId: "pillar/news",
-      pillarName: "News",
-      sectionId: "cities",
-      sectionName: "Cities",
-      type: "interactive",
-      webPublicationDate: "2018-07-30T08:06:06Z",
-      webTitle: "Follow the New Silk Road"
+      apiUrl: 'https://content.guardianapis.com/cities/ng-interactive/2018/jul/30/follow-new-silk-road-china-belt',
+      id: 'cities/ng-interactive/2018/jul/30/follow-new-silk-road-china-belt',
+      pillarId: 'pillar/news',
+      pillarName: 'News',
+      sectionId: 'cities',
+      sectionName: 'Cities',
+      type: 'interactive',
+      webPublicationDate: '2018-07-30T08:06:06Z',
+      webTitle: 'Follow the New Silk Road'
     }];
 
     store.dispatch(loadNewsSuccess(response));
 
+    expect(store.getState().analyse.news).toBeDefined();
     expect(store.getState().analyse.news.length).toBe(1);
   });
 
-  it("loadNewsFailure", () => {
-    const message = "loadNewsFailure";
+  it('loadNewsFailure', () => {
+    const message = 'loadNewsFailure';
     store.dispatch(loadNewsFailure(message));
 
     expect(store.getState().analyse.message).toEqual(message);
   });
 
-  it("saveStreetData", () => {
+  it('loadNeighbourhoodRequest', () => {
+    const latlng = {};
+    store.dispatch(loadNeighbourhoodRequest(latlng));
+
+    expect(store.getState().analyse.neighbourhood).toBeDefined();
+    expect(store.getState().analyse.neighbourhood).toEqual({});
+  });
+
+  it('loadNeighbourhoodSuccess', () => {
+    const response = {
+      'url_force': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+      'contact_details': {
+        'website': 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
+        'twitter': 'MPSEarlsfield'
+      },
+      'name': 'Earlsfield',
+      'links': [],
+      'centre':{
+        'latitude': '51.4422',
+        'longitude': '-0.183829'
+      },
+      'locations': [],
+      'id': 'E05000612',
+      'population':'0'
+    };
+    store.dispatch(loadNeighbourhoodSuccess(response));
+    
+    expect(store.getState().analyse.neighbourhood).toBeDefined();
+    expect(store.getState().analyse.neighbourhood).toBe(response);
+  });
+
+  it('loadNeighbourhoodFailure', () => {
+    const message = 'loadNeighbourhoodFailure';
+    store.dispatch(loadNeighbourhoodFailure(message));
+
+    expect(store.getState().analyse.message).toEqual(message);
+  });
+
+  it('saveStreetData', () => {
     const data = {
       id: 1000,
       name: 'near Earlsfield Station',

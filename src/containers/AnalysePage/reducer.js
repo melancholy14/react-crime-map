@@ -25,6 +25,7 @@ const initialState = {
   },
   street: {},
   news: [],
+  neighbourhood: {},
   message: '',
 }
 
