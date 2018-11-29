@@ -89,7 +89,7 @@ const TabsBody = ({
   activeKey: number,
   children: any,
 }) => (children && children.map((child, index) => (<div
-    key={child.type.name}
+    key={child.type.name || child.type}
     id={index}
     className={`tab ${activeKey === index  ? 'active' : ''}`}
     >

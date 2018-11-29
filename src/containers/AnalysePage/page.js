@@ -76,11 +76,9 @@ class AnalysePage extends React.PureComponent<Props, State> {
           <News
             news={news}
           />
-          <div>
-            <Neighbourhood
-              data={neighbourhood}
-            />
-          </div>
+          <Neighbourhood
+            data={neighbourhood}
+          />
         </Tabs.Body>
       </Tabs>
     </Modal>);

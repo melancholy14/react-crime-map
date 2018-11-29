@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Modal from './modal';
@@ -11,9 +10,11 @@ const MessageDiv = styled.div`
   padding: 1rem 0.5rem;
 `;
 
-class Message extends React.PureComponent<{
+type Props = {
   message: string,
-}, {
+};
+
+class Message extends React.PureComponent<Props, {
   show: boolean,
 }> {
   constructor() {
@@ -24,7 +25,7 @@ class Message extends React.PureComponent<{
     };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.message !== this.props.message) {
       this.toggleModal();
     }
