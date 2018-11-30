@@ -11,6 +11,8 @@ import Checkbox from './checkbox';
 
 import Tabs from './tabs';
 
+import Force from './force';
+
 export {
   Modal,
   Table, Tr, Th, Td,
@@ -20,4 +22,5 @@ export {
   Button,
   Checkbox,
   Tabs,
+  Force,
 };
