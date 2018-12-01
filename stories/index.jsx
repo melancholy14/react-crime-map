@@ -11,7 +11,7 @@ import {
   Checkbox,
   Tabs,
   Table, Tr, Th, Td,
-  Force,
+  ForceGraph,
 } from '../src/components';
 
 storiesOf('Modal', module)
@@ -45,18 +45,40 @@ storiesOf('Checkbox', module)
   .add('unchecked', () => <Checkbox checked={false} onChange={action('Checkbox -> unchecked -> onChange')} />);
 
 storiesOf('Table', module)
-  .add('with tr, th and td', () => <Table><Tr><Th>Header</Th></Tr><Tr><Td>Content</Td></Tr></Table>)
+  .add('with tr, th and td', () => (
+    <Table>
+      <Tr>
+        <Th>Header</Th>
+      </Tr>
+      <Tr>
+        <Td>Content</Td>
+      </Tr>
+    </Table>
+  ))
   .add('with tr and th', () => <Table><Tr><Th>Header</Th></Tr></Table>)
   .add('with tr and td', () => <Table><Tr><Td>Content</Td></Tr></Table>)
-  .add('with th and td', () => <Table><Th>Header</Th><Td>Content</Td></Table>)
+  .add('with th and td', () => (
+    <Table>
+      <Th>Header</Th>
+      <Td>Content</Td>
+    </Table>
+  ))
   .add('with tr and 2 columns of th, td',
-    () => <Table>
-        <Tr><Th>Header</Th><Th>Header 1</Th></Tr>
-        <Tr><Td>Content</Td><Td>Content 2</Td></Tr>
-      </Table>);
+    () => (
+      <Table>
+        <Tr>
+          <Th>Header</Th>
+          <Th>Header 1</Th>
+        </Tr>
+        <Tr>
+          <Td>Content</Td>
+          <Td>Content 2</Td>
+        </Tr>
+      </Table>
+    ));
 
 storiesOf('Tabs', module)
   .add('tabs', () => <Tabs />);
 
 storiesOf('Force', module)
-  .add('force', () => <Force />);
+  .add('force', () => <ForceGraph />);
