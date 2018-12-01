@@ -1,3 +1,5 @@
+// @flow
+
 import Modal from './modal';
 import {
   Table, Tr, Th, Td,
@@ -11,7 +13,7 @@ import Checkbox from './checkbox';
 
 import Tabs from './tabs';
 
-import Force from './force';
+import ForceGraph from './forceGraph';
 
 export {
   Modal,
@@ -22,5 +24,5 @@ export {
   Button,
   Checkbox,
   Tabs,
-  Force,
+  ForceGraph,
 };
