@@ -1,17 +1,12 @@
 // @flow
 
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-// import Header from './header';
-// import Search from '../SearchPage/page';
-// import LeafletMap from '../MapPage/page';
-// import Analyse from '../AnalysePage/page';
-
-const Header = lazy(() => import('./header'));
-const Search = lazy(() => import('../SearchPage'));
-const LeafletMap = lazy(() => import('../MapPage'));
-const Analyse = lazy(() => import('../AnalysePage'));
+import Header from './header';
+import Search from '../SearchPage';
+import LeafletMap from '../MapPage';
+import Analyse from '../AnalysePage';
 
 const AppDiv = styled.div`
   display: flex;
