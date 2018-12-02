@@ -22,22 +22,23 @@ const initialState = {
   circles: [],
 };
 
-export default function mapReducer(state: State = initialState, action: Action){
-  switch(action.type) {
+export default function mapReducer(state: State = initialState, action: Action) {
+  switch (action.type) {
     case SAVE_LOCATION:
       return update(state, {
-        latlng: {$set: action.data},
+        latlng: { $set: action.data },
       });
     case INITIAL_CRIME_CIRCLES:
       return update(state, {
-        crimes: {$set: action.data},
-        circles: {$set: action.data},
-      })
-    case FILTER_CRIME_CIRCLES:
+        crimes: { $set: action.data },
+        circles: { $set: action.data },
+      });
+    case FILTER_CRIME_CIRCLES: {
       const circles = state.crimes.filter(({ category }) => action.selected.includes(category));
       return update(state, {
-        circles: {$set: circles},
+        circles: { $set: circles },
       });
+    }
     default:
       return state;
   }

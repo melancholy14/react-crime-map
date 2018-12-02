@@ -1,3 +1,4 @@
+// @flow
 export type availability = {
   date: string,
 };
@@ -78,6 +79,8 @@ export type AnalysePageProps = {
     outcome: Array<outcomeGraph>,
   },
   news: Array<news>,
+  street: Object,
+  neighbourhood: Object,
 };
 
 export type AnalysePageState = {

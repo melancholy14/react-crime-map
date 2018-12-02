@@ -58,18 +58,17 @@ const SearchForm = ({
     </GridItem>
     <GridItem className="whole-row">
       {
-        category && category.map(({ url, checked, name }) => (<div className="each-crime" key={url}>
-          <Field.Checkbox
-            name={url}
-            id={`checkbox_${url}`}
-            onChange={onCheckCategory}
-            checked={checked}
-          />
-          <label htmlFor={`checkbox_${url}`}>{name}</label>
-          { url !== allCrime.url && 
-            <span className="color" style={{ backgroundColor: categoryColors[url] }}></span>
-          }
-        </div>))
+        category && category.map(({ url, checked, name }) => (
+          <div className="each-crime" key={url}>
+            <Field.Checkbox
+              name={url}
+              id={`checkbox_${url}`}
+              onChange={onCheckCategory}
+              checked={checked}
+            />
+            <label htmlFor={`checkbox_${url}`}>{name}</label>
+            { url !== allCrime.url && <span className="color" style={{ backgroundColor: categoryColors[url] }} /> }
+          </div>))
       }
     </GridItem>
     <GridItem className="whole-row">

@@ -15,40 +15,39 @@ export const SEARCH_REQUEST = 'containers/SearchPage/actions/SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'containers/SearchPage/actions/SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'containers/SearchPage/actions/SEARCH_FAILURE';
 
-export function loadAvailabilitySuccess (data: Array<Object>) {
+export function loadAvailabilitySuccess(data: Array<Object>) {
   return {
     type: LOAD_AVAILABILITY_SUCCESS,
     data,
-  }
+  };
 }
 
-export function loadAvailabilityFailure (message: string) {
+export function loadAvailabilityFailure(message: string) {
   return {
     type: LOAD_AVAILABILITY_FAILURE,
     message,
-  }
+  };
 }
 
-export function loadCrimeCategorySuccess (data: Array<Object>) {
+export function loadCrimeCategorySuccess(data: Array<Object>) {
   return {
     type: LOAD_CRIME_CATEGORY_SUCCESS,
     data,
-  }
+  };
 }
 
-export function loadCrimeCategoryFailure (message: string) {
+export function loadCrimeCategoryFailure(message: string) {
   return {
     type: LOAD_CRIME_CATEGORY_FAILURE,
     message,
-  }
+  };
 }
 
-export function searchRequest ({
-  minDate: min_date,
-  maxDate: max_date,
+export function searchRequest({
+  minDate: originMinDate,
+  maxDate: originMaxDate,
   dates: _dates,
   postcode,
-  // ...rest
 }: {
   minDate: string,
   maxDate: string,
@@ -56,8 +55,8 @@ export function searchRequest ({
   postcode: string,
 }) {
   const defaultDateValue = _dates[0].value;
-  const minDate = min_date || defaultDateValue;
-  const maxDate = max_date || defaultDateValue;
+  const minDate = originMinDate || defaultDateValue;
+  const maxDate = originMaxDate || defaultDateValue;
 
   const dates: Array<string> = _dates.reduce((acc, ele: { value: string }) => {
     if (minDate <= ele.value && ele.value <= maxDate) {
@@ -66,30 +65,7 @@ export function searchRequest ({
     return acc;
   }, []).sort((a, b) => a.localeCompare(b));
 
-  // const {
-  //   urls,
-  // }: {
-  //   done: boolean,
-  //   urls: Array<string>,
-  // } = Object.entries(rest).reduce((acc, ele) => {
-  //   if (!acc.done) {
-  //     if (ele[0] === allCrime.url && ele[1]) {
-  //       return {
-  //         done: true,
-  //         urls: [ele[0]],
-  //       };
-  //     } else if (ele[1]) {
-  //       acc.urls.push(ele[0]);
-  //     }
-  //   }
-  //   return acc;
-  // }, {
-  //   done: false,
-  //   urls: [],
-  // });
-
   const data = {
-    // urls,
     dates,
     postcode,
   };
@@ -97,19 +73,19 @@ export function searchRequest ({
   return {
     type: SEARCH_REQUEST,
     data,
-  }
+  };
 }
 
-export function searchSuccess (data: Array<Object>) {
+export function searchSuccess(data: Array<Object>) {
   return {
     type: SEARCH_SUCCESS,
     data,
-  }
+  };
 }
 
-export function searchFailure (message: string) {
+export function searchFailure(message: string) {
   return {
     type: SEARCH_FAILURE,
     message,
-  }
+  };
 }

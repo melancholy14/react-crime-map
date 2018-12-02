@@ -25,36 +25,36 @@ const initialState = {
 };
 
 export default function searchReducer(state: State = initialState, action: Action): State {
-  switch(action.type) {
+  switch (action.type) {
     case SEARCH_REQUEST:
       return update(state, {
         $merge: {
           ...action.data,
-          loading: true
-        }
+          loading: true,
+        },
       });
     case LOAD_AVAILABILITY_SUCCESS:
       return update(state, {
-        availability: {$set: action.data},
+        availability: { $set: action.data },
       });
     case LOAD_CRIME_CATEGORY_SUCCESS:
       return update(state, {
-        category: {$set: action.data},
+        category: { $set: action.data },
       });
     case SEARCH_SUCCESS:
       return update(state, {
-        crimes: {$set: action.data},
-        loading: {$set: false},
+        crimes: { $set: action.data },
+        loading: { $set: false },
       });
     case LOAD_AVAILABILITY_FAILURE:
     case LOAD_CRIME_CATEGORY_FAILURE:
       return update(state, {
-        message: {$set: action.message}
+        message: { $set: action.message }
       });
     case SEARCH_FAILURE:
       return update(state, {
-        message: {$set: action.message},
-        loading: {$set: false},
+        message: { $set: action.message },
+        loading: { $set: false },
       });
     default:
       return state;

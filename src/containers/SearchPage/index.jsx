@@ -48,6 +48,47 @@ class Search extends React.PureComponent<Props, State> {
     onSearch: () => {},
   };
 
+  checkCategory = debounce((evt, value, prevValue, name) => {
+    const {
+      checkboxes,
+    } = this.state;
+
+    const {
+      onFilterCrimeCategory,
+    } = this.props;
+
+    let newCheckboxes = [];
+    if (name === allCrime.url) {
+      newCheckboxes = checkboxes.map(ele => ({
+        ...ele,
+        checked: value,
+      }));
+    } else {
+      newCheckboxes = checkboxes.map((ele) => {
+        if (ele.url === name) {
+          return {
+            ...ele,
+            checked: value,
+          };
+        }
+        return ele;
+      });
+    }
+
+    const selected = newCheckboxes.reduce((acc, ele) => {
+      if (ele.checked) {
+        return [...acc, ele.url];
+      }
+      return acc;
+    }, []);
+
+    onFilterCrimeCategory(selected);
+
+    this.setState({
+      checkboxes: newCheckboxes,
+    });
+  }, 250);
+
   constructor(props) {
     super(props);
 
@@ -58,7 +99,7 @@ class Search extends React.PureComponent<Props, State> {
         dates: [],
       },
       checkboxes: [],
-    }
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -74,14 +115,18 @@ class Search extends React.PureComponent<Props, State> {
       crimes,
     } = this.props;
 
-    if (JSON.stringify(prevAvailability) !== JSON.stringify(availability)){
+    if (JSON.stringify(prevAvailability) !== JSON.stringify(availability)) {
+      const {
+        date: sDate,
+      } = this.state;
+
       const date = availability.reduce((acc, ele) => ({
-          min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
-          max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
-          dates: acc.dates ? [...acc.dates, { value: ele.date }] : [{ value: ele.date }],
-        }), {
-          ...this.state.date,
-        });
+        min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
+        max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
+        dates: acc.dates ? [...acc.dates, { value: ele.date }] : [{ value: ele.date }],
+      }), {
+        ...sDate,
+      });
 
       this.setState({
         date,
@@ -89,15 +134,12 @@ class Search extends React.PureComponent<Props, State> {
     }
 
     if (JSON.stringify(prevCategory) !== JSON.stringify(category)) {
-      const checkboxes = this.props.category.reduce((acc, ele) => {
-          return [
-            ...acc,
-            {
-              ...ele,
-              checked: true,
-            }
-          ];
-      }, []);
+      const checkboxes = category.reduce((acc, ele) => [
+        ...acc,
+        {
+          ...ele,
+          checked: true,
+        }], []);
 
       this.setState({
         checkboxes,
@@ -105,56 +147,20 @@ class Search extends React.PureComponent<Props, State> {
     }
 
     if (JSON.stringify(prevCrimes) !== JSON.stringify(crimes)) {
-      const category = [allCrime.url, ...crimes.map((ele) => ele.category)];
+      const newCategory = [allCrime.url, ...crimes.map(ele => ele.category)];
 
-      const checkboxes = this.props.category.reduce((acc, ele) => {
-        return [
-          ...acc,
-          {
-            ...ele,
-            checked: category.includes(ele.url),
-          }
-        ];
-      }, []);
+      const checkboxes = category.reduce((acc, ele) => [
+        ...acc,
+        {
+          ...ele,
+          checked: newCategory.includes(ele.url),
+        }], []);
 
       this.setState({
         checkboxes,
       });
     }
   }
-
-  checkCategory = debounce((evt, value, prevValue, name) => {
-    let checkboxes = [];
-    if (name === allCrime.url) {
-      checkboxes = this.state.checkboxes.map((ele) => ({
-        ...ele,
-        checked: value,
-      }));
-    } else {
-      checkboxes = this.state.checkboxes.map((ele) => {
-        if (ele.url === name) {
-          return {
-            ...ele,
-            checked: value,
-          }
-        } 
-        return ele;
-      });
-    }
-
-    const selected = checkboxes.reduce((acc, ele) => {
-      if(ele.checked) {
-        return [...acc, ele.url];
-      }
-      return acc;
-    }, []);
-
-    this.props.onFilterCrimeCategory(selected);
-
-    this.setState({
-      checkboxes,
-    });
-  }, 250);
 
   search = (value) => {
     const {
@@ -163,12 +169,16 @@ class Search extends React.PureComponent<Props, State> {
       } = {},
     } = this.state;
 
+    const {
+      onSearch,
+    } = this.props;
+
     const params = {
       ...value,
       dates,
     };
 
-    this.props.onSearch(params);
+    onSearch(params);
   }
 
   render() {
@@ -201,17 +211,13 @@ class Search extends React.PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ...state.search,
-  }
-}
+const mapStateToProps = state => ({
+  ...state.search,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSearch: (param) => dispatch(searchRequest(param)),
-    onFilterCrimeCategory: (selected) => dispatch(filterCrimeCircles(selected)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  onSearch: param => dispatch(searchRequest(param)),
+  onFilterCrimeCategory: selected => dispatch(filterCrimeCircles(selected)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

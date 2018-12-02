@@ -68,4 +68,9 @@ const GridItem = ({ id, className, children }: {
   </Div>
 );
 
+GridItem.defaultProps = {
+  id: null,
+  className: null,
+};
+
 export default GridItem;

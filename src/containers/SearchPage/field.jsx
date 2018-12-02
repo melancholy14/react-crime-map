@@ -12,22 +12,23 @@ const StyledField = styled(Field)`
   font-family: inherit;
 `;
 
-const Text = (props: Object) => (<StyledField
-  component="input"
-  type="text"
-  { ...props }
-/>);
+const Text = (props: Object) => (
+  <StyledField
+    component="input"
+    type="text"
+    {...props}
+  />);
 
 const Select = ({ options, ...props }: {
   options: Array<{ value: any, text?: string }>,
 }) => (
   <StyledField
     component="select"
-    { ...props }
+    {...props}
   >
-  {
-    options && options.map(({value: val, text = val}) => <option key={val} value={val}>{text}</option>)  
-  }
+    {options && options.map(
+      ({ value: val, text = val }) => <option key={val} value={val}>{text}</option>
+    )}
   </StyledField>
 );
 
@@ -35,7 +36,7 @@ const Checkbox = (props: Object) => (
   <Field
     component="input"
     type="checkbox"
-    { ...props }
+    {...props}
   />
 );
 
