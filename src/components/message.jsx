@@ -26,21 +26,40 @@ class Message extends React.PureComponent<Props, {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.message !== this.props.message) {
+    const {
+      message,
+    } = this.props;
+
+    if (prevProps.message !== message) {
       this.toggleModal();
     }
   }
 
-  toggleModal = () => this.setState({ show: !this.state.show })
+  toggleModal = () => {
+    const {
+      show,
+    } = this.state;
+
+    this.setState({ show: !show });
+  }
 
   render() {
-    return (<Modal
-      title="Something goes wrong"
-      show={this.state.show}
-      onClose={this.toggleModal}
+    const {
+      message,
+    } = this.props;
+
+    const {
+      show,
+    } = this.state;
+
+    return (
+      <Modal
+        title="Something goes wrong"
+        show={show}
+        onClose={this.toggleModal}
       >
         <MessageDiv>
-          {this.props.message}
+          {message}
         </MessageDiv>
       </Modal>);
   }

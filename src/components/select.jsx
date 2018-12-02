@@ -12,7 +12,9 @@ const StyledSelect = styled.select`
   font-family: inherit;
 `;
 
-const Select = ({ id, name, value, options, onChange, className, ...props }: {
+const Select = ({
+  id, name, value, options, onChange, className, ...props
+}: {
   id: string | number,
   name: string,
   value: string | number,
@@ -26,10 +28,12 @@ const Select = ({ id, name, value, options, onChange, className, ...props }: {
     onChange={onChange}
     value={value}
     className={className}
+    {...props}
   >
-  {
-    options && options.map(({value: val, text = val}) => <option key={val} value={val}>{text}</option>)  
-  }
+    {
+    options && options.map(
+      ({ value: val, text = val }) => (<option key={val} value={val}>{text}</option>),
+    )}
   </StyledSelect>
 );
 

@@ -19,13 +19,13 @@ const LoadingDiv = styled.div`
   }
 `;
 
-const Loading = ({ loading }: { loading: boolean }) => (
+const Loading = React.memo(({ loading }: { loading: boolean }) => (
   <LoadingDiv className={`display-${loading ? 'block' : 'none'}`}>
     <HashLoader
       color="#fff"
       loading={loading}
     />
   </LoadingDiv>
-);
+));
 
 export default Loading;

@@ -65,7 +65,7 @@ const StyledTabs = styled.div`
   }
 `;
 
-const TabsTitle = ({
+const TabsTitle = React.memo(({
   data,
   activeKey,
   onSelect,
@@ -73,35 +73,46 @@ const TabsTitle = ({
   data: Array<string>,
   activeKey: number,
   onSelect: Function,
-}) => (<div className="tabs">
-{
-  data && data.map((text, index) => (<button
-    key={text}
-    className={`${(activeKey === index) ? 'active' : ''}`}
-    onClick={onSelect(index)}>{text}</button>))
-}
-</div>);
+}) => (
+  <div className="tabs">
+    { data && data.map((text, index) => (
+      <button
+        key={text}
+        type="button"
+        className={`${(activeKey === index) ? 'active' : ''}`}
+        onClick={onSelect(index)}
+      >
+        {text}
+      </button>
+    ))}
+  </div>));
 
-const TabsBody = ({
+const TabsBody = React.memo(({
   activeKey,
   children,
 }: {
   activeKey: number,
   children: any,
-}) => (children && children.map((child, index) => (<div
+}) => (children && children.map((child, index) => (
+  <div
     key={child.type.name || child.type}
     id={index}
-    className={`tab ${activeKey === index  ? 'active' : ''}`}
-    >
+    className={`tab ${activeKey === index ? 'active' : ''}`}
+  >
     { child }
-</div>)));
+  </div>))
+));
 
 class Tabs extends React.Component<{
   onSelect?: Function,
   children?: any,
-} , {
+}, {
   id: number,
 }> {
+  static Title = TabsTitle;
+
+  static Body = TabsBody;
+
   constructor() {
     super();
 
@@ -109,10 +120,6 @@ class Tabs extends React.Component<{
       id: 0,
     };
   }
-
-  static Title = TabsTitle;
-
-  static Body = TabsBody;
 
   select = (id: number) => () => {
     this.setState({ id });
@@ -136,18 +143,19 @@ class Tabs extends React.Component<{
               activeKey: id,
               index: idx - 1,
             });
-          } else if (child.type === TabsTitle) {
+          }
+          if (child.type === TabsTitle) {
             return React.cloneElement(child, {
               activeKey: id,
               onSelect,
             });
           }
         }
-        return <div></div>;
+        return <div />;
       });
-    } catch(err) {
+    } catch (err) {
       console.error(err);
-      return <div></div>;
+      return <div />;
     }
   }
 

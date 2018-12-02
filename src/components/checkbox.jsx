@@ -2,11 +2,12 @@
 
 import React from 'react';
 
-const Checkbox = ({ id, name, checked, className, onChange, ...props }: {
+const Checkbox = React.memo(({
+  id, name, checked, onChange, ...props
+}: {
   id: string | number,
   name: string,
   checked: boolean,
-  className: string,
   onChange: Function,
 }) => (
   <input
@@ -15,7 +16,8 @@ const Checkbox = ({ id, name, checked, className, onChange, ...props }: {
     id={id}
     onChange={onChange}
     checked={checked}
+    {...props}
   />
-);
+));
 
 export default Checkbox;

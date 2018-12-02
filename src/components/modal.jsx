@@ -106,7 +106,9 @@ const ModalDiv = styled.div`
   }
 `;
 
-const Modal = ({ title, show, onClose, fixedBottom = false, children }: {
+const Modal = React.memo(({
+  title, show, onClose, fixedBottom = false, children,
+}: {
   title?: string,
   show: boolean,
   onClose?: Function,
@@ -114,20 +116,27 @@ const Modal = ({ title, show, onClose, fixedBottom = false, children }: {
   children: any,
 }) => (
   <ModalDiv className={`display-${show ? 'block' : 'none'}`}>
-    { title &&
+    { title && (
     <div className="modal-title">
       <div className="title">{ title }</div>
-      { onClose && !fixedBottom && <button className="close" onClick={onClose}>X</button> }
-    </div> }
+      { onClose && !fixedBottom && <button type="button" className="close" onClick={onClose}>X</button> }
+    </div>) }
     <div className={`modal-main ${fixedBottom ? 'fixed-bottom' : ''}`}>
       { children }
     </div>
     {
-      onClose && fixedBottom && (<div className="modal-footer">
-        { onClose && <button className="close" onClick={onClose}>Close</button> }
+      onClose && fixedBottom && (
+      <div className="modal-footer">
+        { onClose && <button type="button" className="close" onClick={onClose}>Close</button> }
       </div>)
     }
   </ModalDiv>
-);
+));
+
+Modal.defaultProps = {
+  title: null,
+  onClose: null,
+  fixedBottom: false,
+};
 
 export default Modal;
