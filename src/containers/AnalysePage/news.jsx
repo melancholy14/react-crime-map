@@ -31,11 +31,13 @@ const NewsStyle = styled.div`
   }
 `;
 
-const News = ({ news }: Props) => (
+const News = React.memo(({ news }: Props) => (
   <NewsStyle>
     {
-      news && news.map(({id, sectionName, pillarName, webTitle, webUrl, webPublicationDate }) =>
-        (<Table key={id}>
+      news && news.map(({
+        id, sectionName, pillarName, webTitle, webUrl, webPublicationDate,
+      }) => (
+        <Table key={id}>
           <Tr>
             <Th>Date</Th>
             <Td>{ new Date(webPublicationDate).toLocaleDateString() }</Td>
@@ -56,6 +58,6 @@ const News = ({ news }: Props) => (
       ))
     }
   </NewsStyle>
-);
+));
 
 export default News;

@@ -14,57 +14,56 @@ export const INITIAL_CRIME_CIRCLES = 'containers/MapPage/actions/INITIAL_CRIME_C
 
 export const FILTER_CRIME_CIRCLES = 'containers/MapPage/actions/FILTER_CRIME_CIRCLES';
 
-export function saveLocation (data: Location) {
+export function saveLocation(data: Location) {
   return {
     type: SAVE_LOCATION,
     data,
-  }
+  };
 }
 
-export function initialCrimeCircles (crimes: Array<Object>) {
+export function initialCrimeCircles(crimes: Array<Object>) {
   const crimeWithCount: Object = crimes.reduce((acc, ele) => {
-      const {
-        category,
-        location: {
-          latitude,
-          longitude,
-          street = {},
-        } = {},
-      } = ele;
+    const {
+      category,
+      location: {
+        latitude,
+        longitude,
+        street = {},
+      } = {},
+    } = ele;
 
-      if (!acc[street.id]) {
-        return {
-          ...acc,
-          [street.id]: {
-            category,
-            fillColor: categoryColors[category],
-            street,
-            count: 1,
-            latlng: [parseFloat(latitude), parseFloat(longitude)],
-          },
-        };
-      } else {
-        return {
-          ...acc,
-          [street.id]: {
-            ...acc[street.id],
-            count: acc[street.id].count + 1,
-          },
-        };
-      }
+    if (!acc[street.id]) {
+      return {
+        ...acc,
+        [street.id]: {
+          category,
+          fillColor: categoryColors[category],
+          street,
+          count: 1,
+          latlng: [parseFloat(latitude), parseFloat(longitude)],
+        },
+      };
+    }
+    return {
+      ...acc,
+      [street.id]: {
+        ...acc[street.id],
+        count: acc[street.id].count + 1,
+      },
+    };
   }, {});
 
   const values: Array<Object> = (Object.values(crimeWithCount): any);
 
-  const max = Math.max(...values.map((ele) => ele.count));
+  const max = Math.max(...values.map(ele => ele.count));
 
   const minOpacity = 0.75;
   const maxOpacity = 1;
   const minRadius = 25;
   const maxRadius = 250;
 
-  const getOpacity = (ratio) => ratio * (maxOpacity - minOpacity) + minOpacity;
-  const getRadius = (ratio) => ratio * (maxRadius - minRadius) + minRadius;
+  const getOpacity = ratio => ratio * (maxOpacity - minOpacity) + minOpacity;
+  const getRadius = ratio => ratio * (maxRadius - minRadius) + minRadius;
 
   const data: Array<Object> = values.map((ele: Object) => ({
     ...ele,
@@ -75,12 +74,12 @@ export function initialCrimeCircles (crimes: Array<Object>) {
   return {
     type: INITIAL_CRIME_CIRCLES,
     data,
-  }
+  };
 }
 
-export function filterCrimeCircles (selected: Array<string> = []) {
+export function filterCrimeCircles(selected: Array<string> = []) {
   return {
     type: FILTER_CRIME_CIRCLES,
     selected,
-  }
+  };
 }

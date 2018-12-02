@@ -1,6 +1,8 @@
 // @flow
 
-import { takeLatest, select, put, call } from 'redux-saga/effects';
+import {
+  takeLatest, select, put, call,
+} from 'redux-saga/effects';
 import { api, request, keys } from '../../utils/request';
 
 import {
@@ -16,9 +18,9 @@ import {
   loadNeighbourhoodSuccess,
 } from './actions';
 
-function* loadGraph({ street }){
+function* loadGraph({ street }) {
   try {
-    const crimes = yield select((state) => state.search.crimes);
+    const crimes = yield select(state => state.search.crimes);
     const selectedCrimes = crimes && crimes.filter(({
       location: {
         street: {
@@ -27,26 +29,26 @@ function* loadGraph({ street }){
       } = {},
     }) => id === street.id);
 
-    const dates = yield select((state) => state.search.dates);
+    const dates = yield select(state => state.search.dates);
 
     const {
-      date,
-      category,
-      outcome,
+      date: selectedDate,
+      category: selectedCategory,
+      outcome: selectedOutcome,
     } = selectedCrimes.reduce((acc, ele) => {
       const {
         month,
         category,
-        outcome_status,
+        outcome_status: outcomeStatus,
         outcomes: {
           category: outcome,
-        } = outcome_status || {},
+        } = outcomeStatus || {},
       } = ele;
 
       return ({
         date: {
           ...acc.date,
-          [month]: acc.date[month] ? acc.date[month] + 1 : 1, 
+          [month]: acc.date[month] ? acc.date[month] + 1 : 1,
         },
         category: {
           ...acc.category,
@@ -55,7 +57,7 @@ function* loadGraph({ street }){
         outcome: {
           ...acc.outcome,
           [outcome]: acc.outcome[outcome] ? acc.outcome[outcome] + 1 : 1,
-        }
+        },
       });
     }, {
       date: {},
@@ -64,16 +66,16 @@ function* loadGraph({ street }){
     });
 
     yield put(loadGraphsSuccess({
-      date: dates.map((d) => ({
+      date: dates.map(d => ({
         date: d,
-        count: date[d] || 0,
+        count: selectedDate[d] || 0,
       })),
-      category: Object.entries(category).map(([category, count]) => ({ category, count })),
-      outcome: Object.entries(outcome).map(([outcome, count]) => ({ outcome, count })),
+      category: Object.entries(selectedCategory).map(([category, count]) => ({ category, count })),
+      outcome: Object.entries(selectedOutcome).map(([outcome, count]) => ({ outcome, count })),
     }));
 
     yield put(saveStreetData(street));
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     yield put(loadGraphsFailure(err.message));
   }
@@ -92,8 +94,8 @@ function* loadNews({ latlng }) {
     const { locations = [] } = address[0];
     const { street, adminArea5, postalCode } = locations[0];
 
-    const query = `${adminArea5} AND ${street ? street : postalCode}`;
-    const dates = yield select((state) => state.search.dates);
+    const query = `${adminArea5} AND ${street || postalCode}`;
+    const dates = yield select(state => state.search.dates);
 
     const newsUrl = `${api.guardian}?q=${query}&from-date=${dates[0]}-01&api-key=${keys.guardian}`;
 
@@ -134,7 +136,7 @@ function* loadNeighbourhood({ latlng }) {
   }
 }
 
-export default function* saga(): Generator<any, void, any>{
+export default function* saga(): Generator<any, void, any> {
   yield takeLatest(LOAD_GRAPHS_REQUEST, loadGraph);
   yield takeLatest(LOAD_NEWS_REQUEST, loadNews);
   yield takeLatest(LOAD_NEIGHBOURHOOD_REQUEST, loadNeighbourhood);

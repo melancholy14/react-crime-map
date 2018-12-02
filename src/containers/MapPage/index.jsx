@@ -1,6 +1,7 @@
+// @flow
+
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
@@ -17,11 +18,16 @@ import {
 } from '../AnalysePage/actions';
 
 import {
+  MapPageProps as Props,
+  MapPageState as State,
+} from '../../utils/types';
+
+import {
   saveLocation,
 } from './actions';
 
-const attribution = "&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
-const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const attribution = '&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors';
+const url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 const MapStyle = styled.main`
   order: 2;
@@ -35,26 +41,19 @@ const MapStyle = styled.main`
     }
 `;
 
-class LeafletMap extends React.PureComponent {
-  static propTypes = {
-    latlng: PropTypes.shape({
-      lat: PropTypes.number,
-      lng: PropTypes.number,
-    }),
-    circles: PropTypes.array,
-    onSaveLocation: PropTypes.func,
-  }
+class LeafletMap extends React.PureComponent<Props, State> {
+  map = null;
 
   constructor(props) {
     super(props);
 
     this.state = {
       latlng: props.latlng,
-    }
+    };
   }
 
   componentDidMount() {
-    if (this.map.leafletElement) {
+    if (this.map && this.map.leafletElement) {
       this.map.leafletElement.locate();
     }
   }
@@ -75,15 +74,24 @@ class LeafletMap extends React.PureComponent {
     }
   }
 
-  handleClick = (evt) => this.props.onSaveLocation(evt.latlng);
+  handleClick = (evt) => {
+    const {
+      onSaveLocation,
+    } = this.props;
+
+    onSaveLocation(evt.latlng);
+  }
 
   handleLocationFound = (evt) => {
+    const {
+      onSaveLocation,
+    } = this.props;
+
     this.setState({
-      hasLocation: true,
       latlng: evt.latlng,
     });
 
-    this.props.onSaveLocation(evt.latlng);
+    onSaveLocation(evt.latlng);
   }
 
   handleCircle = (street, latlng) => () => {
@@ -104,13 +112,13 @@ class LeafletMap extends React.PureComponent {
     } = this.props;
 
     const {
-      latlng = {},
+      latlng: stateLatlng = {},
     } = this.state;
 
     return (
       <MapStyle className="map">
         <Map
-          center={latlng}
+          center={stateLatlng}
           ref={(val) => { this.map = val; }}
           zoom={13}
           onClick={this.handleClick}
@@ -120,51 +128,48 @@ class LeafletMap extends React.PureComponent {
             attribution={attribution}
             url={url}
           />
-          { latlng &&
-          <Marker position={[latlng.lat, latlng.lng]}>
+          { stateLatlng && (
+          <Marker position={[stateLatlng.lat, stateLatlng.lng]}>
             <Popup>
               {`You clicked here!!
-              Latitude: ${latlng.lat}
-              Longitude: ${latlng.lng}`}
+              Latitude: ${stateLatlng.lat}
+              Longitude: ${stateLatlng.lng}`}
             </Popup>
-          </Marker> }
+          </Marker>) }
           {
-            circles && circles.map(({latlng, street, radius, count, opacity = 0.5, fillColor}) => 
-            <Circle
-              fillColor={fillColor}
-              fillOpacity={opacity}
-              stroke={false}
-              radius={radius}
-              center={latlng}
-              key={latlng}
-              onClick={this.handleCircle(street, latlng)}
-            >
-              <Popup>
-              {`Street Id: ${street.id}
-              Street Name: ${street.name}
-              Crime Count: ${count}`}
-              </Popup>
-            </Circle>)
-          }
+            circles && circles.map(({
+              latlng, street, radius, count, opacity = 0.5, fillColor,
+            }) => (
+              <Circle
+                fillColor={fillColor}
+                fillOpacity={opacity}
+                stroke={false}
+                radius={radius}
+                center={latlng}
+                key={latlng}
+                onClick={this.handleCircle(street, latlng)}
+              >
+                <Popup>
+                  {`Street Id: ${street.id}
+                  Street Name: ${street.name}
+                  Crime Count: ${count}`}
+                </Popup>
+              </Circle>))}
         </Map>
       </MapStyle>
     );
   }
-};
-
-const mapStateToProps = (state) => {
-  return {
-    ...state.map,
-  };
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSaveLocation: (latlng) => dispatch(saveLocation(latlng)),
-    onLoadGraphRequest: (id) => dispatch(loadGraphsRequest(id)),
-    onLoadNewsRequest: (latlng) => dispatch(loadNewsRequest(latlng)),
-    onLoadNeigbourhoodRequest: (latlng) => dispatch(loadNeighbourhoodRequest(latlng)),
-  }
-}
+const mapStateToProps = state => ({
+  ...state.map,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSaveLocation: latlng => dispatch(saveLocation(latlng)),
+  onLoadGraphRequest: id => dispatch(loadGraphsRequest(id)),
+  onLoadNewsRequest: latlng => dispatch(loadNewsRequest(latlng)),
+  onLoadNeigbourhoodRequest: latlng => dispatch(loadNeighbourhoodRequest(latlng)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeafletMap);

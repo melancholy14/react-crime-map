@@ -100,6 +100,16 @@ export type Location = {
   lng: number,
 };
 
+export type MapPageProps = {
+  latlng: Location,
+  circles: Array<Object>,
+  onSaveLocation: Function,
+}
+
+export type MapPageState = {
+  latlng: Location,
+}
+
 export type MapReducerState = {
   +latlng: Location,
   +circles: Array<Object>,

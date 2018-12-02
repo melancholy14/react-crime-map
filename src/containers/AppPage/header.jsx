@@ -28,13 +28,14 @@ const HeaderDiv = styled.header`
     }
 `;
 
-const Header = () => (<HeaderDiv>
-  <div className="title">
-    CRIME MAP
-  </div>
-  <div className="email">
-    <span className="smaller">Contact me: melancholy8914@gmail.com</span>
-  </div>
-</HeaderDiv>);
+const Header = React.memo(() => (
+  <HeaderDiv>
+    <div className="title">
+      CRIME MAP
+    </div>
+    <div className="email">
+      <span className="smaller">Contact me: melancholy8914@gmail.com</span>
+    </div>
+  </HeaderDiv>));
 
 export default Header;

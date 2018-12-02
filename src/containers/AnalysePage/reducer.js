@@ -27,33 +27,33 @@ const initialState = {
   news: [],
   neighbourhood: {},
   message: '',
-}
+};
 
 export default function analyseReducer(state: State = initialState, action: Action): State {
-  switch(action.type){
+  switch (action.type) {
     case LOAD_GRAPHS_SUCCESS:
       return update(state, {
-        graph: {$set: action.data}
+        graph: { $set: action.data },
       });
     case LOAD_NEWS_SUCCESS:
       return update(state, {
-        news: {$set: action.data},
+        news: { $set: action.data },
       });
     case SAVE_STREET_DATA:
       return update(state, {
-        street: {$set: action.data}
+        street: { $set: action.data },
       });
     case LOAD_NEIGHBOURHOOD_SUCCESS:
       return update(state, {
-        neighbourhood: {$set: action.data}
+        neighbourhood: { $set: action.data },
       });
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:
     case LOAD_NEIGHBOURHOOD_FAILURE:
       return update(state, {
-        message: {$set: action.message},
+        message: { $set: action.message },
       });
     default:
       return state;
   }
-};
+}

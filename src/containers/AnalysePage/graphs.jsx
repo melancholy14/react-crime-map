@@ -29,7 +29,8 @@ const Graphs = (props: Props) => {
       outcome,
     } = {},
   } = props;
-  
+
+
   let width = window.innerWidth;
   if (width >= 768) {
     width = (width * 0.75) / 2;
@@ -85,23 +86,6 @@ const Graphs = (props: Props) => {
         </BarChart>
       </StyledGraph>
     }
-    {/* <StyledGraph>
-      <p>Demo</p>
-      <BarChart
-        width={width}
-        height={width}
-        data={multiple}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
-        <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-        <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
-        <Tooltip />
-        <Legend />
-        <Bar yAxisId="left" dataKey="category" fill="#8884d8" />
-        <Bar yAxisId="right" dataKey="outcome" fill="#82ca9d" />
-      </BarChart>
-    </StyledGraph> */}
   </div>);
 }
 
