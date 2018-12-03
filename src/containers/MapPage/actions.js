@@ -77,9 +77,9 @@ export function initialCrimeCircles(crimes: Array<Object>) {
   };
 }
 
-export function filterCrimeCircles(selected: Array<string> = []) {
+export function filterCrimeCircles(data: Array<string> = []) {
   return {
     type: FILTER_CRIME_CIRCLES,
-    selected,
+    data,
   };
 }

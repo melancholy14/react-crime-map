@@ -13,7 +13,7 @@ import {
   filterCrimeCircles,
 } from '../MapPage/actions';
 
-import {
+import type {
   SearchPageProps as Props,
   SearchPageState as State,
 } from '../../utils/types';

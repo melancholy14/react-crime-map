@@ -2,7 +2,7 @@
 
 import update from 'immutability-helper';
 
-import {
+import type {
   MapReducerState as State,
   Action,
 } from '../../utils/types';
@@ -20,6 +20,7 @@ const initialState = {
   },
   crimes: [],
   circles: [],
+  message: '',
 };
 
 export default function mapReducer(state: State = initialState, action: Action) {
@@ -34,7 +35,9 @@ export default function mapReducer(state: State = initialState, action: Action) 
         circles: { $set: action.data },
       });
     case FILTER_CRIME_CIRCLES: {
-      const circles = state.crimes.filter(({ category }) => action.selected.includes(category));
+      const circles = state.crimes.filter(
+        ({ category }) => action.data && action.data.includes(category),
+      );
       return update(state, {
         circles: { $set: circles },
       });

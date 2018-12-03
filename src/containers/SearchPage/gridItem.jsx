@@ -59,7 +59,7 @@ const Div = styled.div`
 `;
 
 const GridItem = ({ id, className, children }: {
-  id?: string | number,
+  id?: string | number | null,
   className?: string,
   children: any,
 }) => (
@@ -70,7 +70,7 @@ const GridItem = ({ id, className, children }: {
 
 GridItem.defaultProps = {
   id: null,
-  className: null,
+  className: '',
 };
 
 export default GridItem;

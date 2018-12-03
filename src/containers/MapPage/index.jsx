@@ -17,7 +17,7 @@ import {
   loadNeighbourhoodRequest,
 } from '../AnalysePage/actions';
 
-import {
+import type {
   MapPageProps as Props,
   MapPageState as State,
 } from '../../utils/types';

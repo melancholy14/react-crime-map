@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
+import type {
   AnalysePageProps as Props,
   AnalysePageState as State,
 } from '../../utils/types';
@@ -58,7 +58,9 @@ class AnalysePage extends React.PureComponent<Props, State> {
     const {
       graph,
       news,
-      street,
+      street: {
+        name,
+      } = {},
       neighbourhood,
     } = this.props;
 
@@ -69,7 +71,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
 
     return (
       <Modal
-        title={street.name}
+        title={name}
         show={show}
         onClose={this.toggleShow}
         fixedBottom

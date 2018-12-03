@@ -107,6 +107,9 @@ export type MapPageProps = {
   latlng: Location,
   circles: Array<Object>,
   onSaveLocation: Function,
+  onLoadGraphRequest: Function,
+  onLoadNewsRequest: Function,
+  onLoadNeigbourhoodRequest: Function,
 }
 
 export type MapPageState = {
@@ -116,6 +119,7 @@ export type MapPageState = {
 export type MapReducerState = {
   +latlng: Location,
   +circles: Array<Object>,
+  +crimes: Array<Object>,
   +message: string,
 }
 
