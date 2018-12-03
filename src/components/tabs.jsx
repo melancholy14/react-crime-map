@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const StyledTabs = styled.div`
@@ -65,7 +65,7 @@ const StyledTabs = styled.div`
   }
 `;
 
-const TabsTitle = React.memo(({
+const TabsTitle = memo(({
   data,
   activeKey,
   onSelect,
@@ -87,15 +87,17 @@ const TabsTitle = React.memo(({
     ))}
   </div>));
 
-const TabsBody = React.memo(({
+const TabsBody = memo(({
   activeKey,
+  titles = [],
   children,
 }: {
   activeKey: number,
+  titles: Array<string>,
   children: any,
 }) => (children && children.map((child, index) => (
   <div
-    key={child.type.name || child.type}
+    key={titles[index]}
     id={index}
     className={`tab ${activeKey === index ? 'active' : ''}`}
   >
@@ -112,6 +114,8 @@ class Tabs extends React.Component<{
   static Title = TabsTitle;
 
   static Body = TabsBody;
+
+  titles = [];
 
   constructor() {
     super();
@@ -136,15 +140,17 @@ class Tabs extends React.Component<{
         id,
       } = this.state;
 
-      return React.Children.map(children, (child, idx) => {
+      return React.Children.map(children, (child) => {
         if (child) {
           if (child.type === TabsBody) {
             return React.cloneElement(child, {
               activeKey: id,
-              index: idx - 1,
+              titles: this.titles,
             });
           }
           if (child.type === TabsTitle) {
+            this.titles = child.props.data;
+
             return React.cloneElement(child, {
               activeKey: id,
               onSelect,
