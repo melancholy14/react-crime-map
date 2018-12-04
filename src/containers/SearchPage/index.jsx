@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { debounce } from 'lodash';
@@ -36,7 +36,6 @@ const SearchStyle = styled.aside`
 `;
 
 class Search extends React.PureComponent<Props, State> {
-
   static defaultProps = {
     availability: [],
     category: [],
@@ -93,46 +92,22 @@ class Search extends React.PureComponent<Props, State> {
     super(props);
 
     this.state = {
-      date: {
-        min: '',
-        max: '',
-        dates: [],
-      },
       checkboxes: [],
     };
   }
 
   componentDidUpdate(prevProps) {
     const {
-      availability: prevAvailability,
       category: prevCategory,
       crimes: prevCrimes,
     } = prevProps;
 
     const {
-      availability,
       category,
       crimes,
     } = this.props;
 
-    if (JSON.stringify(prevAvailability) !== JSON.stringify(availability)) {
-      const {
-        date: sDate,
-      } = this.state;
-
-      const date = availability.reduce((acc, ele) => ({
-        min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
-        max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
-        dates: acc.dates ? [...acc.dates, { value: ele.date }] : [{ value: ele.date }],
-      }), {
-        ...sDate,
-      });
-
-      this.setState({
-        date,
-      });
-    }
-
+    // checkboxes를 redux-form에 있는 애들로 쓸 수 없나? selector를 부를 때인가...
     if (JSON.stringify(prevCategory) !== JSON.stringify(category)) {
       const checkboxes = category.reduce((acc, ele) => [
         ...acc,
@@ -167,9 +142,6 @@ class Search extends React.PureComponent<Props, State> {
       date: {
         dates,
       } = {},
-    } = this.state;
-
-    const {
       onSearch,
     } = this.props;
 
@@ -185,29 +157,31 @@ class Search extends React.PureComponent<Props, State> {
     const {
       message,
       loading,
+      date: {
+        dates,
+      } = {},
     } = this.props;
 
     const {
-      date: {
-        dates,
-      },
       checkboxes,
     } = this.state;
 
     return (
-      <SearchStyle>
-        <SearchForm
-          dates={dates}
-          category={checkboxes}
-          onCheckCategory={this.checkCategory}
-          onSubmit={this.search}
-        />
-        <Loading loading={loading} />
-        <Message
-          message={message}
-        />
-      </SearchStyle>
-    )
+      <Suspense fallback={<div>Loading...</div>}>
+        <SearchStyle>
+          <SearchForm
+            dates={dates}
+            category={checkboxes}
+            onCheckCategory={this.checkCategory}
+            onSubmit={this.search}
+          />
+          <Loading loading={loading} />
+          <Message
+            message={message}
+          />
+        </SearchStyle>
+      </Suspense>
+    );
   }
 }
 

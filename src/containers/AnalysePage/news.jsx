@@ -7,7 +7,7 @@ import {
   Table, Tr, Th, Td,
 } from '../../components';
 
-import {
+import type {
   NewsProps as Props,
 } from '../../utils/types';
 

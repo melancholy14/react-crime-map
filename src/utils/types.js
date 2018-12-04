@@ -10,6 +10,11 @@ export type category = {
 
 export type SearchPageProps = {
   availability: Array<availability>,
+  date: {
+    min: string,
+    max: string,
+    dates: Array<availability>,
+  },
   category: Array<category>,
   crimes: Array<Object>,
   message: string,
@@ -20,11 +25,6 @@ export type SearchPageProps = {
 }
 
 export type SearchPageState = {
-  date: {
-    min: string,
-    max: string,
-    dates: Array<availability>,
-  },
   checkboxes: Array<{ url: string, name: string, checked: boolean }>,
 }
 

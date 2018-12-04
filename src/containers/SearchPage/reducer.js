@@ -11,7 +11,7 @@ import {
   SEARCH_FAILURE,
 } from './actions';
 
-import {
+import type {
   SearchReducerState as State,
   Action,
 } from '../../utils/types';
@@ -33,10 +33,17 @@ export default function searchReducer(state: State = initialState, action: Actio
           loading: true,
         },
       });
-    case LOAD_AVAILABILITY_SUCCESS:
+    case LOAD_AVAILABILITY_SUCCESS: {
+      const {
+        availability,
+        date,
+      } = action.data || {};
+
       return update(state, {
-        availability: { $set: action.data },
+        availability: { $set: availability },
+        date: { $set: date },
       });
+    }
     case LOAD_CRIME_CATEGORY_SUCCESS:
       return update(state, {
         category: { $set: action.data },
@@ -49,7 +56,7 @@ export default function searchReducer(state: State = initialState, action: Actio
     case LOAD_AVAILABILITY_FAILURE:
     case LOAD_CRIME_CATEGORY_FAILURE:
       return update(state, {
-        message: { $set: action.message }
+        message: { $set: action.message },
       });
     case SEARCH_FAILURE:
       return update(state, {

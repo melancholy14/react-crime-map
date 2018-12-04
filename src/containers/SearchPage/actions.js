@@ -1,9 +1,5 @@
 // @flow
 
-// import {
-//   allCrime,
-// } from '../../utils/constants';
-
 export const LOAD_AVAILABILITY_SUCCESS = 'containers/SearchPage/actions/LOAD_AVAILABILITY_SUCCESS';
 export const LOAD_AVAILABILITY_FAILURE = 'containers/SearchPage/actions/LOAD_AVAILABILITY_FAILURE';
 
@@ -15,10 +11,23 @@ export const SEARCH_REQUEST = 'containers/SearchPage/actions/SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'containers/SearchPage/actions/SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'containers/SearchPage/actions/SEARCH_FAILURE';
 
-export function loadAvailabilitySuccess(data: Array<Object>) {
+export function loadAvailabilitySuccess(availability: Array<Object>) {
+  const date = availability.reduce((acc, ele) => ({
+    min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
+    max: (acc.max && acc.max > ele.date) ? acc.max : ele.date,
+    dates: acc.dates ? [...acc.dates, { value: ele.date }] : [{ value: ele.date }],
+  }), {
+    min: '',
+    max: '',
+    dates: [],
+  });
+
   return {
     type: LOAD_AVAILABILITY_SUCCESS,
-    data,
+    data: {
+      availability,
+      date,
+    },
   };
 }
 
