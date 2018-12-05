@@ -67,9 +67,7 @@ function* search({
       };
 
       const {
-        data: {
-          results,
-        } = {},
+        results,
       } = yield call(request, `${api.mapquest}/address?key=${keys.mapquest}&json=${JSON.stringify(obj)}`);
 
       if (results && results.length > 0) {

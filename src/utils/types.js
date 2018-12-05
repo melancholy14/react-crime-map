@@ -112,9 +112,9 @@ export type MapPageProps = {
   onLoadNeigbourhoodRequest: Function,
 }
 
-export type MapPageState = {
-  latlng: Location,
-}
+// export type MapPageState = {
+//   latlng: Location,
+// }
 
 export type MapReducerState = {
   +latlng: Location,
