@@ -19,7 +19,6 @@ import {
 
 import type {
   MapPageProps as Props,
-  MapPageState as State,
 } from '../../utils/types';
 
 import {
@@ -41,16 +40,16 @@ const MapStyle = styled.main`
     }
 `;
 
-class LeafletMap extends React.PureComponent<Props, State> {
+class LeafletMap extends React.PureComponent<Props> {
   map = null;
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      latlng: props.latlng,
-    };
-  }
+  //   this.state = {
+  //     latlng: props.latlng,
+  //   };
+  // }
 
   componentDidMount() {
     if (this.map && this.map.leafletElement) {
@@ -58,21 +57,21 @@ class LeafletMap extends React.PureComponent<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const {
-      latlng: prevLatlng,
-    } = prevProps;
+  // componentDidUpdate(prevProps) {
+  //   const {
+  //     latlng: prevLatlng,
+  //   } = prevProps;
 
-    const {
-      latlng,
-    } = this.props;
+  //   const {
+  //     latlng,
+  //   } = this.props;
 
-    if (prevLatlng !== latlng) {
-      this.setState({
-        latlng,
-      });
-    }
-  }
+  //   if (prevLatlng !== latlng) {
+  //     this.setState({
+  //       latlng,
+  //     });
+  //   }
+  // }
 
   handleClick = (evt) => {
     const {
@@ -87,9 +86,9 @@ class LeafletMap extends React.PureComponent<Props, State> {
       onSaveLocation,
     } = this.props;
 
-    this.setState({
-      latlng: evt.latlng,
-    });
+    // this.setState({
+    //   latlng: evt.latlng,
+    // });
 
     onSaveLocation(evt.latlng);
   }
@@ -109,16 +108,22 @@ class LeafletMap extends React.PureComponent<Props, State> {
   render() {
     const {
       circles,
+      latlng: propsLatlng = {},
     } = this.props;
 
     const {
-      latlng: stateLatlng = {},
-    } = this.state;
+      lat,
+      lng,
+    } = propsLatlng || {};
+
+    // const {
+    //   latlng: stateLatlng = {},
+    // } = this.state;
 
     return (
       <MapStyle className="map">
         <Map
-          center={stateLatlng}
+          center={propsLatlng}
           ref={(val) => { this.map = val; }}
           zoom={13}
           onClick={this.handleClick}
@@ -128,12 +133,12 @@ class LeafletMap extends React.PureComponent<Props, State> {
             attribution={attribution}
             url={url}
           />
-          { stateLatlng && (
-          <Marker position={[stateLatlng.lat, stateLatlng.lng]}>
+          { propsLatlng && (
+          <Marker position={[lat, lng]}>
             <Popup>
               {`You clicked here!!
-              Latitude: ${stateLatlng.lat}
-              Longitude: ${stateLatlng.lng}`}
+              Latitude: ${lat}
+              Longitude: ${lng}`}
             </Popup>
           </Marker>) }
           {
