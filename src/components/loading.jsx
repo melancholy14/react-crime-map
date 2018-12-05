@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { HashLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 
 const LoadingDiv = styled.div`
   position: fixed;
@@ -15,13 +15,16 @@ const LoadingDiv = styled.div`
   z-index: 1;
 
   & > div {
-    margin: 15rem auto;
+    // margin: 15rem auto;
+    position: absolute;
+    top: 47.5%;
+    left: 47.5%;
   }
 `;
 
 const Loading = React.memo(({ loading }: { loading: boolean }) => (
   <LoadingDiv className={`display-${loading ? 'block' : 'none'}`}>
-    <HashLoader
+    <PulseLoader
       color="#fff"
       loading={loading}
     />

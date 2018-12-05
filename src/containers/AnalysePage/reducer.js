@@ -12,7 +12,7 @@ import {
   LOAD_NEIGHBOURHOOD_FAILURE,
 } from './actions';
 
-import {
+import type {
   AnalyseReducerState as State,
   Action,
 } from '../../utils/types';
