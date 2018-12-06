@@ -39,7 +39,6 @@ class Search extends React.PureComponent<Props, State> {
   static defaultProps = {
     availability: [],
     category: [],
-    crimes: [],
     message: null,
     loading: false,
     onSelectCrimeCategory: () => {},
@@ -47,95 +46,21 @@ class Search extends React.PureComponent<Props, State> {
     onSearch: () => {},
   };
 
-  checkCategory = debounce((evt, value, prevValue, name) => {
-    const {
-      checkboxes,
-    } = this.state;
-
+  checkCategory = debounce(() => {
     const {
       onFilterCrimeCategory,
+      checkboxes,
     } = this.props;
 
-    let newCheckboxes = [];
-    if (name === allCrime.url) {
-      newCheckboxes = checkboxes.map(ele => ({
-        ...ele,
-        checked: value,
-      }));
-    } else {
-      newCheckboxes = checkboxes.map((ele) => {
-        if (ele.url === name) {
-          return {
-            ...ele,
-            checked: value,
-          };
-        }
-        return ele;
-      });
-    }
-
-    const selected = newCheckboxes.reduce((acc, ele) => {
+    const selected = checkboxes.reduce((acc, ele) => {
       if (ele.checked) {
-        return [...acc, ele.url];
+        acc.push(ele.url);
       }
       return acc;
     }, []);
 
     onFilterCrimeCategory(selected);
-
-    this.setState({
-      checkboxes: newCheckboxes,
-    });
   }, 250);
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      checkboxes: [],
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    const {
-      category: prevCategory,
-      crimes: prevCrimes,
-    } = prevProps;
-
-    const {
-      category,
-      crimes,
-    } = this.props;
-
-    // checkboxes를 redux-form에 있는 애들로 쓸 수 없나? selector를 부를 때인가...
-    if (JSON.stringify(prevCategory) !== JSON.stringify(category)) {
-      const checkboxes = category.reduce((acc, ele) => [
-        ...acc,
-        {
-          ...ele,
-          checked: true,
-        }], []);
-
-      this.setState({
-        checkboxes,
-      });
-    }
-
-    if (JSON.stringify(prevCrimes) !== JSON.stringify(crimes)) {
-      const newCategory = [allCrime.url, ...crimes.map(ele => ele.category)];
-
-      const checkboxes = category.reduce((acc, ele) => [
-        ...acc,
-        {
-          ...ele,
-          checked: newCategory.includes(ele.url),
-        }], []);
-
-      this.setState({
-        checkboxes,
-      });
-    }
-  }
 
   search = (value) => {
     const {
@@ -160,11 +85,8 @@ class Search extends React.PureComponent<Props, State> {
       date: {
         dates,
       } = {},
-    } = this.props;
-
-    const {
       checkboxes,
-    } = this.state;
+    } = this.props;
 
     return (
       <Suspense fallback={<div>Loading...</div>}>
@@ -185,9 +107,74 @@ class Search extends React.PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state.search,
-});
+const mapStateToProps = (state) => {
+  const {
+    form: {
+      search: {
+        values: {
+          minDate,
+          maxDate,
+          postcode,
+          ...fields
+        } = {},
+        active,
+      } = {},
+    } = {},
+    search: {
+      category,
+    },
+  } = state;
+
+  let checkboxes = [];
+
+  // const value = fields[allCrime.url];
+
+  // console.log(value);
+
+  if (active) {
+    if (active === allCrime.url) {
+      checkboxes = category.map(cat => ({
+        ...cat,
+        checked: fields[active],
+      }));
+    } else {
+      const t = Object.values(fields).every(v => v);
+      checkboxes = category.map(cat => ({
+        ...cat,
+        checked: cat.url === allCrime.url ? t : (fields[cat.url] === undefined || !!fields[cat.url]),
+      }));
+    }
+  } else {
+    checkboxes = category.map(cat => ({
+      ...cat,
+      checked: (fields[cat.url] === undefined || !!fields[cat.url]),
+    }));
+  }
+
+  // if (active === allCrime.url) {
+  //   checkboxes = category.map(cat => ({
+  //     ...cat,
+  //     checked: fields[active],
+  //   }));
+  // } else if (!active && value !== undefined) {
+  //   checkboxes = category.map(cat => ({
+  //     ...cat,
+  //     checked: value,
+  //   }));
+  // } else {
+  //   const t = Object.values(fields).every(v => v);
+
+  //   checkboxes = category.map(cat => ({
+  //     ...cat,
+  //     checked: cat.url === allCrime.url ? t : (fields[cat.url] === undefined || !!fields[cat.url]),
+  //   }));
+  // }
+
+  return {
+    ...state.search,
+    checkboxes,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   onSearch: param => dispatch(searchRequest(param)),
