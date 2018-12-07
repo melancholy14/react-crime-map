@@ -9,17 +9,20 @@ export type category = {
 };
 
 export type SearchPageProps = {
-  availability: Array<availability>,
-  date: {
-    min: string,
-    max: string,
-    dates: Array<availability>,
+  search: {
+    availability: Array<availability>,
+    date: {
+      min: string,
+      max: string,
+      dates: Array<availability>,
+    },
+    category: Array<category>,
   },
-  category: Array<category>,
-  // crimes: Array<Object>,
-  message: string,
-  loading: boolean,
-  checkboxes: Array<Object>,
+  meta: {
+    message: string,
+    loading: boolean,
+  },
+  categories: Array<Object>,
   onSelectCrimeCategory: Function,
   onFilterCrimeCategory: Function,
   onSearch: Function,

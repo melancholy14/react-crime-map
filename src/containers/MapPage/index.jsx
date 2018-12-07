@@ -25,6 +25,8 @@ import {
   saveLocation,
 } from './actions';
 
+import getMapState from './selectors';
+
 const attribution = '&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors';
 const url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
@@ -167,7 +169,7 @@ class LeafletMap extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = state => ({
-  ...state.map,
+  ...getMapState(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -27,7 +27,7 @@ const Select = ({ options, ...props }: {
     {...props}
   >
     {options && options.map(
-      ({ value: val, text = val }) => <option key={val} value={val}>{text}</option>
+      ({ value: val, text = val }) => <option key={val} value={val}>{text}</option>,
     )}
   </StyledField>
 );

@@ -19,8 +19,10 @@ import type {
 } from '../../utils/types';
 
 import {
-  allCrime,
-} from '../../utils/constants';
+  getSearchState,
+  getMetaState,
+  getCategoriesState,
+} from './selectors';
 
 import {
   Loading,
@@ -37,10 +39,14 @@ const SearchStyle = styled.aside`
 
 class Search extends React.PureComponent<Props, State> {
   static defaultProps = {
-    availability: [],
-    category: [],
-    message: null,
-    loading: false,
+    search: {
+      availability: [],
+      category: [],
+    },
+    meta: {
+      message: null,
+      loading: false,
+    },
     onSelectCrimeCategory: () => {},
     onFilterCrimeCategory: () => {},
     onSearch: () => {},
@@ -48,11 +54,11 @@ class Search extends React.PureComponent<Props, State> {
 
   checkCategory = debounce(() => {
     const {
+      categories,
       onFilterCrimeCategory,
-      checkboxes,
     } = this.props;
 
-    const selected = checkboxes.reduce((acc, ele) => {
+    const selected = categories.reduce((acc, ele) => {
       if (ele.checked) {
         acc.push(ele.url);
       }
@@ -64,9 +70,11 @@ class Search extends React.PureComponent<Props, State> {
 
   search = (value) => {
     const {
-      date: {
-        dates,
-      } = {},
+      search: {
+        date: {
+          dates,
+        } = {},
+      },
       onSearch,
     } = this.props;
 
@@ -80,12 +88,16 @@ class Search extends React.PureComponent<Props, State> {
 
   render() {
     const {
-      message,
-      loading,
-      date: {
-        dates,
-      } = {},
-      checkboxes,
+      meta: {
+        message,
+        loading,
+      },
+      search: {
+        date: {
+          dates,
+        } = {},
+      },
+      categories,
     } = this.props;
 
     return (
@@ -93,7 +105,7 @@ class Search extends React.PureComponent<Props, State> {
         <SearchStyle>
           <SearchForm
             dates={dates}
-            category={checkboxes}
+            category={categories}
             onCheckCategory={this.checkCategory}
             onSubmit={this.search}
           />
@@ -107,74 +119,11 @@ class Search extends React.PureComponent<Props, State> {
   }
 }
 
-const mapStateToProps = (state) => {
-  const {
-    form: {
-      search: {
-        values: {
-          minDate,
-          maxDate,
-          postcode,
-          ...fields
-        } = {},
-        active,
-      } = {},
-    } = {},
-    search: {
-      category,
-    },
-  } = state;
-
-  let checkboxes = [];
-
-  // const value = fields[allCrime.url];
-
-  // console.log(value);
-
-  if (active) {
-    if (active === allCrime.url) {
-      checkboxes = category.map(cat => ({
-        ...cat,
-        checked: fields[active],
-      }));
-    } else {
-      const t = Object.values(fields).every(v => v);
-      checkboxes = category.map(cat => ({
-        ...cat,
-        checked: cat.url === allCrime.url ? t : (fields[cat.url] === undefined || !!fields[cat.url]),
-      }));
-    }
-  } else {
-    checkboxes = category.map(cat => ({
-      ...cat,
-      checked: (fields[cat.url] === undefined || !!fields[cat.url]),
-    }));
-  }
-
-  // if (active === allCrime.url) {
-  //   checkboxes = category.map(cat => ({
-  //     ...cat,
-  //     checked: fields[active],
-  //   }));
-  // } else if (!active && value !== undefined) {
-  //   checkboxes = category.map(cat => ({
-  //     ...cat,
-  //     checked: value,
-  //   }));
-  // } else {
-  //   const t = Object.values(fields).every(v => v);
-
-  //   checkboxes = category.map(cat => ({
-  //     ...cat,
-  //     checked: cat.url === allCrime.url ? t : (fields[cat.url] === undefined || !!fields[cat.url]),
-  //   }));
-  // }
-
-  return {
-    ...state.search,
-    checkboxes,
-  };
-};
+const mapStateToProps = state => ({
+  search: getSearchState(state),
+  meta: getMetaState(state),
+  categories: getCategoriesState(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   onSearch: param => dispatch(searchRequest(param)),

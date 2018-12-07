@@ -13,6 +13,8 @@ import {
   Tabs,
 } from '../../components';
 
+import getAnalyseState from './selectors';
+
 import News from './news';
 import Graphs from './graphs';
 import Neighbourhood from './neighbourbood';
@@ -99,7 +101,7 @@ class AnalysePage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = state => ({
-  ...state.analyse,
+  ...getAnalyseState(state),
 });
 
 export default connect(mapStateToProps)(AnalysePage);
