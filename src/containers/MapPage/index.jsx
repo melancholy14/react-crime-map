@@ -15,6 +15,7 @@ import {
   loadGraphsRequest,
   loadNewsRequest,
   loadNeighbourhoodRequest,
+  toggleShow,
 } from '../AnalysePage/actions';
 
 import type {
@@ -100,11 +101,13 @@ class LeafletMap extends React.PureComponent<Props> {
       onLoadGraphRequest,
       onLoadNewsRequest,
       onLoadNeigbourhoodRequest,
+      onToggleAnalyseModal,
     } = this.props;
 
     onLoadGraphRequest(street);
     onLoadNewsRequest(latlng);
     onLoadNeigbourhoodRequest(latlng);
+    onToggleAnalyseModal(true);
   }
 
   render() {
@@ -177,6 +180,7 @@ const mapDispatchToProps = dispatch => ({
   onLoadGraphRequest: id => dispatch(loadGraphsRequest(id)),
   onLoadNewsRequest: latlng => dispatch(loadNewsRequest(latlng)),
   onLoadNeigbourhoodRequest: latlng => dispatch(loadNeighbourhoodRequest(latlng)),
+  onToggleAnalyseModal: show => dispatch(toggleShow(show)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeafletMap);

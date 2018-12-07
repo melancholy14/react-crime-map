@@ -14,6 +14,9 @@ import {
 } from '../../components';
 
 import getAnalyseState from './selectors';
+import {
+  toggleShow,
+} from './actions';
 
 import News from './news';
 import Graphs from './graphs';
@@ -24,34 +27,34 @@ class AnalysePage extends React.PureComponent<Props, State> {
     super();
 
     this.state = {
-      show: false,
       select: 0,
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const {
-      show,
-    } = this.state;
+  // componentDidUpdate(prevProps, prevState) {
+  //   const {
+  //     show,
+  //   } = this.state;
 
-    if (!prevState.show && !show) {
-      const {
-        graph,
-        news,
-      } = this.props;
+  //   if (!prevState.show && !show) {
+  //     const {
+  //       graph,
+  //       news,
+  //     } = this.props;
 
-      this.setState({
-        show: (!!graph) || (!!news),
-      });
-    }
-  }
+  //     this.setState({
+  //       show: (!!graph) || (!!news),
+  //     });
+  //   }
+  // }
 
   toggleShow = () => {
     const {
       show,
-    } = this.state;
+      onToggleShow,
+    } = this.props;
 
-    this.setState({ show: !show });
+    onToggleShow(!show);
   }
 
   select = select => () => this.setState({ select });
@@ -64,10 +67,10 @@ class AnalysePage extends React.PureComponent<Props, State> {
         name,
       } = {},
       neighbourhood,
+      show,
     } = this.props;
 
     const {
-      show,
       select,
     } = this.state;
 
@@ -104,4 +107,8 @@ const mapStateToProps = state => ({
   ...getAnalyseState(state),
 });
 
-export default connect(mapStateToProps)(AnalysePage);
+const mapDispatchToProps = dispatch => ({
+  onToggleShow: show => dispatch(toggleShow(show)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnalysePage);

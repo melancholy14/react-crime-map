@@ -85,10 +85,12 @@ export type AnalysePageProps = {
   news: Array<news>,
   street: Object,
   neighbourhood: Object,
+  show: boolean,
+  onToggleShow: Function,
 };
 
 export type AnalysePageState = {
-  show: boolean,
+  // show: boolean,
   select: number,
 };
 
@@ -99,6 +101,8 @@ export type AnalyseReducerState = {
     +outcome: Array<outcomeGraph>,
   },
   +news: Array<news>,
+  +neighbourhood: Object,
+  +show: boolean,
   +message: string,
 }
 
@@ -114,6 +118,7 @@ export type MapPageProps = {
   onLoadGraphRequest: Function,
   onLoadNewsRequest: Function,
   onLoadNeigbourhoodRequest: Function,
+  onToggleAnalyseModal: Function,
 }
 
 // export type MapPageState = {

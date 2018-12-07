@@ -10,6 +10,7 @@ import {
   SAVE_STREET_DATA,
   LOAD_NEIGHBOURHOOD_SUCCESS,
   LOAD_NEIGHBOURHOOD_FAILURE,
+  TOGGLE_SHOW,
 } from './actions';
 
 import type {
@@ -47,6 +48,10 @@ export default function analyseReducer(state: State = initialState, action: Acti
       return update(state, {
         neighbourhood: { $set: action.data },
       });
+    case TOGGLE_SHOW:
+      return update(state, {
+        show: { $set: action.data },
+      })
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:
     case LOAD_NEIGHBOURHOOD_FAILURE:
