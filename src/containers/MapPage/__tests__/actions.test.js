@@ -78,7 +78,7 @@ describe('actions in MapPage', () => {
     expect(store.getState().map.circles[1].radius).toBeLessThanOrEqual(250);
   });
 
-  it ('filterCrimeCircles', () => {
+  it('filterCrimeCircles', () => {
     const categories = ['burglary'];
 
     store.dispatch(filterCrimeCircles(categories));

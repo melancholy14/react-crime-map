@@ -14,7 +14,7 @@ import {
 import analyseReducer from '../reducer';
 
 describe('reducer in AnalysePage', () => {
-  it ('LOAD_GRAPHS_SUCCESS', () => {
+  it('LOAD_GRAPHS_SUCCESS', () => {
     const state = {};
     const action = {
       type: LOAD_GRAPHS_SUCCESS,
@@ -37,7 +37,7 @@ describe('reducer in AnalysePage', () => {
     });
   });
 
-  it ('LOAD_GRAPHS_FAILURE', () => {
+  it('LOAD_GRAPHS_FAILURE', () => {
     const state = {};
     const action = {
       type: LOAD_GRAPHS_FAILURE,
@@ -52,7 +52,7 @@ describe('reducer in AnalysePage', () => {
     });
   });
 
-  it ('LOAD_NEWS_SUCCESS', () => {
+  it('LOAD_NEWS_SUCCESS', () => {
     const state = {};
     const action = {
       type: LOAD_NEWS_SUCCESS,
@@ -83,11 +83,11 @@ describe('reducer in AnalysePage', () => {
         type: 'interactive',
         webPublicationDate: '2018-07-30T08:06:06Z',
         webTitle: 'Follow the New Silk Road',
-      }]
+      }],
     });
   });
 
-  it ('LOAD_NEWS_FAILURE', () => {
+  it('LOAD_NEWS_FAILURE', () => {
     const state = {};
     const action = {
       type: LOAD_NEWS_FAILURE,
@@ -102,7 +102,7 @@ describe('reducer in AnalysePage', () => {
     });
   });
 
-  it ('LOAD_NEIGHBOURHOOD_SUCCESS', () => {
+  it('LOAD_NEIGHBOURHOOD_SUCCESS', () => {
     const state = {};
     const action = {
       type: LOAD_NEIGHBOURHOOD_SUCCESS,
@@ -114,7 +114,7 @@ describe('reducer in AnalysePage', () => {
         },
         name: 'Earlsfield',
         links: [],
-        centre:{
+        centre: {
           latitude: '51.4422',
           longitude: '-0.183829',
         },
@@ -136,7 +136,7 @@ describe('reducer in AnalysePage', () => {
         },
         name: 'Earlsfield',
         links: [],
-        centre:{
+        centre: {
           latitude: '51.4422',
           longitude: '-0.183829',
         },
@@ -147,7 +147,7 @@ describe('reducer in AnalysePage', () => {
     });
   });
 
-  it ('LOAD_NEIGHBOURHOOD_FAILURE', () => {
+  it('LOAD_NEIGHBOURHOOD_FAILURE', () => {
     const state = {};
     const action = {
       type: LOAD_NEIGHBOURHOOD_FAILURE,
@@ -162,7 +162,7 @@ describe('reducer in AnalysePage', () => {
     });
   });
 
-  it ('SAVE_STREET_DATA', () => {
+  it('SAVE_STREET_DATA', () => {
     const state = {};
     const action = {
       type: SAVE_STREET_DATA,
@@ -183,7 +183,7 @@ describe('reducer in AnalysePage', () => {
     });
   });
 
-  it ('TOGGLE_SHOW', () => {
+  it('TOGGLE_SHOW', () => {
     const state = {};
     const action = {
       type: TOGGLE_SHOW,

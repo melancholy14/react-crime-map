@@ -29,7 +29,7 @@ describe('reducer in SearchPage', () => {
           max: '2018-08',
           dates: ['2018-07', '2018-08'],
         },
-      }
+      },
     };
 
     deepFreeze(state);

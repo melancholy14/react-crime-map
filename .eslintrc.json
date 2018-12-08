@@ -6,11 +6,13 @@
     "parser": "babel-eslint",
     "plugins": [
         "flowtype",
-        "react"
+        "react",
+        "jest"
     ],
     "env": {
         "browser": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "rules": {
         "jsx-a11y/label-has-for": [ 2, {
