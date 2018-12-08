@@ -27,6 +27,7 @@ const initialState = {
   street: {},
   news: [],
   neighbourhood: {},
+  show: false,
   message: '',
 };
 
@@ -51,7 +52,7 @@ export default function analyseReducer(state: State = initialState, action: Acti
     case TOGGLE_SHOW:
       return update(state, {
         show: { $set: action.data },
-      })
+      });
     case LOAD_NEWS_FAILURE:
     case LOAD_GRAPHS_FAILURE:
     case LOAD_NEIGHBOURHOOD_FAILURE:

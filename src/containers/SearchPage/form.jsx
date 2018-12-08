@@ -34,7 +34,7 @@ const SearchForm = ({
 }) => (
   <StyledForm onSubmit={handleSubmit}>
     <GridItem>
-      <label htmlFor="select_date">date</label>
+      date
     </GridItem>
     <GridItem className="select" id="select_date">
       <Field.Select
@@ -48,7 +48,7 @@ const SearchForm = ({
       />
     </GridItem>
     <GridItem>
-      <label htmlFor="postcode">postcode</label>
+      postcode
     </GridItem>
     <GridItem className="select">
       <Field.Text
@@ -60,14 +60,16 @@ const SearchForm = ({
       {
         category && category.map(({ url, checked, name }) => (
           <div className="each-crime" key={url}>
-            <Field.Checkbox
-              name={url}
-              id={`checkbox_${url}`}
-              onChange={onCheckCategory}
-              checked={checked}
-            />
-            <label htmlFor={`checkbox_${url}`}>{name}</label>
-            { url !== allCrime.url && <span className="color" style={{ backgroundColor: categoryColors[url] }} /> }
+            <label htmlFor={`checkbox_${url}`}>
+              <Field.Checkbox
+                name={url}
+                id={`checkbox_${url}`}
+                onChange={onCheckCategory}
+                checked={checked}
+              />
+              {name}
+              { url !== allCrime.url && <span className="color" style={{ backgroundColor: categoryColors[url] }} /> }
+            </label>
           </div>))
       }
     </GridItem>

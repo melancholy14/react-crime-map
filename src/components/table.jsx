@@ -1,6 +1,8 @@
 // @flow
 
 import React from 'react';
+import type { ChildrenArray, Element } from 'react';
+
 import styled from 'styled-components';
 
 const TableDiv = styled.div`
@@ -31,9 +33,9 @@ const Th = ({ children }: { children: any }) => (<div className="th">{ children 
 
 const Td = ({ children }: { children: any }) => (<div className="td">{ children }</div>);
 
-const Tr = ({ children }: { children: Array<any> }) => (<div className="tr">{ children }</div>);
+const Tr = ({ children }: { children: ChildrenArray<Element<typeof Th | typeof Td>> }) => (<div className="tr">{ children }</div>);
 
-const Table = ({ children }: { children: Array<typeof Tr> }) => (<TableDiv className="table">{ children }</TableDiv>);
+const Table = ({ children }: { children: ChildrenArray<Element<typeof Tr>> }) => (<TableDiv className="table">{ children }</TableDiv>);
 
 export {
   Table,
