@@ -10,6 +10,7 @@ import {
   loadNeighbourhoodRequest,
   loadNeighbourhoodFailure,
   loadNeighbourhoodSuccess,
+  toggleShow,
 } from '../actions';
 
 describe('actions in AnalysePage', () => {
@@ -132,5 +133,13 @@ describe('actions in AnalysePage', () => {
 
     expect(store.getState().analyse.street.id).toEqual(1000);
     expect(store.getState().analyse.street.name).toEqual('near Earlsfield Station');
+  });
+
+  it('toggleShow', () => {
+    const show = true;
+
+    store.dispatch(toggleShow(show));
+
+    expect(store.getState().analyse.show).toEqual(true);
   });
 });

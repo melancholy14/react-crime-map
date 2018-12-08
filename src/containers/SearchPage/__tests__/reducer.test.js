@@ -19,10 +19,17 @@ describe('reducer in SearchPage', () => {
     };
     const action = {
       type: LOAD_AVAILABILITY_SUCCESS,
-      data: [
-        { date: '2018-08', 'stop-and-search': [] },
-        { date: '2018-07', 'stop-and-search': ['london', 'southampton'] },
-      ],
+      data: {
+        availability: [
+          { date: '2018-08', 'stop-and-search': [] },
+          { date: '2018-07', 'stop-and-search': ['london', 'southampton'] },
+        ],
+        date: {
+          min: '2018-07',
+          max: '2018-08',
+          dates: ['2018-07', '2018-08'],
+        },
+      }
     };
 
     deepFreeze(state);
@@ -33,6 +40,11 @@ describe('reducer in SearchPage', () => {
         { date: '2018-08', 'stop-and-search': [] },
         { date: '2018-07', 'stop-and-search': ['london', 'southampton'] },
       ],
+      date: {
+        min: '2018-07',
+        max: '2018-08',
+        dates: ['2018-07', '2018-08'],
+      },
     });
   });
 

@@ -8,6 +8,7 @@ import {
   SAVE_STREET_DATA,
   LOAD_NEIGHBOURHOOD_SUCCESS,
   LOAD_NEIGHBOURHOOD_FAILURE,
+  TOGGLE_SHOW,
 } from '../actions';
 
 import analyseReducer from '../reducer';
@@ -179,6 +180,21 @@ describe('reducer in AnalysePage', () => {
         id: 10001,
         name: 'near Earlsfield',
       },
+    });
+  });
+
+  it ('TOGGLE_SHOW', () => {
+    const state = {};
+    const action = {
+      type: TOGGLE_SHOW,
+      data: false,
+    };
+
+    deepFreeze(state);
+
+    const result = analyseReducer(state, action);
+    expect(result).toEqual({
+      show: false,
     });
   });
 });

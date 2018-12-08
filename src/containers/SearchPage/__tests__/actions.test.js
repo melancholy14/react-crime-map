@@ -29,6 +29,9 @@ describe('actions in SearchPage', () => {
     store.dispatch(loadAvailabilitySuccess(response));
 
     expect(store.getState().search.availability.length).toBe(2);
+    expect(store.getState().search.date.min).toEqual('2018-07');
+    expect(store.getState().search.date.max).toEqual('2018-08');
+    expect(store.getState().search.date.dates.length).toBe(2);
   });
 
   it('loadAvailabilityFailure', () => {
