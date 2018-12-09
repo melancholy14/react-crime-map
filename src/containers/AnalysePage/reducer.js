@@ -26,7 +26,12 @@ const initialState = {
   },
   street: {},
   news: [],
-  neighbourhood: {},
+  neighbourhood: {
+    init: {},
+    team: {},
+    events: {},
+    priorities: {},
+  },
   show: false,
   message: '',
 };

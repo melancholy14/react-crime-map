@@ -1,7 +1,7 @@
 // @flow
 
 import {
-  takeLatest, select, put, call,
+  takeLatest, select, put, call, all,
 } from 'redux-saga/effects';
 import { api, request, keys } from '../../utils/request';
 
@@ -126,10 +126,18 @@ function* loadNeighbourhood({ latlng }) {
       },
     } = yield call(request, url);
 
-    const { data } = yield call(request, `${api.police}/${force}/${neighbourhood}`);
-    console.log(data);
+    const neighbourhoodUrl = `${api.police}/${force}/${neighbourhood}`;
 
-    yield put(loadNeighbourhoodSuccess(data));
+    const [{ data }, { data: people }, { data: events }, { data: priorities }] = yield all([
+      call(request, neighbourhoodUrl),
+      call(request, `${neighbourhoodUrl}/people`),
+      call(request, `${neighbourhoodUrl}/events`),
+      call(request, `${neighbourhoodUrl}/priorities`),
+    ]);
+
+    console.log(data, people, events, priorities);
+
+    yield put(loadNeighbourhoodSuccess(data, people, events, priorities));
   } catch (error) {
     console.error(error);
     yield put(loadNeighbourhoodFailure(error.message));

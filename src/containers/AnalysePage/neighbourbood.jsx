@@ -1,35 +1,51 @@
 // @flow
 
 import React from 'react';
+import { InteractiveForceGraph, ForceGraphNode, ForceGraphLink } from 'react-vis-force';
 
 const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
   const {
-    centre: {
-      latitude,
-      longitude,
+    init: {
+      nodes = [],
+      links = [],
     } = {},
-    contact_details: {
-      twitter,
-      website,
+    team: {
+      nodes: teamNodes = [],
+      links: teamLinks = [],
     } = {},
-    name,
-    url_force: urlForce,
+    events: {
+      nodes: eventsNodes = [],
+      links: eventsLinks = [],
+    } = {},
+    priorities: {
+      nodes: prioritiesNodes = [],
+      links: prioritiesLinks = [],
+    },
   } = data;
 
+  let width = window.innerWidth;
+  if (width >= 768) {
+    width = (width * 0.75) / 2;
+  }
+  width -= 35;
+
+  console.log('width', width);
+
   return (
-    <div>
-      <div>Name</div>
-      <div>{ name }</div>
-      <div>Centre</div>
-      <div>{ latitude }</div>
-      <div>{ longitude }</div>
-      <div>Twitter</div>
-      <div>{ twitter }</div>
-      <div>Website</div>
-      <div>{ website }</div>
-      <div>URL</div>
-      <div>{ urlForce }</div>
-    </div>);
+    <InteractiveForceGraph
+      simulationOptions={{ height: width, width }}
+      labelAttr="label"
+      highlightDependencies
+    >
+      { nodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="red" />) }
+      { links.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
+      { teamNodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="blue" />) }
+      { teamLinks.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
+      { eventsNodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="green" />) }
+      { eventsLinks.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
+      { prioritiesNodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="yellow" />) }
+      { prioritiesLinks.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
+    </InteractiveForceGraph>);
 });
 
 export default Neighbourbood;
