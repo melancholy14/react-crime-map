@@ -136,7 +136,7 @@ export function loadNeighbourhoodSuccess(
   if (people && people.length > 0) {
     const team = people.reduce((acc, p) => {
       const {
-        name,
+        name: _name,
         rank,
         contact_details: {
           email,
@@ -146,10 +146,12 @@ export function loadNeighbourhoodSuccess(
         } = {},
       } = p;
 
+      const name = _name.replace(' ', '_');
+
       return {
         nodes: [...acc.nodes, {
           id: `${name}_name`,
-          label: name,
+          label: _name,
         }, {
           id: `${name}_rank`,
           label: rank,
@@ -181,11 +183,20 @@ export function loadNeighbourhoodSuccess(
         }, {
           source: `${name}_name`,
           target: `${name}_mobile`,
+        }, {
+          source: 'team',
+          target: `${name}_name`,
         }],
       };
     }, {
-      nodes: [],
-      links: [],
+      nodes: [{
+        id: 'team',
+        label: 'TEAM',
+      }],
+      links: [{
+        source: 'name',
+        target: 'team',
+      }],
     });
 
     neighbour.team = team;
@@ -311,6 +322,23 @@ export function loadNeighbourhoodSuccess(
     data: neighbour,
   };
 }
+
+// export function loadNeighbourhoodSuccess(
+//   init: Object,
+//   team: Object,
+//   events: Object,
+//   priorities: Object,
+// ) {
+//   return {
+//     type: LOAD_NEIGHBOURHOOD_SUCCESS,
+//     data: {
+//       init,
+//       team,
+//       events,
+//       priorities,
+//     },
+//   };
+// }
 
 export function loadNeighbourhoodFailure(message: string) {
   return {

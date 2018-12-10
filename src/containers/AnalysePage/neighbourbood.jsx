@@ -24,16 +24,16 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
   } = data;
 
   let width = window.innerWidth;
+  let height = window.innerHeight;
   if (width >= 768) {
-    width = (width * 0.75) / 2;
+    width *= 0.75;
+    height *= 0.5;
   }
-  width -= 35;
-
-  console.log('width', width);
 
   return (
     <InteractiveForceGraph
-      simulationOptions={{ height: width, width }}
+      animate
+      simulationOptions={{ height, width, alpha: 1 }}
       labelAttr="label"
       highlightDependencies
     >
