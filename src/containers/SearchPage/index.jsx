@@ -33,8 +33,12 @@ import SearchForm from './form';
 
 const SearchStyle = styled.aside`
   order: 1;
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin: 0.25rem;
+
+  @media screen and (min-width: 768px) {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
 `;
 
 class Search extends React.PureComponent<Props, State> {

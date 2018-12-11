@@ -5,6 +5,8 @@ import styled from 'styled-components';
 
 const Div = styled.div`
   padding: 0.5rem;
+  display: inline-block;
+  min-width: 4.5rem;
 
   & > label {
     font-size: smaller;
@@ -14,19 +16,33 @@ const Div = styled.div`
 
   &.select {
     padding: 0.25rem 0.5rem;
+
+    @media screen and (min-width: 425px) {
+      min-width: 15rem;
+    }
   }
 
-  &.whole-row {
-    grid-column-start: 1;
-    grid-column-end: 3;
+  &.crimes, &.buttons {
+    // grid-column-start: 1;
+    // grid-column-end: 3;
+    width: calc(100% - 1rem);
+  }
+
+  &.crimes {
+    height: 5.5rem
+    overflow: auto;
+
+    @media screen and (min-width: 768px) {
+      height: initial;
+    }
 
     .each-crime {
       display: inline-block;
 
       min-width: 50%;
-      @media screen and (max-width: 400px) {
-        min-width: 75%;
-      }
+      // @media screen and (max-width: 400px) {
+      //   min-width: 75%;
+      // }
       @media screen and (min-width: 768px) {
         min-width: calc(100%/3);
       }
@@ -51,7 +67,9 @@ const Div = styled.div`
         margin: 0 0.3rem;
       }
     }
+  }
 
+  &.buttons {
     button {
       width: 100%;
     }

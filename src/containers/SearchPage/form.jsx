@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { Form, reduxForm } from 'redux-form';
-import styled from 'styled-components';
 
 import {
   categoryColors,
@@ -15,11 +14,11 @@ import {
 import Field from './field';
 import GridItem from './gridItem';
 
-const StyledForm = styled(Form)`
-  display: grid;
-  grid-template-rows: 2rem 2rem auto 2rem;
-  grid-template-columns: 4.5rem auto;
-`;
+// const StyledForm = styled(Form)`
+//   display: grid;
+//   grid-template-rows: 2rem 2rem auto 2rem;
+//   grid-template-columns: 4.5rem auto;
+// `;
 
 const SearchForm = ({
   dates,
@@ -32,7 +31,7 @@ const SearchForm = ({
   onCheckCategory: Function,
   handleSubmit: Function,
 }) => (
-  <StyledForm onSubmit={handleSubmit}>
+  <Form onSubmit={handleSubmit}>
     <GridItem>
       date
     </GridItem>
@@ -56,7 +55,7 @@ const SearchForm = ({
         id="postcode"
       />
     </GridItem>
-    <GridItem className="whole-row">
+    <GridItem className="crimes">
       {
         category && category.map(({ url, checked, name }) => (
           <div className="each-crime" key={url}>
@@ -73,10 +72,10 @@ const SearchForm = ({
           </div>))
       }
     </GridItem>
-    <GridItem className="whole-row">
+    <GridItem className="buttons">
       <Button type="submit">SEARCH</Button>
     </GridItem>
-  </StyledForm>
+  </Form>
 );
 
 export default reduxForm({
