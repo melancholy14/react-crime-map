@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -10,6 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 
 import App from './containers/AppPage';
+import NotFound from './containers/ErrorPage/notfound';
 
 import reducers from './containers/reducers';
 import sagas from './containers/sagas';
@@ -27,7 +29,12 @@ saga.run(sagas);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   </Provider>
   , document.getElementById('root'));
 
