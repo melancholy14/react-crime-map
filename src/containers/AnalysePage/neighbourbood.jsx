@@ -64,7 +64,7 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
     priorities,
   } = data;
 
-  return ();
+  return (<div></div>);
 });
 
 export default Neighbourbood;
