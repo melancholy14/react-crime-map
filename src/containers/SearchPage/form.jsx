@@ -14,12 +14,6 @@ import {
 import Field from './field';
 import GridItem from './gridItem';
 
-// const StyledForm = styled(Form)`
-//   display: grid;
-//   grid-template-rows: 2rem 2rem auto 2rem;
-//   grid-template-columns: 4.5rem auto;
-// `;
-
 const SearchForm = ({
   dates,
   category,

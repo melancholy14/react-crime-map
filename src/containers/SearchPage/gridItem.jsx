@@ -23,8 +23,6 @@ const Div = styled.div`
   }
 
   &.crimes, &.buttons {
-    // grid-column-start: 1;
-    // grid-column-end: 3;
     width: calc(100% - 1rem);
   }
 
@@ -40,11 +38,8 @@ const Div = styled.div`
       display: inline-block;
 
       min-width: 50%;
-      // @media screen and (max-width: 400px) {
-      //   min-width: 75%;
-      // }
       @media screen and (min-width: 768px) {
-        min-width: calc(100%/3);
+        min-width: calc(100% / 3);
       }
       @media screen and (min-width: 1024px) {
         min-width: 25%;

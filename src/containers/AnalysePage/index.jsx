@@ -31,23 +31,6 @@ class AnalysePage extends React.PureComponent<Props, State> {
     };
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const {
-  //     show,
-  //   } = this.state;
-
-  //   if (!prevState.show && !show) {
-  //     const {
-  //       graph,
-  //       news,
-  //     } = this.props;
-
-  //     this.setState({
-  //       show: (!!graph) || (!!news),
-  //     });
-  //   }
-  // }
-
   toggleShow = () => {
     const {
       show,

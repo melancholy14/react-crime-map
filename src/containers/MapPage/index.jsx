@@ -33,48 +33,24 @@ const url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 const MapStyle = styled.main`
   order: 2;
-    height: 32.5rem;
-    z-index: 0;
+  height: 32.5rem;
+  z-index: 0;
 
-    .leaflet-container {
-      height: 100%;
-      margin: 0.5rem;
-      border-radius: 1.5rem;
-    }
+  .leaflet-container {
+    height: 100%;
+    margin: 0.5rem;
+    border-radius: 1.5rem;
+  }
 `;
 
 class LeafletMap extends React.PureComponent<Props> {
   map = null;
-
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     latlng: props.latlng,
-  //   };
-  // }
 
   componentDidMount() {
     if (this.map && this.map.leafletElement) {
       this.map.leafletElement.locate();
     }
   }
-
-  // componentDidUpdate(prevProps) {
-  //   const {
-  //     latlng: prevLatlng,
-  //   } = prevProps;
-
-  //   const {
-  //     latlng,
-  //   } = this.props;
-
-  //   if (prevLatlng !== latlng) {
-  //     this.setState({
-  //       latlng,
-  //     });
-  //   }
-  // }
 
   handleClick = (evt) => {
     const {
@@ -88,10 +64,6 @@ class LeafletMap extends React.PureComponent<Props> {
     const {
       onSaveLocation,
     } = this.props;
-
-    // this.setState({
-    //   latlng: evt.latlng,
-    // });
 
     onSaveLocation(evt.latlng);
   }
