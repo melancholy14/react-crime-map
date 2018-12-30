@@ -13,31 +13,38 @@ const TableDiv = styled.div`
   border-radius: 0.5rem;
   width: -webkit-fill-available;
   padding: 0.5rem;
-
-  .tr {
-    display: table-row;
-  }
-
-  .th {
-    display: table-cell;
-    font-weight: 600;
-    width: 4rem;
-  }
-
-  .td {
-    display: table-cell;
-  }
 `;
 
-const Th = ({ children }: { children: any }) => (<div className="th">{ children }</div>);
+const TrDiv = styled.div`
+  display: table-row;
+`;
 
-const Td = ({ children }: { children: any }) => (<div className="td">{ children }</div>);
+const ThDiv = styled.div`
+  display: table-cell;
+  font-weight: 600;
+  width: 4rem;
+`;
 
-const Tr = ({ children }: { children: ChildrenArray<Element<typeof Th | typeof Td>> }) => (<div className="tr">{ children }</div>);
+const TdDiv = styled.div`
+  display: table-cell;
+`;
 
-const Table = ({ children }: { children: ChildrenArray<Element<typeof Tr>> }) => (<TableDiv className="table">{ children }</TableDiv>);
+const Th = ({ children }: { children: any }) => <ThDiv>{children}</ThDiv>;
+
+const Td = ({ children }: { children: any }) => <TdDiv>{children}</TdDiv>;
+
+const Tr = ({
+  children,
+}: {
+  children: ChildrenArray<Element<typeof Th | typeof Td>>
+}) => <TrDiv>{children}</TrDiv>;
+
+const Table = ({
+  children,
+}: {
+  children: ChildrenArray<Element<typeof Tr>>
+}) => <TableDiv>{children}</TableDiv>;
 
 export {
-  Table,
-  Tr, Th, Td,
+  Table, Tr, Th, Td,
 };

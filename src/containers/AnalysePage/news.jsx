@@ -12,21 +12,23 @@ import type {
 } from '../../utils/types';
 
 const NewsStyle = styled.div`
-  .table {
-    width: 90%;
+  & > div {
+    width: 95%;
+    margin: auto;
 
     @media screen and (min-width: 768px) {
       display: inline-table;
       width: 45%;
       margin: 0.5rem;
     }
-  }
-  .tr {
-    line-height: 2rem;
 
-    .th, .td {
-      padding: 0 0.5rem;
-      font-size: smaller;
+    & > div {
+      line-height: 2rem;
+  
+      & > div {
+        padding: 0 0.5rem;
+        font-size: smaller;
+      }
     }
   }
 `;

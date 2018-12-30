@@ -6,61 +6,52 @@ import styled from 'styled-components';
 const StyledTabs = styled.div`
   position: relative;
   height: 100%;
+`;
 
-  .tabs {
-    overflow: hidden;
-    background-color: #f1f1f1;
-    border: 1px solid #ccc;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+const StyledTabsTitle = styled.div`
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
 
-    button {
-      background-color: inherit;
-      // float: left;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      transition: 0.3s;
-      font-size: medium;
+const StyledTabsTitleButton = styled.button`
+  background-color: ${props => (props.active ? '#ccc' : 'inherit')};
+  // float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: medium;
 
-      &:hover {
-        background-color: #ddd;
-      }
-
-      &.active {
-        background-color: #ccc;
-      }
-    }
+  &:hover {
+    background-color: #ddd;
   }
+`;
 
-  .tab {
-    display: none;
-    // padding: 6px 12px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-top: none;
+const StyledTab = styled.div`
+  display: ${props => (props.active ? 'block' : 'none')};
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-top: none;
 
-    position: absolute;
-    top: 3rem;
-    bottom: 0;
-    overflow: auto;
+  position: absolute;
+  top: 3rem;
+  bottom: 0;
+  overflow: auto;
 
-    animation: fadeEffect 1s;
-    @keyframes fadeEffect {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+  animation: fadeEffect 1s;
+  @keyframes fadeEffect {
+    from {
+      opacity: 0;
     }
-
-    &.active {
-      display: block;
+    to {
+      opacity: 1;
     }
   }
 `;
@@ -74,18 +65,17 @@ const TabsTitle = memo(({
   activeKey: number,
   onSelect: Function,
 }) => (
-  <div className="tabs">
+  <StyledTabsTitle>
     { data && data.map((text, index) => (
-      <button
+      <StyledTabsTitleButton
         key={text}
-        type="button"
-        className={`${(activeKey === index) ? 'active' : ''}`}
+        active={activeKey === index}
         onClick={onSelect(index)}
       >
         {text}
-      </button>
+      </StyledTabsTitleButton>
     ))}
-  </div>));
+  </StyledTabsTitle>));
 
 const TabsBody = memo(({
   activeKey,
@@ -96,13 +86,13 @@ const TabsBody = memo(({
   titles: Array<string>,
   children: any,
 }) => (children && children.map((child, index) => (
-  <div
+  <StyledTab
     key={titles[index]}
     id={index}
-    className={`tab ${activeKey === index ? 'active' : ''}`}
+    active={activeKey === index}
   >
     { child }
-  </div>))
+  </StyledTab>))
 ));
 
 class Tabs extends React.Component<{
