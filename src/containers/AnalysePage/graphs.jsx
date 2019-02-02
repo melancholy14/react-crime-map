@@ -30,7 +30,6 @@ const Graphs = (props: Props) => {
     } = {},
   } = props;
 
-
   let width = window.innerWidth;
   if (width >= 768) {
     width = (width * 0.75) / 2;

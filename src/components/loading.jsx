@@ -13,6 +13,7 @@ const LoadingDiv = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   z-index: 1;
+  display: ${props => (props.loading ? 'block' : 'none')}
 
   & > div {
     // margin: 15rem auto;
@@ -23,7 +24,7 @@ const LoadingDiv = styled.div`
 `;
 
 const Loading = React.memo(({ loading }: { loading: boolean }) => (
-  <LoadingDiv className={`display-${loading ? 'block' : 'none'}`}>
+  <LoadingDiv loading={loading}>
     <PulseLoader
       color="#fff"
       loading={loading}
