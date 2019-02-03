@@ -28,9 +28,9 @@ const initialState = {
   news: [],
   neighbourhood: {
     init: {},
-    team: {},
-    events: {},
-    priorities: {},
+    team: [],
+    events: [],
+    priorities: [],
   },
   show: false,
   message: '',

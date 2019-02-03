@@ -1,60 +1,6 @@
 // @flow
 
 import React from 'react';
-// import { InteractiveForceGraph, ForceGraphNode, ForceGraphLink } from 'react-vis-force';
-
-// const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
-//   const {
-//     init: {
-//       nodes = [],
-//       links = [],
-//     } = {},
-//     team: {
-//       nodes: teamNodes = [],
-//       links: teamLinks = [],
-//     } = {},
-//     events: {
-//       nodes: eventsNodes = [],
-//       links: eventsLinks = [],
-//     } = {},
-//     priorities: {
-//       nodes: prioritiesNodes = [],
-//       links: prioritiesLinks = [],
-//     },
-//   } = data;
-
-//   let width = window.innerWidth;
-//   let height = window.innerHeight;
-//   if (width >= 768) {
-//     width *= 0.75;
-//     height *= 0.5;
-//   } else {
-//     height = Math.min(width, height);
-//     width = height;
-//   }
-
-//   return (
-//     <InteractiveForceGraph
-//       simulationOptions={{
-//         height,
-//         width,
-//         alpha: 1,
-//         animate: true,
-//       }}
-//       labelAttr="label"
-//       showLabels
-//       highlightDependencies
-//     >
-//       { nodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="red" />) }
-//       { links.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
-//       { teamNodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="blue" />) }
-//       { teamLinks.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
-//       { eventsNodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="green" />) }
-//       { eventsLinks.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
-//       { prioritiesNodes.map(({ id, label }) => <ForceGraphNode key={id} node={{ id, label }} fill="yellow" />) }
-//       { prioritiesLinks.map(({ source, target }) => <ForceGraphLink key={`${source}_${target}`} link={{ source, target }} />) }
-//     </InteractiveForceGraph>);
-// });
 
 const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
   const {
@@ -64,7 +10,87 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
     priorities,
   } = data;
 
-  return (<div></div>);
+  const {
+    contact_details: {
+      email,
+      facebook,
+      twitter,
+    } = {},
+    description,
+    links,
+    locations,
+    name,
+    url_force: force,
+  } = init;
+
+  console.log(init);
+  console.log(team);
+  console.log(events);
+  console.log(priorities);
+
+  return (
+    <div>
+      <div>{name}</div>
+      <div>{force}</div>
+      <ul>
+        { email && <li>{email}</li> }
+        { facebook && <li>{facebook}</li> }
+        { twitter && <li>{twitter}</li> }
+      </ul>
+      <div>{description}</div>
+      <div>
+        { links && links.map(({ title, url }, index) => (
+          <div key={title}>
+            <div>{title}</div>
+            <div>{url}</div>
+            <div>{locations[index].address}</div>
+            <div>{locations[index].postcode}</div>
+            <div>{locations[index].name}</div>
+          </div>
+        ))}
+      </div>
+      <hr />
+      <div>
+        {
+          team && team.map(({ name: tname, bio }) => (
+            <div key={tname}>
+              <div>{ tname }</div>
+              <div>{ bio }</div>
+            </div>
+          ))
+        }
+      </div>
+      <hr />
+      <div>
+        {
+          events && events.map(({
+            title, start_date: start, end_date: end, type, address,
+          }) => (
+            <div key={`${title}_${start}_${end}`}>
+              <div>{ title }</div>
+              <div>{ start }</div>
+              <div>{ end }</div>
+              <div>{ type }</div>
+              <div>{ address }</div>
+            </div>
+          ))
+        }
+      </div>
+      <hr />
+      <div>
+        {
+          priorities && priorities.map(({ issue, action, ...dates }) => (
+            <div key={`${issue}_${action}`}>
+              <div>{ issue }</div>
+              <div>{ dates['issue-date'] }</div>
+              <div>{ action }</div>
+              <div>{ dates['action-date'] }</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  );
 });
 
 export default Neighbourbood;

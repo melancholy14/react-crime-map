@@ -126,7 +126,7 @@ function* loadNeighbourhood({ latlng }) {
       },
     } = yield call(request, url);
 
-    const neighbourhoodUrl = `${api.police}/${force}/${neighbourhood}`;
+    const neighbourhoodUrl = `${api.police}/leicestershire/NC04`; // ${force}/${neighbourhood}`;
 
     const [{ data }, { data: people }, { data: events }, { data: priorities }] = yield all([
       call(request, neighbourhoodUrl),
@@ -134,8 +134,6 @@ function* loadNeighbourhood({ latlng }) {
       call(request, `${neighbourhoodUrl}/events`),
       call(request, `${neighbourhoodUrl}/priorities`),
     ]);
-
-    console.log(data, people, events, priorities);
 
     yield put(loadNeighbourhoodSuccess(data, people, events, priorities));
   } catch (error) {
