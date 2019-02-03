@@ -20,7 +20,7 @@ import {
 
 import News from './news';
 import Graphs from './graphs';
-import Neighbourhood from './neighbourbood';
+import Neighbourhood from './neighbourhood';
 
 class AnalysePage extends React.PureComponent<Props, State> {
   constructor() {

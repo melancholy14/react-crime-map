@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import format from 'date-fns/format';
 
 import {
   Table, Tr, Th, Td,
@@ -42,7 +43,7 @@ const News = React.memo(({ news }: Props) => (
         <Table key={id}>
           <Tr>
             <Th>Date</Th>
-            <Td>{ new Date(webPublicationDate).toLocaleDateString() }</Td>
+            <Td>{ format(webPublicationDate, 'Do MMM YYYY HH:mm') }</Td>
           </Tr>
           <Tr>
             <Th>Section</Th>

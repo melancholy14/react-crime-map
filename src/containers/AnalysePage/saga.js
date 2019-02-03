@@ -126,7 +126,7 @@ function* loadNeighbourhood({ latlng }) {
       },
     } = yield call(request, url);
 
-    const neighbourhoodUrl = `${api.police}/leicestershire/NC04`; // ${force}/${neighbourhood}`;
+    const neighbourhoodUrl = `${api.police}/${force}/${neighbourhood}`;
 
     const [{ data }, { data: people }, { data: events }, { data: priorities }] = yield all([
       call(request, neighbourhoodUrl),

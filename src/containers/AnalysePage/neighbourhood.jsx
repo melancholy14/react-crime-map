@@ -3,6 +3,7 @@
 import React from 'react';
 import Parser from 'html-react-parser';
 import styled from 'styled-components';
+import format from 'date-fns/format';
 
 import {
   Table, Tr, Th, Td,
@@ -26,7 +27,7 @@ const Team = styled.div`
   margin: 0.5rem 0;
 `;
 
-const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
+const Neighbourhood = React.memo(({ data = {} }: { data: Object }) => {
   const {
     init,
     team,
@@ -47,11 +48,6 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
     url_force: force,
   } = init;
 
-  console.log(init);
-  console.log(team);
-  console.log(events);
-  console.log(priorities);
-
   return (
     <Div>
       <h3>{name}</h3>
@@ -67,7 +63,7 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
       <div>
         { links && links.map(({ title, url }, index) => (
           <div key={title}>
-            <Italic>{title}</Italic>
+            <h4>{title}</h4>
             <div>{url}</div>
             <div>
               {`${locations[index].name}, ${locations[index].address}, ${locations[index].postcode}`}
@@ -105,7 +101,7 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
               </Tr>
               <Tr>
                 <Th>Date</Th>
-                <Td>{`${start} ~ ${end}`}</Td>
+                <Td>{`${format(start, 'Do MMM YYYY HH:mm')} ~ ${format(end, 'Do MMM YYYY HH:mm')}`}</Td>
               </Tr>
               <Tr>
                 <Th>Address</Th>
@@ -120,19 +116,28 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
         }
       </div>
       <hr />
+      <h4>PRIORITIES</h4>
       <div>
         {
           priorities && priorities.map(({ issue, action, ...dates }) => (
             <Table key={`${issue}_${action}`}>
               <Tr>
                 <Th>Issue</Th>
-                <Td>{dates['issue-date']}</Td>
+                <Td>{format(dates['issue-date'], 'Do MMM YYYY HH:mm')}</Td>
+              </Tr>
+              <Tr>
+                <Th />
                 <Td>{issue && Parser(issue)}</Td>
               </Tr>
               { action && (
               <Tr>
                 <Th>action</Th>
-                <Td>{dates['action-date']}</Td>
+                <Td>{format(dates['action-date'], 'Do MMM YYYY HH:mm')}</Td>
+              </Tr>
+              )}
+              { action && (
+              <Tr>
+                <Th />
                 <Td>{action && Parser(action)}</Td>
               </Tr>
               )}
@@ -144,4 +149,4 @@ const Neighbourbood = React.memo(({ data = {} }: { data: Object }) => {
   );
 });
 
-export default Neighbourbood;
+export default Neighbourhood;
