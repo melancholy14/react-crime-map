@@ -8,8 +8,10 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+import styled from 'styled-components';
 import './index.css';
 
+import Header from './components/header';
 import App from './containers/AppPage';
 import NotFound from './containers/ErrorPage/notfound';
 
@@ -27,14 +29,23 @@ const store = createStore(
 
 saga.run(sagas);
 
+const AppDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
+    <AppDiv>
+      <Header />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route exact path="/react-crime-map/" component={App} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    </AppDiv>
   </Provider>
   , document.getElementById('root'));
 
