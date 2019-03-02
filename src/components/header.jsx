@@ -20,46 +20,46 @@ const HeaderDiv = styled.header`
       height: 4rem;
       display: initial;
     }
+`;
 
-    .title {
-      width: calc(100% - 11rem);
-      text-align: center;
-      font-size: larger;
-      font-weight: bolder;
+const Title = styled.div`
+  width: calc(100% - 11rem);
+  text-align: center;
+  font-size: larger;
+  font-weight: bolder;
 
-      @media screen and (min-width: 768px) {
-        width: initial;
-      }
-    }
+  @media screen and (min-width: 768px) {
+    width: initial;
+  }
+`;
 
-    .email {
-      width: 10rem;
-      text-align: right;
-      padding: 0 1rem 0 0;
-      font-size: small;
+const Email = styled.div`
+  width: 10rem;
+  text-align: right;
+  padding: 0 1rem 0 0;
+  font-size: small;
 
-      @media screen and (min-width: 768px) {
-        width: initial;
-        padding: 0 1rem;
-      }
+  @media screen and (min-width: 768px) {
+    width: initial;
+    padding: 0 1rem;
+  }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-    }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 const Header = React.memo(() => (
   <HeaderDiv>
-    <div className="title">
+    <Title>
       CRIME MAP
-    </div>
-    <div className="email">
+    </Title>
+    <Email>
       <span className="smaller">
         <a href="mailto:melancholy8914@gmail.com">melancholy8914@gmail.com</a>
       </span>
-    </div>
+    </Email>
   </HeaderDiv>));
 
 export default Header;
