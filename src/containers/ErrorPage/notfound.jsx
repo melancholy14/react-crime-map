@@ -7,10 +7,14 @@ const NotFoundDiv = styled.div`
   text-align: center;
 `;
 
-const NotFound = React.memo(({
+const NotFound = ({
   location: {
     pathname,
   } = {},
+}: {
+  location: {
+    pathname: string,
+  }
 }) => (
   <NotFoundDiv>
     <h1>NOT FOUND</h1>
@@ -18,6 +22,6 @@ const NotFound = React.memo(({
     <h2>{pathname}</h2>
     <h3>which you typed</h3>
   </NotFoundDiv>
-));
+);
 
 export default NotFound;

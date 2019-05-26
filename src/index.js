@@ -41,7 +41,7 @@ ReactDOM.render(
       <Router>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route exact path="/react-crime-map/" component={App} />
+          <Route path="/react-crime-map" component={App} />
           <Route component={NotFound} />
         </Switch>
       </Router>
