@@ -2,7 +2,7 @@
   "name": "react-crime-map",
   "version": "0.1.0",
   "private": true,
-  "license": "",
+  "license": "MIT License",
   "dependencies": {
     "@storybook/addon-actions": "^4.0.9",
     "@storybook/react": "^4.0.9",
