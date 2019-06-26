@@ -21,14 +21,22 @@ You can try by clicking [here](https://melancholy14.github.io/react-crime-map/)
 ## How to Use
 
 - Search: You can search crimes by selecting range of dates and inputting a postcode. Your location which may be used instead of empty postcode is available to detect automatically if you allow this to do.
-[![Main Images](https://melancholy14.github.io/react-crime-map/images/main.png)]()
+<p align='center'>
+<img src='https://melancholy14.github.io/react-crime-map/images/main.png' width='50%' alt='Main Images'>
+</p>
 
 - Select: You can select only ones you want to see amongst searched crimes by clicking checkboxes.
-[![Selected crimes](https://melancholy14.github.io/react-crime-map/images/selected.png)]()
+<p align='center'>
+<img src='https://melancholy14.github.io/react-crime-map/images/selected.png' width='50%' alt='Selected'>
+</p>
 
 - View in details: You can view a specific crime by clicking a circle which means each crime on the map.
-[![Graphs](https://melancholy14.github.io/react-crime-map/images/graphs.png)]()
-[![News](https://melancholy14.github.io/react-crime-map/images/news.png)]()
+<p align='center'>
+<img src='https://melancholy14.github.io/react-crime-map/images/graphs.png' width='50%' alt='Graphs'>
+</p>
+<p align='center'>
+<img src='https://melancholy14.github.io/react-crime-map/images/news.png' width='50%' alt='News'>
+</p>
 
 ## Retrieving Data
 
@@ -42,8 +50,12 @@ Data is dealt with using RESTful API and responsed by below APIs:
 
 This project supports responsive web application.
 
-[![Mobile](https://melancholy14.github.io/react-crime-map/images/mobile.png)]()
-[![Desktop](https://melancholy14.github.io/react-crime-map/images/desktop.png)]()
+<p>
+<img src='https://melancholy14.github.io/react-crime-map/images/mobile.png' width='250' alt='Mobile'>
+</p>
+<p>
+<img src='https://melancholy14.github.io/react-crime-map/images/desktop.png' width='600' alt='Desktop'>
+</p>
 
 ## Updating to New Releases
 
