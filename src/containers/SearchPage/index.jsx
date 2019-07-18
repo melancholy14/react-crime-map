@@ -38,6 +38,11 @@ const SearchStyle = styled.aside`
   @media screen and (min-width: 768px) {
     margin: 0.5rem;
     padding: 0.5rem;
+    width: 25%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 20%;
   }
 `;
 

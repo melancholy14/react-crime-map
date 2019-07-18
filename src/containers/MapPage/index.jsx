@@ -36,6 +36,10 @@ const MapStyle = styled.main`
   height: 32.5rem;
   z-index: 0;
 
+  @media screen and (min-width: 768px) {
+    width: 80%;
+  }
+
   .leaflet-container {
     height: 100%;
     margin: 0.5rem;
