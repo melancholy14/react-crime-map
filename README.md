@@ -32,10 +32,8 @@ You can try by clicking [here](https://melancholy14.github.io/react-crime-map/)
 
 - View in details: You can view a specific crime by clicking a circle which means each crime on the map.
 <p align='center'>
-<img src='https://melancholy14.github.io/react-crime-map/images/graphs.png' width='50%' alt='Graphs'>
-</p>
-<p align='center'>
-<img src='https://melancholy14.github.io/react-crime-map/images/news.png' width='50%' alt='News'>
+<img src='https://melancholy14.github.io/react-crime-map/images/graphs.png' width='49%' alt='Graphs'>
+<img src='https://melancholy14.github.io/react-crime-map/images/news.png' width='49%' alt='News'>
 </p>
 
 ## Retrieving Data
@@ -52,8 +50,6 @@ This project supports responsive web application.
 
 <p>
 <img src='https://melancholy14.github.io/react-crime-map/images/mobile.png' width='250' alt='Mobile'>
-</p>
-<p>
 <img src='https://melancholy14.github.io/react-crime-map/images/desktop.png' width='600' alt='Desktop'>
 </p>
 
