@@ -56,6 +56,12 @@ const Div = styled.div`
       }
 
       .color {
+        @media screen and (min-width: 768px) {
+          width: 0.5rem;
+          height: 0.5rem;
+          margin: 0 0.2rem;  
+        }
+
         width: 0.75rem;
         height: 0.75rem;
         display: inline-block;
