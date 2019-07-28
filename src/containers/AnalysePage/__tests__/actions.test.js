@@ -90,7 +90,12 @@ describe('actions in AnalysePage', () => {
     store.dispatch(loadNeighbourhoodRequest(latlng));
 
     expect(store.getState().analyse.neighbourhood).toBeDefined();
-    expect(store.getState().analyse.neighbourhood).toEqual({});
+    expect(store.getState().analyse.neighbourhood).toEqual({
+      init: {},
+      team: [],
+      events: [],
+      priorities: [],
+    });
   });
 
   it('loadNeighbourhoodSuccess', () => {
@@ -110,6 +115,7 @@ describe('actions in AnalysePage', () => {
       id: 'E05000612',
       population: '0',
     };
+
     store.dispatch(loadNeighbourhoodSuccess(response));
 
     expect(store.getState().analyse.neighbourhood).toBeDefined();
