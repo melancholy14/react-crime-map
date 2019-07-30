@@ -333,9 +333,9 @@ export function loadNeighbourhoodSuccess(
     type: LOAD_NEIGHBOURHOOD_SUCCESS,
     data: {
       init,
-      team,
-      events,
-      priorities,
+      team: team || [],
+      events: events || [],
+      priorities: priorities || [],
     },
   };
 }

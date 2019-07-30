@@ -87,7 +87,7 @@ describe('reducer in MapPage', () => {
 
     const action = {
       type: FILTER_CRIME_CIRCLES,
-      selected: ['bicycle-theft'],
+      data: ['bicycle-theft'],
     };
 
     deepFreeze(state);

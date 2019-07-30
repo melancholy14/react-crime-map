@@ -99,7 +99,7 @@ describe('actions in AnalysePage', () => {
   });
 
   it('loadNeighbourhoodSuccess', () => {
-    const response = {
+    const data = {
       url_force: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
       contact_details: {
         website: 'http://www.met.police.uk/a/your-area/met/wandsworth/earlsfield/',
@@ -116,10 +116,17 @@ describe('actions in AnalysePage', () => {
       population: '0',
     };
 
-    store.dispatch(loadNeighbourhoodSuccess(response));
+    store.dispatch(loadNeighbourhoodSuccess(data));
 
     expect(store.getState().analyse.neighbourhood).toBeDefined();
-    expect(store.getState().analyse.neighbourhood).toBe(response);
+    expect(store.getState().analyse.neighbourhood).toEqual({
+      init: {
+        ...data,
+      },
+      events: [],
+      team: [],
+      priorities: [],
+    });
   });
 
   it('loadNeighbourhoodFailure', () => {
