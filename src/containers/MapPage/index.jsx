@@ -41,7 +41,7 @@ const MapStyle = styled.main`
   }
 
   .leaflet-container {
-    height: 100%;
+    height: calc(100% - 1rem);
     margin: 0.5rem;
     border-radius: 1.5rem;
   }
@@ -96,10 +96,6 @@ class LeafletMap extends React.PureComponent<Props> {
       lat,
       lng,
     } = propsLatlng || {};
-
-    // const {
-    //   latlng: stateLatlng = {},
-    // } = this.state;
 
     return (
       <MapStyle className="map">
