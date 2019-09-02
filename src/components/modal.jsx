@@ -104,7 +104,7 @@ const Close = styled.button`
   background: transparent;
 `;
 
-const Modal = React.memo(({
+const Modal = ({
   title, show, onClose, fixedBottom = false, children,
 }: {
   title?: string,
@@ -129,7 +129,7 @@ const Modal = React.memo(({
       </ModalFooter>)
     }
   </ModalDiv>
-));
+);
 
 Modal.defaultProps = {
   title: null,

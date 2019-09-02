@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { debounce } from 'lodash';
@@ -110,20 +110,18 @@ class Search extends React.PureComponent<Props, State> {
     } = this.props;
 
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <SearchStyle>
-          <SearchForm
-            dates={dates}
-            category={categories}
-            onCheckCategory={this.checkCategory}
-            onSubmit={this.search}
-          />
-          <Loading loading={loading} />
-          <Message
-            message={message}
-          />
-        </SearchStyle>
-      </Suspense>
+      <SearchStyle>
+        <SearchForm
+          dates={dates}
+          category={categories}
+          onCheckCategory={this.checkCategory}
+          onSubmit={this.search}
+        />
+        <Loading loading={loading} />
+        <Message
+          message={message}
+        />
+      </SearchStyle>
     );
   }
 }

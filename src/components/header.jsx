@@ -50,7 +50,7 @@ const Email = styled.div`
   }
 `;
 
-const Header = React.memo(() => (
+const Header = () => (
   <HeaderDiv>
     <Title>
       CRIME MAP
@@ -60,6 +60,6 @@ const Header = React.memo(() => (
         <a href="mailto:melancholy8914@gmail.com">melancholy8914@gmail.com</a>
       </span>
     </Email>
-  </HeaderDiv>));
+  </HeaderDiv>);
 
 export default Header;

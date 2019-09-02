@@ -29,7 +29,11 @@ const TdDiv = styled.div`
   display: table-cell;
 `;
 
-const Th = ({ children }: { children: any }) => <ThDiv>{children}</ThDiv>;
+const Th = ({ children }: { children?: any }) => <ThDiv>{children}</ThDiv>;
+
+Th.defaultProps = {
+  children: null,
+};
 
 const Td = ({ children }: { children: any }) => <TdDiv>{children}</TdDiv>;
 

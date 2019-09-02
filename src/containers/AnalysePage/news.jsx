@@ -34,7 +34,7 @@ const NewsStyle = styled.div`
   }
 `;
 
-const News = React.memo(({ news }: Props) => (
+const News = ({ news }: Props) => (
   <NewsStyle>
     {
       news && news.map(({
@@ -61,6 +61,6 @@ const News = React.memo(({ news }: Props) => (
       ))
     }
   </NewsStyle>
-));
+);
 
 export default News;

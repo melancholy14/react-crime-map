@@ -27,7 +27,7 @@ const Team = styled.div`
   margin: 0.5rem 0;
 `;
 
-const Neighbourhood = React.memo(({ data = {} }: { data: Object }) => {
+const Neighbourhood = ({ data = {} }: { data: Object }) => {
   const {
     init,
     team,
@@ -147,6 +147,6 @@ const Neighbourhood = React.memo(({ data = {} }: { data: Object }) => {
       </div>
     </Div>
   );
-});
+};
 
 export default Neighbourhood;

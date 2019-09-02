@@ -1,6 +1,6 @@
 // @flow
 
-import React, { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyledTabs = styled.div`
@@ -56,44 +56,54 @@ const StyledTab = styled.div`
   }
 `;
 
-const TabsTitle = memo(({
+const TabsTitle = ({
   data,
   activeKey,
   onSelect,
 }: {
   data: Array<string>,
-  activeKey: number,
-  onSelect: Function,
+  activeKey?: number,
+  onSelect?: Function,
 }) => (
   <StyledTabsTitle>
     { data && data.map((text, index) => (
       <StyledTabsTitleButton
         key={text}
         active={activeKey === index}
-        onClick={onSelect(index)}
+        onClick={onSelect && onSelect(index)}
       >
         {text}
       </StyledTabsTitleButton>
     ))}
-  </StyledTabsTitle>));
+  </StyledTabsTitle>);
 
-const TabsBody = memo(({
+TabsTitle.defaultProps = {
+  activeKey: -1,
+  onSelect: () => {},
+};
+
+const TabsBody = ({
   activeKey,
-  titles = [],
+  titles,
   children,
 }: {
-  activeKey: number,
-  titles: Array<string>,
+  activeKey?: number,
+  titles?: Array<string>,
   children: any,
 }) => (children && children.map((child, index) => (
   <StyledTab
-    key={titles[index]}
+    key={titles && titles[index]}
     id={index}
     active={activeKey === index}
   >
     { child }
   </StyledTab>))
-));
+);
+
+TabsBody.defaultProps = {
+  activeKey: -1,
+  titles: [],
+};
 
 class Tabs extends React.Component<{
   onSelect?: Function,

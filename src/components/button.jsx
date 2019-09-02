@@ -14,12 +14,12 @@ const DefaultButton = styled.button`
   font-family: inherit;
 `;
 
-const Button = React.memo(({
+const Button = ({
   onClick, className, children, ...props
 }: { onClick: Function, className: string, children: any }) => (
   <DefaultButton onClick={onClick} className={className} {...props}>
     { children }
   </DefaultButton>
-));
+);
 
 export default Button;

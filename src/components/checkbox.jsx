@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const Checkbox = React.memo(({
+const Checkbox = ({
   id, name, checked, onChange, ...props
 }: {
   id: string | number,
@@ -18,6 +18,6 @@ const Checkbox = React.memo(({
     checked={checked}
     {...props}
   />
-));
+);
 
 export default Checkbox;

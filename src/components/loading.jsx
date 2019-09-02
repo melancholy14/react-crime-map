@@ -23,13 +23,13 @@ const LoadingDiv = styled.div`
   }
 `;
 
-const Loading = React.memo(({ loading }: { loading: boolean }) => (
+const Loading = ({ loading }: { loading: boolean }) => (
   <LoadingDiv loading={loading}>
     <PulseLoader
       color="#fff"
       loading={loading}
     />
   </LoadingDiv>
-));
+);
 
 export default Loading;
