@@ -16,10 +16,15 @@ const DefaultButton = styled.button`
 
 const Button = ({
   onClick, className, children, ...props
-}: { onClick: Function, className: string, children: any }) => (
+}: { onClick?: Function, className?: string, children: any }) => (
   <DefaultButton onClick={onClick} className={className} {...props}>
     { children }
   </DefaultButton>
 );
+
+Button.defaultProps = {
+  onClick: () => {},
+  className: null,
+};
 
 export default Button;
