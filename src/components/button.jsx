@@ -17,7 +17,7 @@ const DefaultButton = styled.button`
 const Button = ({
   onClick, className, children, ...props
 }: { onClick?: Function, className?: string, children: any }) => (
-  <DefaultButton onClick={onClick} className={className} {...props}>
+  <DefaultButton onClick={onClick} className={className || null} {...props}>
     { children }
   </DefaultButton>
 );
