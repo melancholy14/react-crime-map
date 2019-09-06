@@ -111,16 +111,18 @@ class Search extends React.PureComponent<Props, State> {
 
     return (
       <SearchStyle>
-        <SearchForm
-          dates={dates}
-          category={categories}
-          onCheckCategory={this.checkCategory}
-          onSubmit={this.search}
-        />
-        <Loading loading={loading} />
-        <Message
-          message={message}
-        />
+        <>
+          <SearchForm
+            dates={dates}
+            category={categories}
+            onCheckCategory={this.checkCategory}
+            onSubmit={this.search}
+          />
+          { loading && <Loading loading={loading} /> }
+          <Message
+            message={message}
+          />
+        </>
       </SearchStyle>
     );
   }
