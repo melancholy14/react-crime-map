@@ -11,7 +11,6 @@ import {
   Checkbox,
   Tabs,
   Table, Tr, Th, Td,
-  ForceGraph,
 } from '../src/components';
 
 storiesOf('Modal', module)
@@ -79,6 +78,3 @@ storiesOf('Table', module)
 
 storiesOf('Tabs', module)
   .add('tabs', () => <Tabs />);
-
-storiesOf('Force', module)
-  .add('force', () => <ForceGraph />);
