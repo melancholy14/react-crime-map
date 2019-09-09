@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { Form, reduxForm } from 'redux-form';
 
 import {
   categoryColors,

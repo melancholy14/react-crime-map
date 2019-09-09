@@ -1,7 +1,6 @@
 // @flow
 
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 
 import searchReducer from './SearchPage/reducer';
 import mapReducer from './MapPage/reducer';
@@ -11,5 +10,4 @@ export default combineReducers({
   map: mapReducer,
   search: searchReducer,
   analyse: analyseReducer,
-  form: formReducer,
 });
