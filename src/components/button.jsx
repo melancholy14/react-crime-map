@@ -24,7 +24,7 @@ const Button = ({
 
 Button.defaultProps = {
   onClick: () => {},
-  className: null,
+  className: '',
 };
 
 export default Button;

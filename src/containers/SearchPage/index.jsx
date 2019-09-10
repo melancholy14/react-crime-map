@@ -114,9 +114,9 @@ class Search extends React.PureComponent<Props, State> {
         <>
           <SearchForm
             dates={dates}
-            category={categories}
+            categories={categories}
             onCheckCategory={this.checkCategory}
-            onSubmit={this.search}
+            onSearch={this.search}
           />
           { loading && <Loading loading={loading} /> }
           <Message

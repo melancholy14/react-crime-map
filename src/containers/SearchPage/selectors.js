@@ -7,11 +7,11 @@ import {
 } from '../../utils/constants';
 
 const getSearch = state => state.search;
-const getForm = state => state.form;
+// const getForm = state => state.form;
 
 export const getCategoriesState = createSelector(
-  [getForm, getSearch],
-  (form, search) => {
+  [getSearch],
+  (search) => {
     const {
       search: {
         values: {
@@ -22,7 +22,7 @@ export const getCategoriesState = createSelector(
         } = {},
         active,
       } = {},
-    } = form;
+    } = {};
 
     const {
       category,
