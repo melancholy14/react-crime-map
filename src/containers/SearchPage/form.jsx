@@ -8,27 +8,16 @@ import {
 
 import {
   Button,
+  Select,
+  Checkbox,
 } from '../../components';
 
-// import Field from './field';
 import GridItem from './gridItem';
-
-const Select = (
-  {
-    name, options, onChange,
-  }: {
-    name: string, options: Array<Object>, onChange: Function
-  },
-) => (
-  <select onChange={onChange}>
-    { options && options.map(({ value }) => (<option key={`${name}_${value}`} value={value}>{value}</option>)) }
-  </select>
-);
 
 type Props = {
   dates: Array<Object>,
   categories: Array<{ url: string, name: string, checked: boolean }>,
-  // onCheckCategory: Function,
+  onCheckCategory: Function,
   onSearch: Function,
 };
 
@@ -36,6 +25,7 @@ type State = {
   minDate: string,
   maxDate: string,
   postcode: string,
+  selCategories: Array<Object>,
 };
 
 export default class SearchForm extends React.PureComponent<Props, State> {
@@ -46,6 +36,7 @@ export default class SearchForm extends React.PureComponent<Props, State> {
       minDate: '',
       maxDate: '',
       postcode: '',
+      selCategories: [],
     };
   }
 
@@ -61,6 +52,23 @@ export default class SearchForm extends React.PureComponent<Props, State> {
     });
   }
 
+  checked = (key: string) => (evt: Object) => {
+    const {
+      target: {
+        checked,
+      } = {},
+    } = evt;
+
+    const {
+      categories,
+      onCheckCategory,
+    } = this.props;
+
+    const [selected] = (categories.filter(({ url }) => url === key) || []);
+
+    onCheckCategory({ ...selected, checked });
+  }
+
   search = () => {
     const {
       onSearch,
@@ -71,7 +79,7 @@ export default class SearchForm extends React.PureComponent<Props, State> {
 
   render() {
     const { dates, categories } = this.props;
-    const { postcode } = this.state;
+    const { postcode, minDate, maxDate } = this.state;
 
     return (
       <div>
@@ -80,14 +88,18 @@ export default class SearchForm extends React.PureComponent<Props, State> {
         </GridItem>
         <GridItem className="select" id="select_date">
           <Select
+            id="select_minDate"
             name="minDate"
             options={dates}
+            value={minDate}
             onChange={this.change('minDate')}
           />
           <span> ~ </span>
           <Select
+            id="select_maxDate"
             name="maxDate"
             options={dates}
+            value={maxDate}
             onChange={this.change('maxDate')}
           />
         </GridItem>
@@ -102,15 +114,15 @@ export default class SearchForm extends React.PureComponent<Props, State> {
         </GridItem>
         <GridItem className="crimes">
           {
-            categories && categories.map(({ url, name }) => (
+            categories && categories.map(({ url, name, checked }) => (
               <div className="each-crime" key={url}>
                 <label htmlFor={`checkbox_${url}`}>
-                  {/* <Field.Checkbox
+                  <Checkbox
                     name={url}
                     id={`checkbox_${url}`}
-                    onChange={onCheckCategory}
+                    onChange={this.checked(url)}
                     checked={checked}
-                  /> */}
+                  />
                   {name}
                   { url !== allCrime.url && <span className="color" style={{ backgroundColor: categoryColors[url] }} /> }
                 </label>

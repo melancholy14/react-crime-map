@@ -1,4 +1,7 @@
 // @flow
+import {
+  allCrime,
+} from '../../utils/constants';
 
 export const LOAD_AVAILABILITY_SUCCESS = 'containers/SearchPage/actions/LOAD_AVAILABILITY_SUCCESS';
 export const LOAD_AVAILABILITY_FAILURE = 'containers/SearchPage/actions/LOAD_AVAILABILITY_FAILURE';
@@ -10,6 +13,8 @@ export const LOAD_CRIME_CATEGORY_FAILURE = 'containers/SearchPage/actions/LOAD_C
 export const SEARCH_REQUEST = 'containers/SearchPage/actions/SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'containers/SearchPage/actions/SEARCH_SUCCESS';
 export const SEARCH_FAILURE = 'containers/SearchPage/actions/SEARCH_FAILURE';
+
+export const UPDATE_CHECKED_CATEGORIES = 'containers/SearchPage/actions/UPDATE_CHECKED_CATEGORIES';
 
 export function loadAvailabilitySuccess(availability: Array<Object>) {
   const date = availability.reduce((acc, ele) => ({
@@ -39,9 +44,11 @@ export function loadAvailabilityFailure(message: string) {
 }
 
 export function loadCrimeCategorySuccess(data: Array<Object>) {
+  const modified: Array<Object> = data.map((ele: Object) => ({ ...ele, checked: true }));
+
   return {
     type: LOAD_CRIME_CATEGORY_SUCCESS,
-    data,
+    data: modified,
   };
 }
 
@@ -96,5 +103,36 @@ export function searchFailure(message: string) {
   return {
     type: SEARCH_FAILURE,
     message,
+  };
+}
+
+export function updateCheckedCategories(sel: Object, arr: Array<Object>) {
+  const { url: selUrl, checked: selChecked } = sel;
+
+  let data: Array<Object> = [];
+  if (selUrl === allCrime.url) {
+    data = arr.reduce((acc, ele) => {
+      acc.push({ ...ele, checked: selChecked });
+      return acc;
+    }, []);
+  } else {
+    data = arr.reduce((acc, ele) => {
+      if (selUrl === ele.url) {
+        acc.push({ ...ele, checked: selChecked });
+      } else {
+        acc.push(ele);
+      }
+      return acc;
+    }, []);
+
+    const allChecked = data.every(({ url, checked }) => (url !== allCrime.url ? checked : true));
+    const index = data.findIndex(({ url }) => url === allCrime.url);
+
+    data[index].checked = allChecked;
+  }
+
+  return {
+    type: UPDATE_CHECKED_CATEGORIES,
+    data,
   };
 }

@@ -23,7 +23,7 @@ export type SearchPageProps = {
     loading: boolean,
   },
   categories: Array<Object>,
-  onSelectCrimeCategory: Function,
+  onUpdateChecked: Function,
   onFilterCrimeCategory: Function,
   onSearch: Function,
 }

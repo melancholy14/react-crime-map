@@ -7,6 +7,7 @@ import { debounce } from 'lodash';
 
 import {
   searchRequest,
+  updateCheckedCategories,
 } from './actions';
 
 import {
@@ -56,26 +57,47 @@ class Search extends React.PureComponent<Props, State> {
       message: null,
       loading: false,
     },
-    onSelectCrimeCategory: () => {},
+    onUpdateChecked: () => {},
     onFilterCrimeCategory: () => {},
     onSearch: () => {},
   };
 
-  checkCategory = debounce(() => {
+  checkCategory = debounce((data) => {
     const {
       categories,
-      onFilterCrimeCategory,
+      onUpdateChecked,
+      // onFilterCrimeCategory,
     } = this.props;
 
-    const selected = categories.reduce((acc, ele) => {
-      if (ele.checked) {
-        acc.push(ele.url);
+    console.log(data);
+
+    onUpdateChecked(data, categories);
+  }, 250);
+
+  componentDidUpdate(prevProps) {
+    const { categories: prevCategories } = prevProps;
+    const { categories, onFilterCrimeCategory } = this.props;
+
+    const isEqual = categories.reduce((acc, cat, index) => {
+      if (acc) {
+        return cat.checked === prevCategories[index].checked;
       }
       return acc;
-    }, []);
+    }, false);
 
-    onFilterCrimeCategory(selected);
-  }, 250);
+    if (!isEqual) {
+      const selected = categories.reduce((acc, ele) => {
+        if (ele.checked) {
+          acc.push(ele.url);
+        }
+        return acc;
+      }, []);
+
+      console.log(selected);
+
+      onFilterCrimeCategory(selected);
+    }
+  }
 
   search = (value) => {
     const {
@@ -136,6 +158,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onSearch: param => dispatch(searchRequest(param)),
+  onUpdateChecked: (sel, arr) => dispatch(updateCheckedCategories(sel, arr)),
   onFilterCrimeCategory: selected => dispatch(filterCrimeCircles(selected)),
 });
 

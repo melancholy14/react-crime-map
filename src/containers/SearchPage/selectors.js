@@ -2,9 +2,9 @@
 
 import { createSelector } from 'reselect';
 
-import {
-  allCrime,
-} from '../../utils/constants';
+// import {
+//   allCrime,
+// } from '../../utils/constants';
 
 const getSearch = state => state.search;
 // const getForm = state => state.form;
@@ -12,45 +12,49 @@ const getSearch = state => state.search;
 export const getCategoriesState = createSelector(
   [getSearch],
   (search) => {
-    const {
-      search: {
-        values: {
-          minDate,
-          maxDate,
-          postcode,
-          ...fields
-        } = {},
-        active,
-      } = {},
-    } = {};
+    // const {
+    //   search: {
+    //     values: {
+    //       minDate,
+    //       maxDate,
+    //       postcode,
+    //       ...fields
+    //     } = {},
+    //     active,
+    //   } = {},
+    // } = {};
 
-    const {
-      category,
-    } = search;
+    // const {
+    //   category,
+    // } = search;
 
-    let checkboxes = [];
-    if (active) {
-      if (active === allCrime.url) {
-        checkboxes = category.map(cat => ({
-          ...cat,
-          checked: fields[active],
-        }));
-      } else {
-        const t = Object.values(fields).every(v => v);
-        checkboxes = category.map(cat => ({
-          ...cat,
-          checked: cat.url === allCrime.url ? t
-            : (fields[cat.url] === undefined || !!fields[cat.url]),
-        }));
-      }
-    } else {
-      checkboxes = category.map(cat => ({
-        ...cat,
-        checked: (fields[cat.url] === undefined || !!fields[cat.url]),
-      }));
-    }
+    // let checkboxes = [];
+    // if (active) {
+    //   if (active === allCrime.url) {
+    //     checkboxes = category.map(cat => ({
+    //       ...cat,
+    //       checked: fields[active],
+    //     }));
+    //   } else {
+    //     const t = Object.values(fields).every(v => v);
+    //     checkboxes = category.map(cat => ({
+    //       ...cat,
+    //       checked: cat.url === allCrime.url ? t
+    //         : (fields[cat.url] === undefined || !!fields[cat.url]),
+    //     }));
+    //   }
+    // } else {
+    //   checkboxes = category.map(cat => ({
+    //     ...cat,
+    //     checked: (fields[cat.url] === undefined || !!fields[cat.url]),
+    //   }));
+    // }
 
-    return checkboxes;
+    const { category } = search;
+
+    console.log(category);
+
+    return category;
   },
 );
 

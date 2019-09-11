@@ -9,6 +9,7 @@ import {
   SEARCH_REQUEST,
   SEARCH_SUCCESS,
   SEARCH_FAILURE,
+  UPDATE_CHECKED_CATEGORIES,
 } from './actions';
 
 import type {
@@ -62,6 +63,10 @@ export default function searchReducer(state: State = initialState, action: Actio
       return update(state, {
         message: { $set: action.message },
         loading: { $set: false },
+      });
+    case UPDATE_CHECKED_CATEGORIES:
+      return update(state, {
+        category: { $set: action.data },
       });
     default:
       return state;
