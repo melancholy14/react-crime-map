@@ -125,7 +125,9 @@ export function updateCheckedCategories(sel: Object, arr: Array<Object>) {
       return acc;
     }, []);
 
-    const allChecked = data.every(({ url, checked }) => (url !== allCrime.url ? checked : true));
+    const allChecked = data.filter(({ url }) => url !== allCrime.url)
+      .every(({ checked }) => checked);
+
     const index = data.findIndex(({ url }) => url === allCrime.url);
 
     data[index].checked = allChecked;

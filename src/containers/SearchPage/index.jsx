@@ -66,10 +66,7 @@ class Search extends React.PureComponent<Props, State> {
     const {
       categories,
       onUpdateChecked,
-      // onFilterCrimeCategory,
     } = this.props;
-
-    console.log(data);
 
     onUpdateChecked(data, categories);
   }, 250);
@@ -92,8 +89,6 @@ class Search extends React.PureComponent<Props, State> {
         }
         return acc;
       }, []);
-
-      console.log(selected);
 
       onFilterCrimeCategory(selected);
     }
