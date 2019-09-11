@@ -15,10 +15,10 @@ const StyledSelect = styled.select`
 const Select = ({
   id, name, value, options, onChange, className, ...props
 }: {
-  id: string | number,
-  name: string,
+  id?: string | number,
+  name?: string,
   value: string | number,
-  className: string,
+  className?: string,
   options: Array<{ value: any, text?: string }>,
   onChange: Function,
 }) => (
@@ -36,5 +36,11 @@ const Select = ({
     )}
   </StyledSelect>
 );
+
+Select.defaultProps = {
+  id: '',
+  name: '',
+  className: '',
+};
 
 export default Select;
