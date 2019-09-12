@@ -34,7 +34,7 @@ export const allCrime = {
 };
 
 export const categoryColors = {
-  'all-crime': '#d17f68',
+  'all-crime': '',
   'anti-social-behaviour': '#73b638',
   'bicycle-theft': '#a45dcf',
   burglary: '#5fbc6e',

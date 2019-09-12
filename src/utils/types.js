@@ -40,6 +40,20 @@ export type SearchReducerState = {
   +loading: boolean,
 }
 
+export type SearchFormProps = {
+  dates: Array<Object>,
+  categories: Array<{ url: string, name: string, checked: boolean }>,
+  onCheckCategory: Function,
+  onSearch: Function,
+};
+
+export type SearchFormState = {
+  minDate: string,
+  maxDate: string,
+  postcode: string,
+  selCategories: Array<Object>,
+};
+
 export type dateGraph = {
   date: string,
   count: number,

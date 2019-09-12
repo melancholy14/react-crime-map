@@ -29,18 +29,21 @@ const Div = styled.div`
   &.crimes {
     height: 5.5rem
     overflow: auto;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center; 
 
     @media screen and (min-width: 768px) {
       height: initial;
     }
 
     .each-crime {
-      display: inline-block;
+      // display: inline-block;
 
       min-width: 50%;
       @media screen and (min-width: 768px) {
         min-width: calc(100% / 3);
-        display: block;
+        // display: block;
       }
       @media screen and (min-width: 1024px) {
         min-width: 25%;
@@ -49,6 +52,7 @@ const Div = styled.div`
       font-size: small;
       line-height: 1rem;
       vertical-align: middle;
+      margin: 0.1rem;
 
       label {
         font-size: smaller;
@@ -67,6 +71,12 @@ const Div = styled.div`
         display: inline-block;
         border-radius: 0.5rem;
         margin: 0 0.3rem;
+      }
+
+      button {
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

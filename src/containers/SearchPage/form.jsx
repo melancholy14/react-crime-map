@@ -1,32 +1,32 @@
 // @flow
 import React from 'react';
+import styled from 'styled-components';
 
 import {
   categoryColors,
-  allCrime,
 } from '../../utils/constants';
 
 import {
   Button,
   Select,
-  Checkbox,
 } from '../../components';
+
+import type {
+  SearchFormProps as Props,
+  SearchFormState as State,
+} from '../../utils/types';
 
 import GridItem from './gridItem';
 
-type Props = {
-  dates: Array<Object>,
-  categories: Array<{ url: string, name: string, checked: boolean }>,
-  onCheckCategory: Function,
-  onSearch: Function,
-};
-
-type State = {
-  minDate: string,
-  maxDate: string,
-  postcode: string,
-  selCategories: Array<Object>,
-};
+const CheckedButton = styled.button`
+  height: 1.5rem;
+  border-radius: 0.4rem;
+  border: ${props => (props.backgroundColor ? '0px' : '1px solid black')};
+  margin: 0.1rem 0;
+  font-weight: bolder;
+  background-color: ${props => props.backgroundColor};
+  opacity: ${props => (props.checked ? 1 : 0.5)};
+`;
 
 export default class SearchForm extends React.PureComponent<Props, State> {
   constructor() {
@@ -52,12 +52,8 @@ export default class SearchForm extends React.PureComponent<Props, State> {
     });
   }
 
-  checked = (key: string) => (evt: Object) => {
-    const {
-      target: {
-        checked,
-      } = {},
-    } = evt;
+  checked = (key: string, checked: boolean) => (evt: Object) => {
+    evt.preventDefault();
 
     const {
       categories,
@@ -116,7 +112,7 @@ export default class SearchForm extends React.PureComponent<Props, State> {
           {
             categories && categories.map(({ url, name, checked }) => (
               <div className="each-crime" key={url}>
-                <label htmlFor={`checkbox_${url}`}>
+                {/* <label htmlFor={`checkbox_${url}`}>
                   <Checkbox
                     name={url}
                     id={`checkbox_${url}`}
@@ -125,7 +121,14 @@ export default class SearchForm extends React.PureComponent<Props, State> {
                   />
                   {name}
                   { url !== allCrime.url && <span className="color" style={{ backgroundColor: categoryColors[url] }} /> }
-                </label>
+                </label> */}
+                <CheckedButton
+                  backgroundColor={categoryColors[url]}
+                  onClick={this.checked(url, !checked)}
+                  checked={checked}
+                >
+                  {name}
+                </CheckedButton>
               </div>))
           }
         </GridItem>
