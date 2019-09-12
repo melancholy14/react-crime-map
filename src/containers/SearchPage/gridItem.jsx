@@ -27,7 +27,7 @@ const Div = styled.div`
   }
 
   &.crimes {
-    height: 5.5rem
+    height: 5.5rem;
     overflow: auto;
     display: inline-flex;
     flex-wrap: wrap;
@@ -40,14 +40,14 @@ const Div = styled.div`
     .each-crime {
       // display: inline-block;
 
-      min-width: 50%;
-      @media screen and (min-width: 768px) {
-        min-width: calc(100% / 3);
-        // display: block;
-      }
-      @media screen and (min-width: 1024px) {
-        min-width: 25%;
-      }
+      // min-width: 50%;
+      // @media screen and (min-width: 768px) {
+      //   min-width: calc(100% / 3);
+      //   display: block;
+      // }
+      // @media screen and (min-width: 1024px) {
+      //   min-width: 25%;
+      // }
 
       font-size: small;
       line-height: 1rem;

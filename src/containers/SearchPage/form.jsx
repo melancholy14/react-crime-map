@@ -22,7 +22,6 @@ const CheckedButton = styled.button`
   height: 1.5rem;
   border-radius: 0.4rem;
   border: ${props => (props.backgroundColor ? '0px' : '1px solid black')};
-  margin: 0.1rem 0;
   font-weight: bolder;
   background-color: ${props => props.backgroundColor};
   opacity: ${props => (props.checked ? 1 : 0.5)};
