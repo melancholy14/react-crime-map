@@ -52,7 +52,7 @@ const Neighbourhood = ({ data = {} }: { data: Object }) => {
     <Div>
       <h3>{name}</h3>
       <ul>
-        { force && <li>{force}</li> }
+        { force && <li><a href={force} target="_blank" rel="noopener noreferrer">{force}</a></li> }
         { email && <li>{email}</li> }
         { facebook && <li>{facebook}</li> }
         { twitter && <li>{twitter}</li> }
