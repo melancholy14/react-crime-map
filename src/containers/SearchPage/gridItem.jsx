@@ -38,17 +38,6 @@ const Div = styled.div`
     }
 
     .each-crime {
-      // display: inline-block;
-
-      // min-width: 50%;
-      // @media screen and (min-width: 768px) {
-      //   min-width: calc(100% / 3);
-      //   display: block;
-      // }
-      // @media screen and (min-width: 1024px) {
-      //   min-width: 25%;
-      // }
-
       font-size: small;
       line-height: 1rem;
       vertical-align: middle;
