@@ -2,6 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 const HeaderDiv = styled.header`
     order: 0;
@@ -54,6 +56,7 @@ const Header = () => (
   <HeaderDiv>
     <Title>
       CRIME MAP
+      <FontAwesomeIcon icon={faExclamationCircle} />
     </Title>
     <Email>
       <span className="smaller">
