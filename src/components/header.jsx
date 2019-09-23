@@ -5,6 +5,11 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
+import type {
+  HeaderProps as Props,
+  HeaderState as State,
+} from '../utils/types';
+
 const HeaderDiv = styled.header`
     order: 0;
     background: darkslateblue;
@@ -61,12 +66,6 @@ const Email = styled.div`
     text-decoration: none;
   }
 `;
-
-type Props = {};
-
-type State = {
-  toggle: boolean,
-};
 
 export default class Header extends React.PureComponent<Props, State> {
   constructor() {

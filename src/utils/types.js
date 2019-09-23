@@ -118,7 +118,7 @@ export type AnalyseReducerState = {
   +neighbourhood: Object,
   +show: boolean,
   +message: string,
-}
+};
 
 export type Location = {
   lat: number,
@@ -144,10 +144,16 @@ export type MapReducerState = {
   +circles: Array<Object>,
   +crimes: Array<Object>,
   +message: string,
-}
+};
 
 export type Action = {
   type: string,
   data?: any,
   message?: string,
+};
+
+export type HeaderProps = {};
+
+export type HeaderState = {
+  toggle: boolean,
 };
