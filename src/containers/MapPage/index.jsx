@@ -33,7 +33,7 @@ const url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 const MapStyle = styled.main`
   order: 2;
-  height: 32.5rem;
+  height: 100%;
   z-index: 0;
 
   @media screen and (min-width: 768px) {

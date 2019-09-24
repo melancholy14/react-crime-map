@@ -32,6 +32,7 @@ saga.run(sagas);
 const AppDiv = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 ReactDOM.render(
