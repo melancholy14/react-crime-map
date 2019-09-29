@@ -52,17 +52,22 @@ const InlineDiv = styled.div`
   }
 `;
 
-const Email = styled.div`
-  width: 10rem;
-  text-align: right;
-  padding: 0 1rem 0 0;
-  font-size: small;
+const Info = styled.div`
+  // width: 10rem;
+  text-align: left;
+  padding: 0 1rem;
 
-  display: ${props => (props.show ? 'block' : 'none')};
+  font-size: x-small;
+  line-height: 1rem;
+
+  display: ${props => (props.show ? 'flex' : 'none')};
+  flex-direction: column;
 
   @media screen and (min-width: 768px) {
-    width: initial;
-    padding: 0 1rem;
+    // width: initial;
+    // padding: 0 1rem;
+    font-size: small;
+    line-height: 1.5rem;
   }
 
   a {
@@ -96,11 +101,16 @@ export default class Header extends React.PureComponent<Props, State> {
             <FontAwesomeIcon icon={faExclamationCircle} size="sm" />
           </InlineDiv>
         </Title>
-        <Email show={toggle}>
-          <span className="smaller">
+        <Info show={toggle}>
+          <div>
+            <span>This website shows the criminal information on the map. The data is retreived from </span>
+            <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">https://data.police.uk</a>
+          </div>
+          <div>
+            <span>If you have query, please email me, </span>
             <a href="mailto:melancholy8914@gmail.com">melancholy8914@gmail.com</a>
-          </span>
-        </Email>
+          </div>
+        </Info>
       </HeaderDiv>);
   }
 }
