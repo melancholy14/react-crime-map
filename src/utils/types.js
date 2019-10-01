@@ -104,7 +104,6 @@ export type AnalysePageProps = {
 };
 
 export type AnalysePageState = {
-  // show: boolean,
   select: number,
 };
 
@@ -134,10 +133,6 @@ export type MapPageProps = {
   onLoadNeigbourhoodRequest: Function,
   onToggleAnalyseModal: Function,
 }
-
-// export type MapPageState = {
-//   latlng: Location,
-// }
 
 export type MapReducerState = {
   +latlng: Location,

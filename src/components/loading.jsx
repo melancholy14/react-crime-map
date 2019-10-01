@@ -16,7 +16,6 @@ const LoadingDiv = styled.div`
   display: ${props => (props.loading ? 'block' : 'none')}
 
   & > div {
-    // margin: 15rem auto;
     position: absolute;
     top: 47.5%;
     left: 47.5%;

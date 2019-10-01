@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import {
   LineChart, Line,
   BarChart, Bar,
-  // ScatterChart, Scatter,
   XAxis, YAxis,
   Tooltip,
   CartesianGrid,

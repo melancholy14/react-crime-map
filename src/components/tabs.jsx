@@ -20,7 +20,6 @@ const StyledTabsTitle = styled.div`
 
 const StyledTabsTitleButton = styled.button`
   background-color: ${props => (props.active ? '#ccc' : 'inherit')};
-  // float: left;
   border: none;
   outline: none;
   cursor: pointer;

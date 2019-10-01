@@ -58,7 +58,6 @@ const ModalMain = styled.div`
   position: fixed;
   background: white;
   min-height: 10rem;
-  // height: calc(50% - 6rem);
   overflow: auto;
   top: 7.5rem;
   left: 0;

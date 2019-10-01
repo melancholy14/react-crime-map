@@ -15,18 +15,11 @@ const HeaderDiv = styled.header`
     background: darkslateblue;
     color: yellow;
     line-height: 2rem;
-    // height: 2.5rem;
     vertical-align: middle;
     padding: 0;
     margin: 0;
     text-align: center;
     position: relative;
-    // display: initial;
-
-    // @media screen and (min-width: 768px) {
-    //   height: 4rem;
-    //   display: initial;
-    // }
 
     svg {
       margin: auto 0.5rem;
@@ -34,14 +27,9 @@ const HeaderDiv = styled.header`
 `;
 
 const Title = styled.div`
-  // width: calc(100% - 11rem);
   text-align: center;
   font-size: larger;
   font-weight: bolder;
-
-  // @media screen and (min-width: 768px) {
-  //   width: initial;
-  // }
 `;
 
 const InlineDiv = styled.div`
@@ -53,7 +41,6 @@ const InlineDiv = styled.div`
 `;
 
 const Info = styled.div`
-  // width: 10rem;
   text-align: left;
   padding: 0 1rem;
 
@@ -64,8 +51,6 @@ const Info = styled.div`
   flex-direction: column;
 
   @media screen and (min-width: 768px) {
-    // width: initial;
-    // padding: 0 1rem;
     font-size: small;
     line-height: 1.5rem;
   }
