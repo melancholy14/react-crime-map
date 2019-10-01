@@ -147,7 +147,9 @@ export type Action = {
   message?: string,
 };
 
-export type HeaderProps = {};
+export type HeaderProps = {
+  isMobile: boolean,
+};
 
 export type HeaderState = {
   toggle: boolean,

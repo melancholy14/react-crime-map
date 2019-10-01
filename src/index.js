@@ -11,7 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import styled from 'styled-components';
 import './index.css';
 
-import Header from './components/header';
+import Header from './containers/HeaderPage';
 import App from './containers/AppPage';
 import NotFound from './containers/ErrorPage/notfound';
 
