@@ -51,8 +51,7 @@ const Info = styled.div`
 
   display: ${props => (props.show ? 'flex' : 'none')};
   flex-direction: column;
-
-
+  
   font-size: x-small;
   line-height: 1rem;
 
@@ -89,7 +88,7 @@ class Header extends React.PureComponent<Props, State> {
   renderInfo = color => (
     <Message color={color}>
       <div>
-        <span>This website shows the criminal information on the map.</span>
+        <span>This website shows the criminal information on the map. </span>
         <span>The data is retreived from </span>
         <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">https://data.police.uk</a>
       </div>
