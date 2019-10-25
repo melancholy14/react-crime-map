@@ -11,12 +11,13 @@ import {
   Checkbox,
   Tabs,
   Table, Tr, Th, Td,
+  Text,
 } from '../src/components';
 
 storiesOf('Modal', module)
   .add('with title no footer', () => <Modal title="title" show onClose={action('Modal -> with title no footer -> onClose')}>with title, text</Modal>)
   .add('no title with footer', () => <Modal show fixedBottom onClose={action('Modal -> no title with footer -> onClose')}>no title with footer</Modal>)
-  .add('no title no footer', () => <Modal show >no title no footer</Modal>)
+  .add('no title no footer', () => <Modal show>no title no footer</Modal>)
   .add('with title fixed bottom', () => <Modal title="title" show fixedBottom onClose={action('Modal -> with title fixed bottom -> onClose')}>no title no footer</Modal>);
 
 storiesOf('Loading', module)
@@ -78,3 +79,12 @@ storiesOf('Table', module)
 
 storiesOf('Tabs', module)
   .add('tabs', () => <Tabs />);
+
+storiesOf('Text', module)
+  .add('without text', () => <Text />)
+  .add('one sentence', () => <Text>akdjhflakuerhgliuerhg</Text>)
+  .add('two sentences', () => (
+    <Text>
+      <div>asdfghjkl</div>
+      <div>zxcvbnm</div>
+    </Text>));
