@@ -13,7 +13,7 @@ import isMobileFunc from './selectors';
 import type {
   HeaderProps as Props,
   HeaderState as State,
-} from '../utils/types';
+} from '../../utils/types';
 
 const HeaderDiv = styled.header`
     order: 0;

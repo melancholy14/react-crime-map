@@ -58,6 +58,7 @@
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-flowtype": "^3.2.0",
     "eslint-plugin-jest": "^22.1.2",
+    "flow-bin": "^0.110.1",
     "redux-devtools-extension": "^2.13.5"
   },
   "homepage": "https://melancholy14.github.io/react-crime-map"

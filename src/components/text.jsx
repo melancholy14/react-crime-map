@@ -8,7 +8,7 @@ const StyledDiv = styled.div`
     padding: 0.5rem;
 `;
 
-const Text = ({ children }: { children?: ReactNode }) => <StyledDiv>{ children }</StyledDiv>;
+const Text = ({ children }: { children?: any }) => <StyledDiv>{ children }</StyledDiv>;
 Text.defaultProps = {
   children: null,
 };

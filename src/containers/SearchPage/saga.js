@@ -78,7 +78,7 @@ function* search({
           locations = [],
         } = results[0];
 
-        const { latLng: { lat: _lat, lng: _lng } = {} } = locations[0];
+        const [{ latLng: { lat: _lat, lng: _lng } = {} }] = locations;
 
         lat = _lat;
         lng = _lng;
@@ -97,9 +97,7 @@ function* search({
 
         const [location] = locations;
 
-        const arr = Object.keys(location).filter(ele => ele.startsWith('adminArea') && !ele.endsWith('Type'));
-
-        const addr = arr.reduce((acc, ele) => {
+        const addr = Object.keys(location).filter(ele => ele.startsWith('adminArea') && !ele.endsWith('Type')).reduce((acc, ele) => {
           if (location[ele]) {
             acc.push(location[ele]);
           }
