@@ -8,6 +8,12 @@ export type category = {
   name: string,
 };
 
+export type address = {
+  postcode: string,
+  street: string,
+  detail: string,
+};
+
 export type SearchPageProps = {
   search: {
     availability: Array<availability>,
@@ -17,6 +23,7 @@ export type SearchPageProps = {
       dates: Array<availability>,
     },
     category: Array<category>,
+    address: address,
   },
   meta: {
     message: string,
@@ -43,6 +50,7 @@ export type SearchReducerState = {
 export type SearchFormProps = {
   dates: Array<Object>,
   categories: Array<{ url: string, name: string, checked: boolean }>,
+  address: address,
   onCheckCategory: Function,
   onSearch: Function,
 };

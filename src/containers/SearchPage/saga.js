@@ -14,6 +14,7 @@ import {
   loadCrimeCategoryFailure,
   searchSuccess,
   searchFailure,
+  updateAddress,
 } from './actions';
 
 import {
@@ -81,6 +82,31 @@ function* search({
 
         lat = _lat;
         lng = _lng;
+      }
+    } else {
+      const {
+        data: {
+          results,
+        } = {},
+      } = yield call(request, `${api.mapquest}/reverse?key=${keys.mapquest}&location=${lat},${lng}`);
+
+      if (results && results.length > 0) {
+        const {
+          locations = [],
+        } = results[0];
+
+        const [location] = locations;
+
+        const arr = Object.keys(location).filter(ele => ele.startsWith('adminArea') && !ele.endsWith('Type'));
+
+        const addr = arr.reduce((acc, ele) => {
+          if (location[ele]) {
+            acc.push(location[ele]);
+          }
+          return acc;
+        }, []).join(',');
+
+        yield put(updateAddress(location.postalCode, location.street, addr));
       }
     }
 

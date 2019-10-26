@@ -122,6 +122,7 @@ class Search extends React.PureComponent<Props, State> {
         date: {
           dates,
         } = {},
+        address,
       },
       categories,
     } = this.props;
@@ -132,6 +133,7 @@ class Search extends React.PureComponent<Props, State> {
           <SearchForm
             dates={dates}
             categories={categories}
+            address={address}
             onCheckCategory={this.checkCategory}
             onSearch={this.search}
           />

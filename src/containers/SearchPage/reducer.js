@@ -10,6 +10,7 @@ import {
   SEARCH_SUCCESS,
   SEARCH_FAILURE,
   UPDATE_CHECKED_CATEGORIES,
+  UPDATE_ADDRESS,
 } from './actions';
 
 import type {
@@ -23,6 +24,7 @@ const initialState = {
   crimes: [],
   message: '',
   loading: false,
+  address: {},
 };
 
 export default function searchReducer(state: State = initialState, action: Action): State {
@@ -67,6 +69,10 @@ export default function searchReducer(state: State = initialState, action: Actio
     case UPDATE_CHECKED_CATEGORIES:
       return update(state, {
         category: { $set: action.data },
+      });
+    case UPDATE_ADDRESS:
+      return update(state, {
+        address: { $set: action.data },
       });
     default:
       return state;

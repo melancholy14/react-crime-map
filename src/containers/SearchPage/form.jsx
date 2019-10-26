@@ -9,6 +9,7 @@ import {
 import {
   Button,
   Select,
+  Text,
 } from '../../components';
 
 import type {
@@ -73,7 +74,7 @@ export default class SearchForm extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { dates, categories } = this.props;
+    const { dates, categories, address: { postcode: postalCode, street, detail } = {} } = this.props;
     const { postcode, minDate, maxDate } = this.state;
 
     return (
@@ -104,23 +105,19 @@ export default class SearchForm extends React.PureComponent<Props, State> {
         <GridItem className="select">
           <input
             onChange={this.change('postcode')}
-            value={postcode}
+            value={postcode || postalCode}
           />
+        </GridItem>
+        <GridItem>
+          <Text>
+            <div>{ street }</div>
+            <div>{ detail }</div>
+          </Text>
         </GridItem>
         <GridItem className="crimes">
           {
             categories && categories.map(({ url, name, checked }) => (
               <div className="each-crime" key={url}>
-                {/* <label htmlFor={`checkbox_${url}`}>
-                  <Checkbox
-                    name={url}
-                    id={`checkbox_${url}`}
-                    onChange={this.checked(url)}
-                    checked={checked}
-                  />
-                  {name}
-                  { url !== allCrime.url && <span className="color" style={{ backgroundColor: categoryColors[url] }} /> }
-                </label> */}
                 <CheckedButton
                   backgroundColor={categoryColors[url]}
                   onClick={this.checked(url, !checked)}

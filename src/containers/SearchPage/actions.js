@@ -16,6 +16,8 @@ export const SEARCH_FAILURE = 'containers/SearchPage/actions/SEARCH_FAILURE';
 
 export const UPDATE_CHECKED_CATEGORIES = 'containers/SearchPage/actions/UPDATE_CHECKED_CATEGORIES';
 
+export const UPDATE_ADDRESS = 'containers/SearchPage/actions/UPDATE_ADDRESS';
+
 export function loadAvailabilitySuccess(availability: Array<Object>) {
   const date = availability.reduce((acc, ele) => ({
     min: (acc.min && acc.min < ele.date) ? acc.min : ele.date,
@@ -136,5 +138,16 @@ export function updateCheckedCategories(sel: Object, arr: Array<Object>) {
   return {
     type: UPDATE_CHECKED_CATEGORIES,
     data,
+  };
+}
+
+export function updateAddress(postcode: string, street: string, detail: string) {
+  return {
+    type: UPDATE_ADDRESS,
+    data: {
+      postcode,
+      street,
+      detail,
+    },
   };
 }
