@@ -33,6 +33,7 @@ export default function searchReducer(state: State = initialState, action: Actio
       return update(state, {
         $merge: {
           ...action.data,
+          crimes: [],
           loading: true,
         },
       });

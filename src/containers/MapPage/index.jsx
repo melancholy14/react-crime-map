@@ -98,7 +98,7 @@ class LeafletMap extends React.PureComponent<Props> {
     } = propsLatlng || {};
 
     return (
-      <MapStyle className="map">
+      <MapStyle className="map" data-cy="map">
         <Map
           center={propsLatlng}
           ref={(val) => { this.map = val; }}

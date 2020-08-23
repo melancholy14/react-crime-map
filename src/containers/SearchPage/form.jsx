@@ -106,6 +106,7 @@ export default class SearchForm extends React.PureComponent<Props, State> {
           <input
             onChange={this.change('postcode')}
             value={postcode || postalCode}
+            data-cy="searchInput"
           />
         </GridItem>
         <GridItem>
@@ -129,7 +130,7 @@ export default class SearchForm extends React.PureComponent<Props, State> {
           }
         </GridItem>
         <GridItem className="buttons">
-          <Button onClick={this.search}>SEARCH</Button>
+          <Button onClick={this.search} data-cy="searchButton">SEARCH</Button>
         </GridItem>
       </div>
     );
