@@ -38,7 +38,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "flow": "flow",
-    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check"
+    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check",
+    "e2e": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,7 +53,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-flow": "^6.23.0",
-    "cypress": "^3.4.1",
+    "cypress": "^5.0.0",
     "deep-freeze": "^0.0.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react": "^1.1.7",
