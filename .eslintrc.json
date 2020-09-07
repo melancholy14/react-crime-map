@@ -1,22 +1,29 @@
 {
     "extends": [
-        "airbnb",
-        "plugin:flowtype/recommended"
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier/@typescript-eslint",
+      "plugin:prettier/recommended",
+      "plugin:react-hooks/recommended"
     ],
-    "parser": "babel-eslint",
-    "plugins": [
-        "flowtype",
-        "react",
-        "jest"
-    ],
+    "plugins": ["react", "@typescript-eslint", "prettier"],
     "env": {
-        "browser": true,
-        "node": true,
-        "jest": true
+      "browser": true,
+      "jasmine": true,
+      "jest": true
     },
     "rules": {
-        "jsx-a11y/label-has-for": [ 2, {
-            "required": { "some": ["nesting", "id"] }
-        }]
-    }
-}
+      "prettier/prettier": ["error", { "singleQuote": true }],
+      "react/prop-types": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+    },
+    "settings": {
+      "react": {
+        "pragma": "React",
+        "version": "detect"
+      }
+    },
+    "parser": "@typescript-eslint/parser"
+  }
