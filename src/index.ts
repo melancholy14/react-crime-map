@@ -42,7 +42,6 @@ ReactDOM.render(
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/" component={App} />
-          {/* <Route path="/react-crime-map" component={App} /> */}
           <Route component={NotFound} />
         </Switch>
       </Router>
