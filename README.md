@@ -41,7 +41,7 @@ You can try by clicking [here](https://melancholy14.github.io/react-crime-map/)
 Data is dealt with using RESTful API and responded by below APIs:
 
 - Crime: `https://data.police.uk/api`
-- News: `https://content.guardianapis.com/search`
+- News: `https://open-platform.theguardian.com/documentation/`
 - Location: `https://open.mapquestapi.com/geocoding/v1`
 
 ## Responsive

@@ -7,7 +7,7 @@ export const api = {
 };
 
 export const keys = {
-  guardian: '36ecd8a8-f9be-4d95-9643-4095fae41301',
+  guardian: '54ae62fd-c463-4097-becf-727145453721',
   mapquest: 'A5zeE6bTpKJTK05wXW8o74tDAOPfVxXn',
 };
 
