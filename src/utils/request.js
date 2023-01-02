@@ -3,12 +3,12 @@ import axios from 'axios';
 export const api = {
   police: 'https://data.police.uk/api',
   guardian: 'https://content.guardianapis.com/search',
-  mapquest: 'https://open.mapquestapi.com/geocoding/v1',
+  mapquest: 'https://www.mapquestapi.com/geocoding/v1',
 };
 
 export const keys = {
   guardian: '36ecd8a8-f9be-4d95-9643-4095fae41301',
-  mapquest: '7qAl9AvfefdHSIOkkLrVvSc466ZoHenG',
+  mapquest: 'A5zeE6bTpKJTK05wXW8o74tDAOPfVxXn',
 };
 
 async function checkStatus(response) {
