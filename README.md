@@ -38,7 +38,7 @@ You can try by clicking [here](https://melancholy14.github.io/uk-crime-map/)
 
 ## Retrieving Data
 
-Data is dealt with using RESTful API and responsed by below APIs:
+Data is dealt with using RESTful API and responded by below APIs:
 
 - Crime: `https://data.police.uk/api`
 - News: `https://content.guardianapis.com/search`
